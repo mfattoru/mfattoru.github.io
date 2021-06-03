@@ -1926,3 +1926,8 @@ h3.heading-section + .lead, h3.heading-lead + .lead { margin-top: -5px; }
 .demo-sample-icon .icon-box { margin-right: 10px; }
 
 .demo-sample-icon hr { margin-top: 25px; margin-bottom: 25px; }
+
+.round-bullet-ul li { 
+  list-style: outside;
+  margin-left: 3em;
+}
