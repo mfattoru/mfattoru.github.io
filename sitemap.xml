@@ -1,83 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<url>
-<loc>http://onofriofattorusoengineering.it/</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>1.00</priority>
-</url>
-<url>
-<loc>http://onofriofattorusoengineering.it/resources.html</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>http://onofriofattorusoengineering.it/contact.html</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>http://onofriofattorusoengineering.it/get-a-quote.html</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>http://onofriofattorusoengineering.it/index.html</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>http://onofriofattorusoengineering.it/about-us.html</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>http://onofriofattorusoengineering.it/projects.html</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>http://onofriofattorusoengineering.it/solution-single.html</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.80</priority>
-</url>
-<url>
-<loc>
-http://onofriofattorusoengineering.it/resources/Cv_ing_Onofrio_Fattoruso.doc
-</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.64</priority>
-</url>
-<url>
-<loc>
-http://onofriofattorusoengineering.it/projects/1/project-single.html
-</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.64</priority>
-</url>
-<url>
-<loc>http://onofriofattorusoengineering.it/project-single.html</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.64</priority>
-</url>
-<url>
-<loc>
-http://onofriofattorusoengineering.it/projects/2/project-single.html
-</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.64</priority>
-</url>
-<url>
-<loc>http://onofriofattorusoengineering.it/error-404.html</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.64</priority>
-</url>
-<url>
-<loc>http://onofriofattorusoengineering.it/contact-extend.html</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.64</priority>
-</url>
-<url>
-<loc>http://onofriofattorusoengineering.it/news-details.html</loc>
-<lastmod>2021-06-03T01:56:55+00:00</lastmod>
-<priority>0.64</priority>
-</url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>1.00</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/resources.html</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/contact.html</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/get-a-quote.html</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/index.html</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/about-us.html</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/projects.html</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/solution-single.html</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.80</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/resources/Cv_ing_Onofrio_Fattoruso.doc</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.64</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/projects/1/project-single.html</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.64</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/project-single.html</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.64</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/projects/2/project-single.html</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.64</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/error-404.html</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.64</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/contact-extend.html</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.64</priority>
+   </url>
+   <url>
+      <loc>http://onofriofattorusoengineering.it/news-details.html</loc>
+      <lastmod>2021-06-03T01:56:55+00:00</lastmod>
+      <priority>0.64</priority>
+   </url>
 </urlset>
