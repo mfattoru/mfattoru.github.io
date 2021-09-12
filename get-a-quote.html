@@ -103,10 +103,10 @@
 							<form id="quote-request" class="form-quote" action="form/quote-request.php" method="post">
 								<div class="form-group row">
 									<div class="form-field col-md-6 form-m-bttm">
-										<input name="quote-request-name" type="text" placeholder="Name *" class="form-control required">
+										<input name="quote-request-name" type="text" placeholder="Nome *" class="form-control required">
 									</div>
 									<div class="form-field col-md-6">
-										<input name="quote-request-company" type="text" placeholder="Company" class="form-control">
+										<input name="quote-request-company" type="text" placeholder="Compagnia" class="form-control">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -114,51 +114,53 @@
 										<input name="quote-request-email" type="email" placeholder="Email *" class="form-control required email">
 									</div>
 									<div class="form-field col-md-6">
-										<input name="quote-request-phone" type="text" placeholder="Phone *" class="form-control required">
+										<input name="quote-request-phone" type="text" placeholder="Telefono *" class="form-control required">
 									</div>
 								</div>
-								<h4>Services You Interested</h4>
+								<h4>Servizi a cui sei interessato</h4>
 								<div class="form-group row">
 									<ul class="form-field clearfix">
-										<li class="col-sm-4"><input type="checkbox" name="quote-request-interest[]" value="Agricultural Engineering"> <span> Agricultural Engineering</span></li>
-										<li class="col-sm-4"><input type="checkbox" name="quote-request-interest[]" value="Chemical Research"> <span> Chemical Research</span></li>
-										<li class="col-sm-4"><input type="checkbox" name="quote-request-interest[]" value="Material Science"> <span> Material Science</span></li>
+										<li class="col-sm-6"><input type="checkbox" name="quote-request-interest[]" value="Progettazione Architettonica"> <span> Progettazione Architettonica</span></li>
+										<li class="col-sm-6"><input type="checkbox" name="quote-request-interest[]" value="Formazione Sicurezza"> <span> Formazione Sicurezza</span></li>
+										<li class="col-sm-6"><input type="checkbox" name="quote-request-interest[]" value="Direzione Lavori e Coordinamento"> <span> Direzione Lavori e Coordinamento</span></li>
+										<li class="col-sm-6"><input type="checkbox" name="quote-request-interest[]" value="Edilizia"> <span> Edilizia</span></li>
 									</ul>
 									<ul class="form-field clearfix">
-										<li class="col-sm-4"><input type="checkbox" name="quote-request-interest[]" value="Mechanical Engineering"> <span> Mechanical Engineering</span></li>
-										<li class="col-sm-4"><input type="checkbox" name="quote-request-interest[]" value="Oil and Gas"> <span> Oil and Gas</span></li>
-										<li class="col-sm-4"><input type="checkbox" name="quote-request-interest[]" value="Power and Energy"> <span> Power and Energy</span></li>
+										<li class="col-sm-6"><input type="checkbox" name="quote-request-interest[]" value="Acustica Edilizia ed Ambientale"> <span> Acustica Edilizia ed Ambientale</span></li>
+										<li class="col-sm-6"><input type="checkbox" name="quote-request-interest[]" value="Estimo Immobiliare"> <span> Estimo Immobiliare</span></li>
+										<li class="col-sm-6"><input type="checkbox" name="quote-request-interest[]" value="Progettazione Interventi Superbonus 110%"> <span> Progettazione Interventi Superbonus 110%</span></li>
+										<li class="col-sm-6"><input type="checkbox" name="quote-request-interest[]" value="Sostenibilità ed efficienza energetica"> <span> Sostenibilità ed efficienza energetica</span></li>
 									</ul>
 								</div>
 								<div class="form-group row">
 									<div class="form-field col-md-6">
-										<p>Best Time to Reach</p>
+										<p>Orario Preferito</p>
 										<select name="quote-request-reach">
-											<option value="">Please select</option>
+											<option value="">Seleziona</option>
 											<option value="09am-12pm">09 AM - 12 PM</option>
 											<option value="12pm-03pm">12 PM - 03 PM</option>
 											<option value="03pm-06pm">03 PM - 06 PM</option>
 										</select>
 									</div>
 									<div class="form-field col-md-6">
-										<p>Hear About</p>
+										<p>Come ci hai trovato</p>
 										<select name="quote-request-hear">
-											<option value="">Please select</option>
-											<option value="Friends">Friends</option>
+											<option value="">Seleziona</option>
+											<option value="Friends">Amici</option>
 											<option value="Facebook">Facebook</option>
 											<option value="Google">Google</option>
-											<option value="Collegue">Collegue</option>
-											<option value="Others">Others</option>
+											<option value="Collegue">Colleghi</option>
+											<option value="Others">Altro</option>
 										</select>
 									</div>
 								</div>
 								<div class="form-group row">
 									<div class="form-field col-md-12">
-										<textarea name="quote-request-message" placeholder="Messages *" class="txtarea form-control required"></textarea>
+										<textarea name="quote-request-message" placeholder="Messaggio *" class="txtarea form-control required"></textarea>
 									</div>
 								</div>
 								<input type="text" class="hidden" name="form-anti-honeypot" value="">
-								<button type="submit" class="btn">Submit</button>
+								<button type="submit" class="btn">Invia</button>
 								<div class="form-results"></div>
 							</form>
 						</div>
