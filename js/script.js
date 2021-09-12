@@ -185,8 +185,16 @@
 	if ($mapholder.length > 0) {
 		var map = new GMaps({
 			div: '#gmap',
-			lat: -12.043333,
-			lng: -77.028333
+			lat: 40.709282603707216, 
+			lng: 14.548128297938069
+		});
+		map.addMarker({
+			lat: 40.709282603707216, 
+			lng:14.548128297938069,
+			title: 'Sede Legale',
+			infoWindow: {
+				content: '<p>Sede Legale</p>'
+			}
 		});
 		$mapholder.on('click', function () {
 			$(this).children().css("pointer-events", "auto");
