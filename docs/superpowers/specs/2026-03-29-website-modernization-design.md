@@ -11,7 +11,7 @@ Full modernization of a civil engineering consulting website. The existing site 
 
 **Goals:**
 - Bold, modern design appropriate for a civil engineering firm
-- 3-palette theme switcher (persisted via `localStorage`)
+- 8-theme switcher with named palettes (persisted via `localStorage`)
 - Bilingual Italian/English with URL-based language routing
 - Single layout component eliminates copy-paste across all pages
 - Contact forms via Formspree (no PHP backend)
@@ -101,7 +101,7 @@ mfattoru.github.io/
 
 ### Navigation
 
-- Sticky top nav: logo left, page links center, theme switcher (3 colored dots) + language switcher (`IT | EN`) right
+- Sticky top nav: logo left, page links center, theme switcher (named palette selector) + language switcher (`IT | EN`) right
 - Active page link highlighted
 - Mobile: hamburger icon → full-screen overlay menu
 - Language switcher maps current page to its equivalent in the other language
@@ -110,24 +110,44 @@ mfattoru.github.io/
 
 ## Section 3: Theme System
 
-Three palettes defined as CSS custom property sets. Applied via a class on `<html>`. Default: `theme-steel`.
+8 named themes defined as CSS custom property sets. Applied via a `data-theme` attribute on `<html>`. Default: `steel`. Each theme is a complete, self-contained palette — no dark/light axis, each theme stands alone.
 
-| CSS Token | `theme-steel` | `theme-blueprint` | `theme-earth` |
-|-----------|--------------|-------------------|---------------|
-| `--color-primary` | `#2563EB` | `#0EA5E9` | `#EA580C` |
-| `--color-bg` | `#0F172A` | `#0F2044` | `#1C1917` |
-| `--color-surface` | `#1E293B` | `#162A5A` | `#292524` |
-| `--color-text` | `#F1F5F9` | `#F0F9FF` | `#FAFAF9` |
-| `--color-accent` | `#64748B` | `#FDE047` | `#D6D3D1` |
+### Dark Themes
 
-**ThemeSwitcher component:** Renders 3 colored dots in the nav. Click applies the corresponding class to `<html>` and saves to `localStorage`. On page load, `global.css` reads `localStorage` and applies the saved theme before first paint (no flash).
+| Token | `steel` | `blueprint` | `obsidian` | `industrial` | `forest` |
+|-------|---------|-------------|------------|--------------|--------|
+| `--color-bg` | `#0F172A` | `#0F2044` | `#09090B` | `#1A1A1A` | `#0D1F0F` |
+| `--color-surface` | `#1E293B` | `#162A5A` | `#18181B` | `#2A2A2A` | `#163018` |
+| `--color-primary` | `#2563EB` | `#0EA5E9` | `#F59E0B` | `#EA580C` | `#84CC16` |
+| `--color-text` | `#F1F5F9` | `#F0F9FF` | `#FAFAFA` | `#F5F0E8` | `#F7FEE7` |
+| `--color-accent` | `#64748B` | `#FDE047` | `#3F3F46` | `#D4C5A0` | `#4D7C0F` |
+| **Feel** | Structural steel | Technical drawing | High contrast | Raw factory | Sustainability |
 
-**Visual language (all themes):**
-- Dark backgrounds throughout
-- Large display typography: Inter or Poppins for headings, system-ui for body
+### Light Themes
+
+| Token | `limestone` | `marble` | `daylight` |
+|-------|-------------|----------|------------|
+| `--color-bg` | `#FAF9F6` | `#FFFFFF` | `#F8FAFC` |
+| `--color-surface` | `#EDEBE5` | `#F5F5F5` | `#EFF6FF` |
+| `--color-primary` | `#1E3A5F` | `#1A1A1A` | `#2563EB` |
+| `--color-text` | `#1C1917` | `#111111` | `#0F172A` |
+| `--color-accent` | `#78716C` | `#B8860B` | `#64748B` |
+| **Feel** | Natural stone | Premium architectural | Clean modern office |
+
+### ThemeSwitcher Component
+
+- Rendered in the nav as a dropdown or swatch grid showing all 8 theme names/colors
+- Click sets `data-theme="<name>"` on `<html>` and saves to `localStorage`
+- An inline `<script>` in `<head>` reads `localStorage` and applies the theme before first paint — no flash of wrong theme
+- Default on first visit: `steel`
+
+### Visual Language (all themes)
+
+- Large display typography: Inter for headings, system-ui for body
 - Hero sections with subtle grid/blueprint SVG texture overlay
 - Sharp-edged cards (no border-radius) — structural, architectural aesthetic
 - Bold section dividers, heavy heading weights
+- Light themes invert to dark text on light backgrounds using the same token system
 
 ---
 
