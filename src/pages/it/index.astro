@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import { t } from '../../i18n/utils';
+
+const lang = 'it';
+---
+
+<Base lang={lang} title={t(lang, 'nav.home')}>
+  <section class="min-h-screen flex items-center justify-center px-6">
+    <div class="text-center">
+      <h1 class="section-title" style="color: var(--color-text);">
+        {t(lang, 'hero.title')}
+      </h1>
+      <p class="mt-4" style="color: var(--color-accent);">{t(lang, 'hero.subtitle')}</p>
+    </div>
+  </section>
+</Base>

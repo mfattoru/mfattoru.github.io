@@ -1,0 +1,51 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+import type { Lang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description?: string;
+  currentPath?: string;
+}
+
+const {
+  lang,
+  title,
+  description = 'Ing. Onofrio Fattoruso — Engineering Solutions. Progettazione architettonica, sicurezza sul lavoro, efficienza energetica.',
+  currentPath = Astro.url.pathname,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} — Ing. Fattoruso Engineering Solutions</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+
+    <!-- Apply saved theme before first paint to prevent flash -->
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme') || 'steel';
+          document.documentElement.setAttribute('data-theme', saved);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <Nav lang={lang} currentPath={currentPath} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>
