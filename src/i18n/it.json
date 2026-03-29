@@ -1,0 +1,73 @@
+{
+  "nav.home": "Home",
+  "nav.about": "Chi Siamo",
+  "nav.solutions": "Soluzioni",
+  "nav.projects": "Progetti",
+  "nav.contact": "Contatti",
+  "nav.news": "News",
+  "nav.faq": "FAQ",
+  "nav.pricing": "Prezzi",
+  "nav.careers": "Carriere",
+  "nav.quote": "Preventivo",
+
+  "hero.title": "Ingegneria. Precisione. Risultati.",
+  "hero.subtitle": "Soluzioni tecniche e progettuali per l'edilizia e la sicurezza.",
+  "hero.cta.primary": "Scopri i servizi",
+  "hero.cta.secondary": "Contattaci",
+
+  "home.services.title": "I Nostri Servizi",
+  "home.services.subtitle": "Competenza tecnica al servizio del territorio",
+  "home.projects.title": "Progetti Recenti",
+  "home.cta.title": "Hai un progetto in mente?",
+  "home.cta.text": "Contattaci per un preventivo gratuito e senza impegno.",
+  "home.cta.button": "Richiedi un preventivo",
+
+  "about.title": "Chi Siamo",
+  "about.subtitle": "Ing. Onofrio Fattoruso — Engineering Solutions",
+
+  "solutions.title": "Le Nostre Soluzioni",
+  "solutions.subtitle": "Servizi professionali di ingegneria e consulenza tecnica",
+  "solutions.back": "← Tutte le soluzioni",
+
+  "projects.title": "Progetti",
+  "projects.subtitle": "Una selezione dei nostri lavori",
+
+  "contact.title": "Contatti",
+  "contact.subtitle": "Siamo a tua disposizione",
+  "contact.name": "Nome e Cognome",
+  "contact.email": "Email",
+  "contact.phone": "Telefono",
+  "contact.service": "Servizio di interesse",
+  "contact.service.placeholder": "Seleziona un servizio",
+  "contact.message": "Messaggio",
+  "contact.send": "Invia messaggio",
+  "contact.success": "Messaggio inviato! Ti risponderemo presto.",
+  "contact.error": "Errore nell'invio. Riprova o scrivici direttamente.",
+  "contact.address": "Via San Nicola del Vaglio 2, 80050, Lettere (NA)",
+  "contact.phone.value": "+39 081-1808-8820",
+  "contact.email.value": "fattoruso.engineeringsolutions@gmail.com",
+  "contact.vat": "P.IVA 09348851214",
+
+  "quote.title": "Richiedi un Preventivo",
+  "quote.subtitle": "Compila il modulo per ricevere una valutazione gratuita",
+  "quote.project.type": "Tipo di progetto",
+  "quote.budget": "Budget indicativo",
+  "quote.timeline": "Tempistica desiderata",
+  "quote.send": "Invia richiesta",
+
+  "news.title": "News",
+  "news.subtitle": "Aggiornamenti e approfondimenti",
+  "news.read.more": "Leggi di più →",
+
+  "faq.title": "Domande Frequenti",
+  "faq.subtitle": "Risposte alle domande più comuni",
+
+  "pricing.title": "Prezzi",
+  "pricing.subtitle": "Trasparenza e professionalità",
+
+  "careers.title": "Carriere",
+  "careers.subtitle": "Unisciti al team",
+
+  "footer.rights": "Tutti i diritti riservati",
+  "footer.vat": "P.IVA 09348851214"
+}
