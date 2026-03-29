@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
+import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
   site: 'https://mfattoru.github.io',
@@ -10,6 +11,13 @@ export default defineConfig({
     locales: ['it', 'en'],
     routing: {
       prefixDefaultLocale: true,
+    },
+  },
+  vite: {
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
     },
   },
 });
