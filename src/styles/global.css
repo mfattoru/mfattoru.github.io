@@ -1,0 +1,65 @@
+@import './themes.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: system-ui, sans-serif;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+  }
+
+  a {
+    color: var(--color-primary);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 font-semibold text-sm uppercase tracking-widest transition-opacity inline-block;
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+  }
+
+  .btn-primary:hover {
+    opacity: 0.85;
+  }
+
+  .btn-outline {
+    @apply px-6 py-3 font-semibold text-sm uppercase tracking-widest border transition-colors inline-block;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .btn-outline:hover {
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+  }
+
+  .card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+  }
+
+  .section-title {
+    @apply text-3xl font-heading font-bold uppercase tracking-wider mb-2;
+  }
+
+  .section-subtitle {
+    @apply text-sm uppercase tracking-widest mb-12;
+    color: var(--color-accent);
+  }
+}

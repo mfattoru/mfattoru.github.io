@@ -1,0 +1,79 @@
+/* Steel — structural steel, industrial (default) */
+[data-theme="steel"], :root {
+  --color-bg: #0F172A;
+  --color-surface: #1E293B;
+  --color-primary: #2563EB;
+  --color-text: #F1F5F9;
+  --color-accent: #64748B;
+  --color-border: #334155;
+}
+
+/* Blueprint — technical drawing, deep navy */
+[data-theme="blueprint"] {
+  --color-bg: #0F2044;
+  --color-surface: #162A5A;
+  --color-primary: #0EA5E9;
+  --color-text: #F0F9FF;
+  --color-accent: #FDE047;
+  --color-border: #1E3A6E;
+}
+
+/* Obsidian — high contrast, near black */
+[data-theme="obsidian"] {
+  --color-bg: #09090B;
+  --color-surface: #18181B;
+  --color-primary: #F59E0B;
+  --color-text: #FAFAFA;
+  --color-accent: #3F3F46;
+  --color-border: #27272A;
+}
+
+/* Industrial — raw factory, rust orange */
+[data-theme="industrial"] {
+  --color-bg: #1A1A1A;
+  --color-surface: #2A2A2A;
+  --color-primary: #EA580C;
+  --color-text: #F5F0E8;
+  --color-accent: #D4C5A0;
+  --color-border: #3A3A3A;
+}
+
+/* Forest — sustainability, energy efficiency */
+[data-theme="forest"] {
+  --color-bg: #0D1F0F;
+  --color-surface: #163018;
+  --color-primary: #84CC16;
+  --color-text: #F7FEE7;
+  --color-accent: #4D7C0F;
+  --color-border: #1E4020;
+}
+
+/* Limestone — natural stone, warm professional */
+[data-theme="limestone"] {
+  --color-bg: #FAF9F6;
+  --color-surface: #EDEBE5;
+  --color-primary: #1E3A5F;
+  --color-text: #1C1917;
+  --color-accent: #78716C;
+  --color-border: #D6D3CC;
+}
+
+/* Marble — premium architectural */
+[data-theme="marble"] {
+  --color-bg: #FFFFFF;
+  --color-surface: #F5F5F5;
+  --color-primary: #1A1A1A;
+  --color-text: #111111;
+  --color-accent: #B8860B;
+  --color-border: #E5E5E5;
+}
+
+/* Daylight — clean modern office */
+[data-theme="daylight"] {
+  --color-bg: #F8FAFC;
+  --color-surface: #EFF6FF;
+  --color-primary: #2563EB;
+  --color-text: #0F172A;
+  --color-accent: #64748B;
+  --color-border: #DBEAFE;
+}
