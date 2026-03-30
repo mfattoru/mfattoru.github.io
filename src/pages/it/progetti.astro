@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import { t } from '../../i18n/utils';
+import { getCollection } from 'astro:content';
+const lang = 'it';
+const projectEntries = (await getCollection('projects')).sort((a, b) => b.data.year.localeCompare(a.data.year));
+---
+<Base lang={lang} title={t(lang, 'projects.title')}>
+  <div class="max-w-6xl mx-auto px-6 md:px-12 py-24">
+    <p class="section-subtitle">{t(lang, 'projects.subtitle')}</p>
+    <h1 class="section-title mb-12" style="color: var(--color-text);">{t(lang, 'projects.title')}</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {projectEntries.map(entry => (
+        <a href={`/it/progetti/${entry.slug}`} class="card overflow-hidden block transition-all hover:-translate-y-1">
+          <img src={entry.data.thumbnail} alt={entry.data.titleIt} class="w-full h-48 object-cover" />
+          <div class="p-6">
+            <p class="text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{entry.data.year} — {entry.data.locationIt}</p>
+            <p class="text-xs uppercase tracking-widest mb-3" style="color: var(--color-primary);">{entry.data.categoryIt}</p>
+            <h3 class="font-heading font-bold text-sm" style="color: var(--color-text);">{entry.data.titleIt}</h3>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>

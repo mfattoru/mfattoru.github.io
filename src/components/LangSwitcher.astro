@@ -1,0 +1,29 @@
+---
+import { getAlternateUrl } from '../i18n/utils';
+import type { Lang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  currentUrl: URL;
+}
+
+const { lang, currentUrl } = Astro.props;
+const alternateUrl = getAlternateUrl(currentUrl, lang === 'it' ? 'en' : 'it');
+---
+
+<div class="flex items-center gap-1 text-xs uppercase tracking-widest">
+  <span
+    class="px-2 py-1 font-bold"
+    style={lang === 'it' ? 'color: var(--color-primary);' : 'color: var(--color-accent);'}
+  >
+    IT
+  </span>
+  <span style="color: var(--color-border);">|</span>
+  <a
+    href={alternateUrl}
+    class="px-2 py-1 transition-colors"
+    style={lang === 'en' ? 'color: var(--color-primary);' : 'color: var(--color-accent);'}
+  >
+    EN
+  </a>
+</div>

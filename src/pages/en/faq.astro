@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import { t } from '../../i18n/utils';
+const lang = 'en';
+
+const faqs = [
+  { q: 'What does the Superbonus 110% consulting include?', a: 'We offer energy diagnosis, design of qualifying interventions, technical certifications, and assistance with ENEA procedures and tax filings.' },
+  { q: 'What areas do you operate in?', a: 'We primarily operate in the province of Naples and surrounding regions, but are available for assignments throughout Italy.' },
+  { q: 'How can I request a quote?', a: 'You can contact us via the contact form, by email, or by phone. We will respond within 48 business hours.' },
+  { q: 'Do you provide technical documentation for municipal permits?', a: 'Yes, we handle all building permits including SCIA, CILA, construction permits, and habitability certificates.' },
+  { q: 'Do you offer on-site safety training?', a: 'Yes, our safety training courses can be delivered directly at the client\'s premises, anywhere in Italy.' },
+];
+---
+<Base lang={lang} title={t(lang, 'faq.title')}>
+  <div class="max-w-3xl mx-auto px-6 md:px-12 py-24">
+    <p class="section-subtitle">{t(lang, 'faq.subtitle')}</p>
+    <h1 class="section-title mb-12" style="color: var(--color-text);">{t(lang, 'faq.title')}</h1>
+    <div class="space-y-2">
+      {faqs.map(faq => (
+        <details class="card group" style="border-color: var(--color-border);">
+          <summary class="flex justify-between items-center px-6 py-4 cursor-pointer list-none font-heading font-bold text-sm" style="color: var(--color-text);">
+            {faq.q}
+            <span class="ml-4 text-xl flex-shrink-0" style="color: var(--color-primary);">+</span>
+          </summary>
+          <p class="px-6 pb-6 text-sm leading-relaxed" style="color: var(--color-accent);">{faq.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</Base>

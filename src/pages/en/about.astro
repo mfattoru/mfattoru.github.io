@@ -1,0 +1,69 @@
+---
+import Base from '../../layouts/Base.astro';
+import { t } from '../../i18n/utils';
+const lang = 'en';
+---
+<Base lang={lang} title={t(lang, 'about.title')}>
+  <div class="max-w-4xl mx-auto px-6 md:px-12 py-24">
+    <p class="section-subtitle">{t(lang, 'about.subtitle')}</p>
+    <h1 class="section-title mb-16" style="color: var(--color-text);">{t(lang, 'about.title')}</h1>
+
+    <!-- Engineer photo + intro -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 items-start">
+      <div class="md:col-span-1">
+        <img
+          src="/image/headshot.jpeg"
+          alt="Ing. Onofrio Fattoruso"
+          class="w-full object-cover"
+          style="aspect-ratio: 3/4;"
+        />
+      </div>
+      <div class="md:col-span-2 grid grid-cols-1 gap-8">
+        <div>
+          <h2 class="text-xl font-heading font-bold mb-4" style="color: var(--color-text);">Our firm</h2>
+          <p class="text-sm leading-relaxed" style="color: var(--color-accent);">
+            Ing. Onofrio Fattoruso Engineering Solutions is a technical consulting and engineering firm based in Lettere, in the province of Naples. We offer professional services in architectural design, workplace safety, energy efficiency, and more.
+          </p>
+        </div>
+        <div>
+          <h2 class="text-xl font-heading font-bold mb-4" style="color: var(--color-text);">Our mission</h2>
+          <p class="text-sm leading-relaxed" style="color: var(--color-accent);">
+            Our goal is to provide high-quality technical solutions, in compliance with current regulations and with attention to the specific needs of each client. We believe in transparency, precision, and innovation.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {[
+        { value: '9+', label: 'Services offered' },
+        { value: '100%', label: 'Regulatory compliance' },
+        { value: '10+', label: 'Years of experience' },
+        { value: 'NA', label: 'Lettere, Naples' },
+      ].map(stat => (
+        <div class="card p-6 text-center">
+          <p class="text-3xl font-heading font-black mb-2" style="color: var(--color-primary);">{stat.value}</p>
+          <p class="text-xs uppercase tracking-widest" style="color: var(--color-accent);">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- CV Download -->
+    <div class="mt-16 pt-8" style="border-top: 1px solid var(--color-border);">
+      <h2 class="text-xl font-heading font-bold mb-4" style="color: var(--color-text);">Curriculum Vitae</h2>
+      <p class="text-sm mb-6" style="color: var(--color-accent);">
+        Download the CV of Ing. Onofrio Fattoruso in PDF format.
+      </p>
+      <a
+        href="/cv.pdf"
+        download
+        class="btn-primary inline-flex items-center gap-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        Download CV
+      </a>
+    </div>
+  </div>
+</Base>
