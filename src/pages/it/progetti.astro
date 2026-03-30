@@ -1,14 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { t } from '../../i18n/utils';
+import { projects } from '../../data/projects';
 const lang = 'it';
-
-const projects = [
-  { title: 'Riqualificazione energetica edificio residenziale', location: 'Lettere, NA', year: '2023', category: 'Superbonus 110%', image: '/image/work-sm-a.jpg' },
-  { title: 'Progettazione villa bifamiliare', location: 'Gragnano, NA', year: '2022', category: 'Progettazione Architettonica', image: '/image/work-sm-b.jpg' },
-  { title: 'Piano di sicurezza cantiere industriale', location: 'Nocera Inferiore, SA', year: '2023', category: 'Sicurezza Sul Lavoro', image: '/image/work-sm-c.jpg' },
-  { title: 'Perizia immobiliare complesso residenziale', location: 'Castellammare di Stabia, NA', year: '2022', category: 'Estimo Immobiliare', image: '/image/work-sm-d.jpg' },
-];
 ---
 <Base lang={lang} title={t(lang, 'projects.title')}>
   <div class="max-w-6xl mx-auto px-6 md:px-12 py-24">
@@ -17,13 +11,14 @@ const projects = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {projects.map(p => (
-        <div class="card overflow-hidden">
-          <img src={p.image} alt={p.title} class="w-full h-48 object-cover" />
+        <a href={`/it/progetti/${p.slug}`} class="card overflow-hidden block transition-all hover:-translate-y-1">
+          <img src={p.thumbnail} alt={p.titleIt} class="w-full h-48 object-cover" />
           <div class="p-6">
-            <p class="text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{p.year} — {p.location}</p>
-            <h3 class="font-heading font-bold text-sm" style="color: var(--color-text);">{p.title}</h3>
+            <p class="text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{p.year} — {p.locationIt}</p>
+            <p class="text-xs uppercase tracking-widest mb-3" style="color: var(--color-primary);">{p.categoryIt}</p>
+            <h3 class="font-heading font-bold text-sm" style="color: var(--color-text);">{p.titleIt}</h3>
           </div>
-        </div>
+        </a>
       ))}
     </div>
   </div>
