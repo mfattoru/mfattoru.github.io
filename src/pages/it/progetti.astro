@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import { t } from '../../i18n/utils';
+const lang = 'it';
+
+const projects = [
+  { title: 'Riqualificazione energetica edificio residenziale', location: 'Lettere, NA', year: '2023', category: 'Superbonus 110%' },
+  { title: 'Progettazione villa bifamiliare', location: 'Gragnano, NA', year: '2022', category: 'Progettazione Architettonica' },
+  { title: 'Piano di sicurezza cantiere industriale', location: 'Nocera Inferiore, SA', year: '2023', category: 'Sicurezza Sul Lavoro' },
+  { title: 'Perizia immobiliare complesso residenziale', location: 'Castellammare di Stabia, NA', year: '2022', category: 'Estimo Immobiliare' },
+];
+---
+<Base lang={lang} title={t(lang, 'projects.title')}>
+  <div class="max-w-6xl mx-auto px-6 md:px-12 py-24">
+    <p class="section-subtitle">{t(lang, 'projects.subtitle')}</p>
+    <h1 class="section-title mb-12" style="color: var(--color-text);">{t(lang, 'projects.title')}</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {projects.map(p => (
+        <div class="card overflow-hidden">
+          <div class="h-48 flex items-center justify-center px-6" style="background: var(--color-bg); border-bottom: 1px solid var(--color-border);">
+            <span class="text-xs uppercase tracking-widest text-center" style="color: var(--color-primary);">{p.category}</span>
+          </div>
+          <div class="p-6">
+            <p class="text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{p.year} — {p.location}</p>
+            <h3 class="font-heading font-bold text-sm" style="color: var(--color-text);">{p.title}</h3>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Base>

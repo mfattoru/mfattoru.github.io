@@ -1,0 +1,25 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('news-it');
+  return posts.map(entry => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const lang = 'it';
+---
+<Base lang={lang} title={entry.data.title} description={entry.data.description}>
+  <div class="max-w-3xl mx-auto px-6 md:px-12 py-24">
+    <a href="/it/news" class="text-xs uppercase tracking-widest mb-8 inline-block" style="color: var(--color-primary);">← News</a>
+    <p class="text-xs uppercase tracking-widest mb-4" style="color: var(--color-accent);">
+      {entry.data.date.toLocaleDateString('it-IT', { year: 'numeric', month: 'long', day: 'numeric' })}
+    </p>
+    <h1 class="section-title mb-12" style="color: var(--color-text);">{entry.data.title}</h1>
+    <div class="prose max-w-none" style="color: var(--color-text);">
+      <Content />
+    </div>
+  </div>
+</Base>
