@@ -47,8 +47,12 @@
   "contact.error": "Send error. Please try again or contact us directly.",
   "contact.address": "Via San Nicola del Vaglio 2, 80050, Lettere (NA), Italy",
   "contact.phone.value": "+39 081-1808-8820",
+  "contact.phone.mobile": "Mobile",
+  "contact.phone.mobile.value": "+39 333-40-46-355",
   "contact.email.value": "fattoruso.engineeringsolutions@gmail.com",
-  "contact.vat": "VAT 09348851214",
+  "contact.vat": "VAT: 09348851214",
+  "contact.hours": "Mon - Sat: 8AM - 7PM",
+  "contact.linkedin": "LinkedIn",
 
   "quote.title": "Request a Quote",
   "quote.subtitle": "Fill in the form to receive a free assessment",

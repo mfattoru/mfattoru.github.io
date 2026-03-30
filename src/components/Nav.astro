@@ -39,8 +39,13 @@ const quoteHref = lang === 'it' ? `${base}/preventivo` : `${base}/quote`;
   style="background: var(--color-bg); border-bottom: 1px solid var(--color-border);"
 >
   <!-- Logo -->
-  <a href={`${base}/`} class="font-heading font-black text-lg uppercase tracking-widest" style="color: var(--color-text);">
-    <span style="color: var(--color-primary);">ING.</span> FATTORUSO
+  <a href={`${base}/`} class="flex items-center h-10">
+    <img
+      src="/image/logo-long.png"
+      alt="Ing. Fattoruso Engineering Solutions"
+      class="h-10 w-auto object-contain"
+      style="filter: brightness(0) invert(1);"
+    />
   </a>
 
   <!-- Desktop nav links -->
