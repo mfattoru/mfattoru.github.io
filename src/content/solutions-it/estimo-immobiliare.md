@@ -5,4 +5,8 @@ icon: "🏠"
 order: 8
 image: "/image/estimo_immobiliare.png"
 ---
-La corretta valutazione di un immobile richiede competenze tecniche, conoscenza del mercato e metodologie rigorose. Realizziamo perizie giurate e stime di valore per privati, imprese e istituti di credito.
+L'attività estimativa condotta riguarda le seguenti casistiche:
+
+- Determinazione del valore più probabile di mercato di immobili oggetto di acquisto o compravendita
+- Determinazione del valore di mercato di terreni agricoli, boscosi e/o aree con potere edificatorio
+- Valutazione e quantificazione dei danni alla proprietà privata causati da condotte non corrette da parte di terzi e/o connessi a problematiche condominiali
