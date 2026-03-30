@@ -30,11 +30,35 @@ describe('getLangFromUrl()', () => {
 });
 
 describe('getAlternateUrl()', () => {
-  it('swaps /it/ to /en/ in path', () => {
-    expect(getAlternateUrl(new URL('https://mfattoru.github.io/it/chi-siamo'), 'en')).toBe('/en/chi-siamo');
+  it('translates /it/progetti to /en/projects/', () => {
+    expect(getAlternateUrl(new URL('http://x/it/progetti'), 'en')).toBe('/en/projects/');
   });
 
-  it('swaps /en/ to /it/ in path', () => {
-    expect(getAlternateUrl(new URL('https://mfattoru.github.io/en/about'), 'it')).toBe('/it/about');
+  it('translates /en/projects to /it/progetti/', () => {
+    expect(getAlternateUrl(new URL('http://x/en/projects'), 'it')).toBe('/it/progetti/');
+  });
+
+  it('translates /it/soluzioni/progettazione-architettonica to /en/solutions/architectural-design/', () => {
+    expect(
+      getAlternateUrl(new URL('http://x/it/soluzioni/progettazione-architettonica'), 'en')
+    ).toBe('/en/solutions/architectural-design/');
+  });
+
+  it('translates /en/solutions/architectural-design to /it/soluzioni/progettazione-architettonica/', () => {
+    expect(
+      getAlternateUrl(new URL('http://x/en/solutions/architectural-design'), 'it')
+    ).toBe('/it/soluzioni/progettazione-architettonica/');
+  });
+
+  it('translates /it/chi-siamo to /en/about/', () => {
+    expect(getAlternateUrl(new URL('http://x/it/chi-siamo'), 'en')).toBe('/en/about/');
+  });
+
+  it('returns lang root for path with no page slug', () => {
+    expect(getAlternateUrl(new URL('http://x/it/'), 'en')).toBe('/en/');
+  });
+
+  it('passes through unknown page slugs unchanged', () => {
+    expect(getAlternateUrl(new URL('http://x/it/unknown-page'), 'en')).toBe('/en/unknown-page/');
   });
 });
