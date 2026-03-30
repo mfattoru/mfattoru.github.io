@@ -24,7 +24,26 @@ const lang = 'en';
     <p class="text-sm mb-12" style="color: var(--color-accent);">{p.year} — {p.locationEn}</p>
 
     <!-- Description -->
-    <p class="text-base leading-relaxed mb-16 max-w-3xl" style="color: var(--color-text);">{p.descriptionEn}</p>
+    <p class="text-base leading-relaxed mb-6 max-w-3xl" style="color: var(--color-text);">{p.summaryEn}</p>
+    <p class="text-sm leading-relaxed mb-6 max-w-3xl" style="color: var(--color-accent);">{p.descriptionEn}</p>
+
+    <div class="grid grid-cols-2 gap-4 mb-12 max-w-lg">
+      <div>
+        <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--color-primary);">Role</p>
+        <p class="text-sm" style="color: var(--color-text);">{p.roleEn}</p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--color-primary);">Status</p>
+        <p class="text-sm" style="color: var(--color-text);">{p.statusEn}</p>
+      </div>
+    </div>
+
+    {p.resultEn && (
+      <div class="mb-12 p-4" style="background: var(--color-surface); border-left: 3px solid var(--color-primary);">
+        <p class="text-xs uppercase tracking-widest mb-2" style="color: var(--color-primary);">Result</p>
+        <p class="text-sm" style="color: var(--color-text);">{p.resultEn}</p>
+      </div>
+    )}
 
     <!-- Gallery -->
     <h2 class="text-xl font-heading font-bold mb-6" style="color: var(--color-text);">{t(lang, 'projects.gallery')}</h2>
