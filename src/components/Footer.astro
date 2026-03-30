@@ -71,8 +71,19 @@ const solutionLinks = lang === 'it'
             {t(lang, 'contact.phone.value')}
           </a>
         </li>
+        <li>
+          <a href={`tel:${t(lang, 'contact.phone.mobile.value')}`} class="transition-colors hover:text-[var(--color-primary)]" style="color: var(--color-accent);">
+            {t(lang, 'contact.phone.mobile.value')}
+          </a>
+        </li>
         <li>{t(lang, 'contact.vat')}</li>
       </ul>
+      <div class="mt-4 space-y-2 text-sm">
+        <p style="color: var(--color-accent);">{t(lang, 'contact.hours')}</p>
+        <a href="https://www.linkedin.com/in/onofriofattoruso/" target="_blank" rel="noopener" class="transition-colors hover:text-[var(--color-primary)]" style="color: var(--color-accent);">
+          {t(lang, 'contact.linkedin')}
+        </a>
+      </div>
     </div>
   </div>
 

@@ -47,8 +47,12 @@
   "contact.error": "Errore nell'invio. Riprova o scrivici direttamente.",
   "contact.address": "Via San Nicola del Vaglio 2, 80050, Lettere (NA)",
   "contact.phone.value": "+39 081-1808-8820",
+  "contact.phone.mobile": "Cellulare",
+  "contact.phone.mobile.value": "+39 333-40-46-355",
   "contact.email.value": "fattoruso.engineeringsolutions@gmail.com",
-  "contact.vat": "P.IVA 09348851214",
+  "contact.vat": "P.IVA: 09348851214",
+  "contact.hours": "Lun - Sab: 8:00 - 19:00",
+  "contact.linkedin": "LinkedIn",
 
   "quote.title": "Richiedi un Preventivo",
   "quote.subtitle": "Compila il modulo per ricevere una valutazione gratuita",
