@@ -1,4 +1,4 @@
-.PHONY: install dev build preview test check clean deploy help
+.PHONY: install dev cms build preview test check clean deploy help
 
 help: ## Show available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
@@ -8,6 +8,9 @@ install: ## Install dependencies
 
 dev: ## Start local dev server at http://localhost:4321
 	npm run dev
+
+cms: ## Start dev server + Decap CMS local backend (admin at http://localhost:4321/admin/)
+	npx decap-server & npm run dev
 
 build: ## Build for production
 	npm run build
