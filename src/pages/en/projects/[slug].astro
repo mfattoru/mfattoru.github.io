@@ -45,98 +45,81 @@ const lang = 'en';
       </div>
     )}
 
-    <!-- Gallery -->
+    <!-- Carousel -->
     <h2 class="text-xl font-heading font-bold mb-6" style="color: var(--color-text);">{t(lang, 'projects.gallery')}</h2>
 
-    <div id="gallery" class="grid grid-cols-2 gap-3">
+    <div class="relative" id="carousel">
+      <!-- Main image -->
+      <div class="overflow-hidden w-full" style="aspect-ratio: 16/9; background: var(--color-surface);">
+        <img
+          id="carousel-main"
+          src={p.gallery[0]}
+          alt={p.titleEn}
+          class="w-full h-full object-cover"
+        />
+      </div>
+
+      <!-- Prev / Next arrows -->
+      <button
+        id="carousel-prev"
+        type="button"
+        class="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 focus:outline-none"
+        style="background: rgba(0,0,0,0.55); color: #fff; border: none; cursor: pointer; font-size: 1.5rem;"
+        aria-label="Previous photo"
+      >‹</button>
+      <button
+        id="carousel-next"
+        type="button"
+        class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 focus:outline-none"
+        style="background: rgba(0,0,0,0.55); color: #fff; border: none; cursor: pointer; font-size: 1.5rem;"
+        aria-label="Next photo"
+      >›</button>
+
+      <!-- Counter -->
+      <div
+        class="absolute bottom-3 right-4 text-xs px-2 py-1"
+        id="carousel-counter"
+        style="background: rgba(0,0,0,0.55); color: #fff;"
+      >1 / {p.gallery.length}</div>
+    </div>
+
+    <!-- Thumbnail strip -->
+    <div class="flex gap-2 mt-3 overflow-x-auto pb-2">
       {p.gallery.map((src, i) => (
         <button
-          class="overflow-hidden focus:outline-none"
-          style="aspect-ratio: 4/3;"
-          onclick={`openLightbox(${i})`}
-          data-gallery-index={i}
           type="button"
+          class="flex-shrink-0 focus:outline-none carousel-thumb"
+          data-index={i}
+          style={`width: 80px; height: 56px; border: 2px solid ${i === 0 ? 'var(--color-primary)' : 'transparent'};`}
         >
-          <img
-            src={src}
-            alt={`${p.titleEn} — photo ${i + 1}`}
-            class="w-full h-full object-cover transition-all duration-300 hover:scale-105"
-          />
+          <img src={src} alt={`Photo ${i + 1}`} class="w-full h-full object-cover" />
         </button>
       ))}
     </div>
   </div>
 
-  <!-- Lightbox overlay -->
-  <div
-    id="lightbox"
-    class="fixed inset-0 z-50 hidden items-center justify-center"
-    style="background: rgba(0,0,0,0.92);"
-    onclick="closeLightbox(event)"
-  >
-    <button
-      id="lb-prev"
-      class="absolute left-4 top-1/2 -translate-y-1/2 text-4xl px-4 py-2 focus:outline-none"
-      style="color: var(--color-text); background: none; border: none; cursor: pointer;"
-      onclick="event.stopPropagation(); prevSlide()"
-      type="button"
-    >‹</button>
-
-    <img id="lb-img" src="" alt="" class="max-h-screen max-w-full object-contain px-16" />
-
-    <button
-      id="lb-next"
-      class="absolute right-4 top-1/2 -translate-y-1/2 text-4xl px-4 py-2 focus:outline-none"
-      style="color: var(--color-text); background: none; border: none; cursor: pointer;"
-      onclick="event.stopPropagation(); nextSlide()"
-      type="button"
-    >›</button>
-
-    <button
-      class="absolute top-4 right-6 text-3xl focus:outline-none"
-      style="color: var(--color-text); background: none; border: none; cursor: pointer;"
-      onclick="closeLightbox(event)"
-      type="button"
-    >×</button>
-  </div>
-
   <script define:vars={{ gallery: p.gallery }}>
     let current = 0;
+    const main = document.getElementById('carousel-main');
+    const counter = document.getElementById('carousel-counter');
+    const thumbs = document.querySelectorAll('.carousel-thumb');
 
-    function openLightbox(index) {
-      current = index;
-      document.getElementById('lb-img').src = gallery[current];
-      const lb = document.getElementById('lightbox');
-      lb.classList.remove('hidden');
-      lb.classList.add('flex');
-      document.body.style.overflow = 'hidden';
+    function goTo(index) {
+      current = (index + gallery.length) % gallery.length;
+      main.src = gallery[current];
+      counter.textContent = `${current + 1} / ${gallery.length}`;
+      thumbs.forEach((t, i) => {
+        t.style.borderColor = i === current ? 'var(--color-primary)' : 'transparent';
+      });
     }
 
-    function closeLightbox(e) {
-      if (e.target === document.getElementById('lightbox') || (e.currentTarget.tagName === 'BUTTON' && e.currentTarget !== document.getElementById('lb-prev') && e.currentTarget !== document.getElementById('lb-next'))) {
-        document.getElementById('lightbox').classList.add('hidden');
-        document.getElementById('lightbox').classList.remove('flex');
-        document.body.style.overflow = '';
-      }
-    }
+    document.getElementById('carousel-prev').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('carousel-next').addEventListener('click', () => goTo(current + 1));
+    thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => goTo(i)));
 
-    function prevSlide() {
-      current = (current - 1 + gallery.length) % gallery.length;
-      document.getElementById('lb-img').src = gallery[current];
-    }
-
-    function nextSlide() {
-      current = (current + 1) % gallery.length;
-      document.getElementById('lb-img').src = gallery[current];
-    }
-
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
-      const lb = document.getElementById('lightbox');
-      if (lb.classList.contains('hidden')) return;
-      if (e.key === 'Escape') { lb.classList.add('hidden'); lb.classList.remove('flex'); document.body.style.overflow = ''; }
-      if (e.key === 'ArrowLeft') prevSlide();
-      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') goTo(current - 1);
+      if (e.key === 'ArrowRight') goTo(current + 1);
     });
   </script>
 </Base>
