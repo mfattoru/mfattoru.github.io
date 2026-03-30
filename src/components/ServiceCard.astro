@@ -1,0 +1,32 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  href: string;
+}
+
+const { title, description, icon, href } = Astro.props;
+---
+
+<a
+  href={href}
+  class="card block p-6 transition-all hover:-translate-y-1"
+>
+  <div class="text-3xl mb-4">{icon}</div>
+  <h3
+    class="font-heading font-bold text-sm uppercase tracking-wider mb-3"
+    style="color: var(--color-text);"
+  >
+    {title}
+  </h3>
+  <p class="text-sm leading-relaxed mb-4" style="color: var(--color-accent);">
+    {description}
+  </p>
+  <span
+    class="text-xs uppercase tracking-widest font-semibold"
+    style="color: var(--color-primary);"
+  >
+    Scopri →
+  </span>
+</a>
