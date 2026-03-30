@@ -4,8 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin — Ing. Fattoruso</title>
+  <!-- Disable auto-init so we can inject local_backend on localhost -->
+  <script>window.CMS_MANUAL_INIT = true;</script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </head>
 <body>
+  <script>
+    var isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+    CMS.init(isLocal ? { config: { local_backend: true } } : {});
+  </script>
 </body>
 </html>

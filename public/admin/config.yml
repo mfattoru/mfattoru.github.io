@@ -10,8 +10,6 @@
 # 6. Commit and push — then visit https://mfattoru.github.io/admin/
 # =============================================================================
 
-local_backend: true  # active only on localhost; ignored in production
-
 backend:
   name: github
   repo: mfattoru/mfattoru.github.io
