@@ -4,9 +4,10 @@ interface Props {
   description: string;
   icon: string;
   href: string;
+  linkLabel: string;
 }
 
-const { title, description, icon, href } = Astro.props;
+const { title, description, icon, href, linkLabel } = Astro.props;
 ---
 
 <a
@@ -27,6 +28,6 @@ const { title, description, icon, href } = Astro.props;
     class="text-xs uppercase tracking-widest font-semibold"
     style="color: var(--color-primary);"
   >
-    Scopri →
+    {linkLabel}
   </span>
 </a>
