@@ -1,0 +1,45 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { t } from '../../../i18n/utils';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const solutions = await getCollection('solutions-it');
+  return solutions.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const lang = 'it';
+---
+
+<Base lang={lang} title={entry.data.title} description={entry.data.description}>
+  <div class="max-w-4xl mx-auto px-6 md:px-12 py-24">
+    <!-- Back link -->
+    <a href="/it/" class="text-xs uppercase tracking-widest mb-8 inline-block" style="color: var(--color-primary);">
+      {t(lang, 'solutions.back')}
+    </a>
+
+    <!-- Icon + title -->
+    <div class="text-5xl mb-6">{entry.data.icon}</div>
+    <h1 class="section-title mb-4" style="color: var(--color-text);">{entry.data.title}</h1>
+    <p class="text-lg mb-16" style="color: var(--color-accent);">{entry.data.description}</p>
+
+    <!-- Content body -->
+    <div
+      class="prose prose-lg max-w-none"
+      style="color: var(--color-text);"
+    >
+      <Content />
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-16 pt-8" style="border-top: 1px solid var(--color-border);">
+      <p class="text-sm mb-4" style="color: var(--color-accent);">Hai bisogno di questo servizio?</p>
+      <a href="/it/preventivo" class="btn-primary">{t(lang, 'home.cta.button')}</a>
+    </div>
+  </div>
+</Base>
