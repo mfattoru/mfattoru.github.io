@@ -24,5 +24,5 @@ check: ## TypeScript type check
 clean: ## Remove build output
 	rm -rf dist/
 
-deploy: ## Push to GitHub (triggers Actions build + deploy)
+deploy: build ## Build, then push to GitHub (triggers Actions deploy)
 	git push origin master
