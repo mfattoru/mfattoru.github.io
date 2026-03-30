@@ -3,7 +3,7 @@ title: "Progettazione Interventi Superbonus 110%"
 description: "Assistenza tecnica completa per accedere agli incentivi fiscali del Superbonus 110%."
 icon: "⚡"
 order: 5
-image: "/image/eng_background_2.jpeg"
+image: "/image/progettazione_interventi.png"
 ---
 Il Superbonus è un'agevolazione prevista dal Decreto Rilancio che eleva al 110% l'aliquota di detrazione delle spese sostenute per specifici interventi di efficienza energetica, interventi antisismici, installazione di impianti fotovoltaici e infrastrutture per la ricarica di veicoli elettrici.
 
