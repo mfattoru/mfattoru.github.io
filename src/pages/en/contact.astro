@@ -1,0 +1,100 @@
+---
+import Base from '../../layouts/Base.astro';
+import { t } from '../../i18n/utils';
+
+const lang = 'en';
+const FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
+
+const services = [
+  'Architectural Design',
+  'Safety Training',
+  'Workplace Safety',
+  'Construction Management',
+  'Superbonus 110%',
+  'Sustainability & Energy Efficiency',
+  'Building & Environmental Acoustics',
+  'Real Estate Appraisal',
+  'Construction Consulting',
+];
+---
+
+<Base lang={lang} title={t(lang, 'contact.title')}>
+  <div class="max-w-6xl mx-auto px-6 md:px-12 py-24 grid grid-cols-1 md:grid-cols-2 gap-16">
+    <div>
+      <p class="section-subtitle">{t(lang, 'contact.subtitle')}</p>
+      <h1 class="section-title mb-12" style="color: var(--color-text);">{t(lang, 'contact.title')}</h1>
+      <ul class="space-y-8">
+        <li>
+          <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--color-accent);">Address</p>
+          <p style="color: var(--color-text);">{t(lang, 'contact.address')}</p>
+        </li>
+        <li>
+          <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--color-accent);">Phone</p>
+          <a href={`tel:${t(lang, 'contact.phone.value')}`} class="transition-colors hover:opacity-80" style="color: var(--color-primary);">
+            {t(lang, 'contact.phone.value')}
+          </a>
+        </li>
+        <li>
+          <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--color-accent);">Email</p>
+          <a href={`mailto:${t(lang, 'contact.email.value')}`} class="transition-colors hover:opacity-80" style="color: var(--color-primary);">
+            {t(lang, 'contact.email.value')}
+          </a>
+        </li>
+        <li>
+          <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--color-accent);">VAT</p>
+          <p style="color: var(--color-text);">{t(lang, 'contact.vat')}</p>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <form id="contact-form" action={`https://formspree.io/f/${FORMSPREE_ID}`} method="POST" class="space-y-6">
+        <div>
+          <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'contact.name')} *</label>
+          <input type="text" name="name" required class="w-full px-4 py-3 text-sm outline-none"
+            style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" />
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'contact.email')} *</label>
+          <input type="email" name="email" required class="w-full px-4 py-3 text-sm outline-none"
+            style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" />
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'contact.phone')}</label>
+          <input type="tel" name="phone" class="w-full px-4 py-3 text-sm outline-none"
+            style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" />
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'contact.service')}</label>
+          <select name="service" class="w-full px-4 py-3 text-sm outline-none"
+            style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);">
+            <option value="">{t(lang, 'contact.service.placeholder')}</option>
+            {services.map(s => <option value={s}>{s}</option>)}
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'contact.message')} *</label>
+          <textarea name="message" required rows="5" class="w-full px-4 py-3 text-sm resize-none outline-none"
+            style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);"></textarea>
+        </div>
+        <button type="submit" class="btn-primary w-full">{t(lang, 'contact.send')}</button>
+        <p id="form-success" class="hidden text-sm text-center py-3" style="color: var(--color-primary);">{t(lang, 'contact.success')}</p>
+        <p id="form-error" class="hidden text-sm text-center py-3 text-red-400">{t(lang, 'contact.error')}</p>
+      </form>
+    </div>
+  </div>
+</Base>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const success = document.getElementById('form-success');
+  const error = document.getElementById('form-error');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+      if (res.ok) { form.reset(); success?.classList.remove('hidden'); error?.classList.add('hidden'); }
+      else { error?.classList.remove('hidden'); success?.classList.add('hidden'); }
+    } catch { error?.classList.remove('hidden'); success?.classList.add('hidden'); }
+  });
+</script>
