@@ -28,6 +28,7 @@ const solutions = (await getCollection('solutions-en')).sort((a, b) => a.data.or
           icon={sol.data.icon}
           href={`/en/solutions/${sol.slug}`}
           linkLabel={t(lang, 'solutions.view')}
+          image={sol.data.image}
         />
       ))}
     </div>

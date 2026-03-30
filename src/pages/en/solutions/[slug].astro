@@ -17,6 +17,11 @@ const lang = 'en';
 ---
 
 <Base lang={lang} title={entry.data.title} description={entry.data.description}>
+  {entry.data.image && (
+    <div class="w-full h-64 md:h-80 overflow-hidden mb-12">
+      <img src={entry.data.image} alt={entry.data.title} class="w-full h-full object-cover object-center" />
+    </div>
+  )}
   <div class="max-w-4xl mx-auto px-6 md:px-12 py-24">
     <a href="/en/" class="text-xs uppercase tracking-widest mb-8 inline-block" style="color: var(--color-primary);">
       {t(lang, 'solutions.back')}

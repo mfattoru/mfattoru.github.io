@@ -13,10 +13,16 @@ const { title, subtitle, ctaPrimary, ctaSecondary } = Astro.props;
   class="relative min-h-[90vh] flex items-center overflow-hidden"
   style="background: var(--color-bg);"
 >
-  <!-- Blueprint grid texture overlay -->
+  <!-- Background photo -->
   <div
-    class="absolute inset-0 opacity-5 pointer-events-none"
-    style="background-image: linear-gradient(var(--color-primary) 1px, transparent 1px), linear-gradient(90deg, var(--color-primary) 1px, transparent 1px); background-size: 40px 40px;"
+    class="absolute inset-0"
+    style="background-image: url('/image/eng_background_2.jpeg'); background-size: cover; background-position: center; opacity: 0.25;"
+  ></div>
+
+  <!-- Blueprint grid overlay on top of photo -->
+  <div
+    class="absolute inset-0 pointer-events-none"
+    style="background-image: linear-gradient(var(--color-primary) 1px, transparent 1px), linear-gradient(90deg, var(--color-primary) 1px, transparent 1px); background-size: 40px 40px; opacity: 0.05;"
   ></div>
 
   <div class="relative max-w-6xl mx-auto px-6 md:px-12 py-24">

@@ -8,18 +8,29 @@ const lang = 'it';
     <p class="section-subtitle">{t(lang, 'about.subtitle')}</p>
     <h1 class="section-title mb-16" style="color: var(--color-text);">{t(lang, 'about.title')}</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-      <div>
-        <h2 class="text-xl font-heading font-bold mb-4" style="color: var(--color-text);">Il nostro studio</h2>
-        <p class="text-sm leading-relaxed" style="color: var(--color-accent);">
-          Ing. Onofrio Fattoruso Engineering Solutions è uno studio di consulenza tecnica e ingegneria con sede a Lettere, in provincia di Napoli. Offriamo servizi professionali nel campo della progettazione architettonica, sicurezza sul lavoro, efficienza energetica e molto altro.
-        </p>
+    <!-- Engineer photo + intro -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 items-start">
+      <div class="md:col-span-1">
+        <img
+          src="/image/headshot.jpeg"
+          alt="Ing. Onofrio Fattoruso"
+          class="w-full object-cover"
+          style="aspect-ratio: 3/4;"
+        />
       </div>
-      <div>
-        <h2 class="text-xl font-heading font-bold mb-4" style="color: var(--color-text);">La nostra missione</h2>
-        <p class="text-sm leading-relaxed" style="color: var(--color-accent);">
-          Il nostro obiettivo è fornire soluzioni tecniche di alta qualità, nel rispetto delle normative vigenti e con attenzione alle esigenze specifiche di ogni cliente. Crediamo nella trasparenza, nella precisione e nell'innovazione.
-        </p>
+      <div class="md:col-span-2 grid grid-cols-1 gap-8">
+        <div>
+          <h2 class="text-xl font-heading font-bold mb-4" style="color: var(--color-text);">Il nostro studio</h2>
+          <p class="text-sm leading-relaxed" style="color: var(--color-accent);">
+            Ing. Onofrio Fattoruso Engineering Solutions è uno studio di consulenza tecnica e ingegneria con sede a Lettere, in provincia di Napoli. Offriamo servizi professionali nel campo della progettazione architettonica, sicurezza sul lavoro, efficienza energetica e molto altro.
+          </p>
+        </div>
+        <div>
+          <h2 class="text-xl font-heading font-bold mb-4" style="color: var(--color-text);">La nostra missione</h2>
+          <p class="text-sm leading-relaxed" style="color: var(--color-accent);">
+            Il nostro obiettivo è fornire soluzioni tecniche di alta qualità, nel rispetto delle normative vigenti e con attenzione alle esigenze specifiche di ogni cliente. Crediamo nella trasparenza, nella precisione e nell'innovazione.
+          </p>
+        </div>
       </div>
     </div>
 

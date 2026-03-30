@@ -5,6 +5,7 @@ const solutionSchema = z.object({
   description: z.string(),
   icon: z.string(),
   order: z.number(),
+  image: z.string().optional(),
 });
 
 const newsSchema = z.object({
