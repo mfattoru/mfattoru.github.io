@@ -13,6 +13,9 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
+  redirects: {
+    '/': '/it/',
+  },
   vite: {
     resolve: {
       alias: {
