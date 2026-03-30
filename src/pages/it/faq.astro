@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import { t } from '../../i18n/utils';
+const lang = 'it';
+
+const faqs = [
+  { q: 'Cosa comprende la consulenza per il Superbonus 110%?', a: 'Offriamo diagnosi energetica, progettazione degli interventi trainanti e trainati, asseverazioni tecniche e assistenza per le pratiche ENEA e fiscali.' },
+  { q: 'In quali zone operate?', a: 'Operiamo principalmente in provincia di Napoli e nelle regioni limitrofe, ma siamo disponibili per incarichi su tutto il territorio nazionale.' },
+  { q: 'Come posso richiedere un preventivo?', a: 'Puoi contattarci tramite il modulo di contatto, via email o telefonicamente. Risponderemo entro 48 ore lavorative.' },
+  { q: 'Fornite documentazione tecnica per pratiche comunali?', a: 'Sì, gestiamo tutte le pratiche edilizie incluse SCIA, CILA, permessi di costruire e certificazioni di agibilità.' },
+  { q: 'Offrite servizi di formazione in sede?', a: 'Sì, i nostri corsi di formazione sulla sicurezza possono essere erogati direttamente presso la sede del cliente, in tutta Italia.' },
+];
+---
+<Base lang={lang} title={t(lang, 'faq.title')}>
+  <div class="max-w-3xl mx-auto px-6 md:px-12 py-24">
+    <p class="section-subtitle">{t(lang, 'faq.subtitle')}</p>
+    <h1 class="section-title mb-12" style="color: var(--color-text);">{t(lang, 'faq.title')}</h1>
+
+    <div class="space-y-2">
+      {faqs.map(faq => (
+        <details class="card group" style="border-color: var(--color-border);">
+          <summary class="flex justify-between items-center px-6 py-4 cursor-pointer list-none font-heading font-bold text-sm" style="color: var(--color-text);">
+            {faq.q}
+            <span class="ml-4 text-xl flex-shrink-0" style="color: var(--color-primary);">+</span>
+          </summary>
+          <p class="px-6 pb-6 text-sm leading-relaxed" style="color: var(--color-accent);">{faq.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</Base>

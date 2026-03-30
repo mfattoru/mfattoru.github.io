@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import { t } from '../../i18n/utils';
+const lang = 'en';
+---
+<Base lang={lang} title={t(lang, 'about.title')}>
+  <div class="max-w-4xl mx-auto px-6 md:px-12 py-24">
+    <p class="section-subtitle">{t(lang, 'about.subtitle')}</p>
+    <h1 class="section-title mb-16" style="color: var(--color-text);">{t(lang, 'about.title')}</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+      <div>
+        <h2 class="text-xl font-heading font-bold mb-4" style="color: var(--color-text);">Our firm</h2>
+        <p class="text-sm leading-relaxed" style="color: var(--color-accent);">
+          Ing. Onofrio Fattoruso Engineering Solutions is a technical consulting and engineering firm based in Lettere, in the province of Naples. We offer professional services in architectural design, workplace safety, energy efficiency, and more.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-xl font-heading font-bold mb-4" style="color: var(--color-text);">Our mission</h2>
+        <p class="text-sm leading-relaxed" style="color: var(--color-accent);">
+          Our goal is to provide high-quality technical solutions, in compliance with current regulations and with attention to the specific needs of each client. We believe in transparency, precision, and innovation.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {[
+        { value: '9+', label: 'Services offered' },
+        { value: '100%', label: 'Regulatory compliance' },
+        { value: '10+', label: 'Years of experience' },
+        { value: 'NA', label: 'Lettere, Naples' },
+      ].map(stat => (
+        <div class="card p-6 text-center">
+          <p class="text-3xl font-heading font-black mb-2" style="color: var(--color-primary);">{stat.value}</p>
+          <p class="text-xs uppercase tracking-widest" style="color: var(--color-accent);">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</Base>
