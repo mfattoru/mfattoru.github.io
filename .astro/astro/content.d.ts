@@ -140,34 +140,178 @@ declare module 'astro:content' {
 	>;
 
 	type ContentEntryMap = {
-		
+		"news-en": {
+"welcome.md": {
+	id: "welcome.md";
+  slug: "welcome";
+  body: string;
+  collection: "news-en";
+  data: InferEntrySchema<"news-en">
+} & { render(): Render[".md"] };
+};
+"news-it": {
+"benvenuto.md": {
+	id: "benvenuto.md";
+  slug: "benvenuto";
+  body: string;
+  collection: "news-it";
+  data: InferEntrySchema<"news-it">
+} & { render(): Render[".md"] };
+};
+"projects": {
+"campo-sportivo.md": {
+	id: "campo-sportivo.md";
+  slug: "campo-sportivo";
+  body: string;
+  collection: "projects";
+  data: InferEntrySchema<"projects">
+} & { render(): Render[".md"] };
+"ristrutturazione-stradale.md": {
+	id: "ristrutturazione-stradale.md";
+  slug: "ristrutturazione-stradale";
+  body: string;
+  collection: "projects";
+  data: InferEntrySchema<"projects">
+} & { render(): Render[".md"] };
+};
+"solutions-en": {
+"acoustic-engineering.md": {
+	id: "acoustic-engineering.md";
+  slug: "acoustic-engineering";
+  body: string;
+  collection: "solutions-en";
+  data: InferEntrySchema<"solutions-en">
+} & { render(): Render[".md"] };
+"architectural-design.md": {
+	id: "architectural-design.md";
+  slug: "architectural-design";
+  body: string;
+  collection: "solutions-en";
+  data: InferEntrySchema<"solutions-en">
+} & { render(): Render[".md"] };
+"construction-management.md": {
+	id: "construction-management.md";
+  slug: "construction-management";
+  body: string;
+  collection: "solutions-en";
+  data: InferEntrySchema<"solutions-en">
+} & { render(): Render[".md"] };
+"construction.md": {
+	id: "construction.md";
+  slug: "construction";
+  body: string;
+  collection: "solutions-en";
+  data: InferEntrySchema<"solutions-en">
+} & { render(): Render[".md"] };
+"real-estate-appraisal.md": {
+	id: "real-estate-appraisal.md";
+  slug: "real-estate-appraisal";
+  body: string;
+  collection: "solutions-en";
+  data: InferEntrySchema<"solutions-en">
+} & { render(): Render[".md"] };
+"safety-training.md": {
+	id: "safety-training.md";
+  slug: "safety-training";
+  body: string;
+  collection: "solutions-en";
+  data: InferEntrySchema<"solutions-en">
+} & { render(): Render[".md"] };
+"superbonus-110.md": {
+	id: "superbonus-110.md";
+  slug: "superbonus-110";
+  body: string;
+  collection: "solutions-en";
+  data: InferEntrySchema<"solutions-en">
+} & { render(): Render[".md"] };
+"sustainability-energy.md": {
+	id: "sustainability-energy.md";
+  slug: "sustainability-energy";
+  body: string;
+  collection: "solutions-en";
+  data: InferEntrySchema<"solutions-en">
+} & { render(): Render[".md"] };
+"workplace-safety.md": {
+	id: "workplace-safety.md";
+  slug: "workplace-safety";
+  body: string;
+  collection: "solutions-en";
+  data: InferEntrySchema<"solutions-en">
+} & { render(): Render[".md"] };
+};
+"solutions-it": {
+"acustica-edilizia.md": {
+	id: "acustica-edilizia.md";
+  slug: "acustica-edilizia";
+  body: string;
+  collection: "solutions-it";
+  data: InferEntrySchema<"solutions-it">
+} & { render(): Render[".md"] };
+"direzione-lavori.md": {
+	id: "direzione-lavori.md";
+  slug: "direzione-lavori";
+  body: string;
+  collection: "solutions-it";
+  data: InferEntrySchema<"solutions-it">
+} & { render(): Render[".md"] };
+"edilizia.md": {
+	id: "edilizia.md";
+  slug: "edilizia";
+  body: string;
+  collection: "solutions-it";
+  data: InferEntrySchema<"solutions-it">
+} & { render(): Render[".md"] };
+"estimo-immobiliare.md": {
+	id: "estimo-immobiliare.md";
+  slug: "estimo-immobiliare";
+  body: string;
+  collection: "solutions-it";
+  data: InferEntrySchema<"solutions-it">
+} & { render(): Render[".md"] };
+"formazione-sicurezza.md": {
+	id: "formazione-sicurezza.md";
+  slug: "formazione-sicurezza";
+  body: string;
+  collection: "solutions-it";
+  data: InferEntrySchema<"solutions-it">
+} & { render(): Render[".md"] };
+"progettazione-architettonica.md": {
+	id: "progettazione-architettonica.md";
+  slug: "progettazione-architettonica";
+  body: string;
+  collection: "solutions-it";
+  data: InferEntrySchema<"solutions-it">
+} & { render(): Render[".md"] };
+"sicurezza-sul-lavoro.md": {
+	id: "sicurezza-sul-lavoro.md";
+  slug: "sicurezza-sul-lavoro";
+  body: string;
+  collection: "solutions-it";
+  data: InferEntrySchema<"solutions-it">
+} & { render(): Render[".md"] };
+"sostenibilita-energetica.md": {
+	id: "sostenibilita-energetica.md";
+  slug: "sostenibilita-energetica";
+  body: string;
+  collection: "solutions-it";
+  data: InferEntrySchema<"solutions-it">
+} & { render(): Render[".md"] };
+"superbonus-110.md": {
+	id: "superbonus-110.md";
+  slug: "superbonus-110";
+  body: string;
+  collection: "solutions-it";
+  data: InferEntrySchema<"solutions-it">
+} & { render(): Render[".md"] };
+};
+
 	};
 
 	type DataEntryMap = {
-		"news-en": Record<string, {
-  id: string;
-  collection: "news-en";
-  data: any;
-}>;
-"news-it": Record<string, {
-  id: string;
-  collection: "news-it";
-  data: any;
-}>;
-"solutions-en": Record<string, {
-  id: string;
-  collection: "solutions-en";
-  data: any;
-}>;
-"solutions-it": Record<string, {
-  id: string;
-  collection: "solutions-it";
-  data: any;
-}>;
-
+		
 	};
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = never;
+	export type ContentConfig = typeof import("../../src/content/config.js");
 }
