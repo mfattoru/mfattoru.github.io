@@ -4,10 +4,10 @@ import { t } from '../../i18n/utils';
 const lang = 'en';
 
 const projects = [
-  { title: 'Energy refurbishment of residential building', location: 'Lettere, NA', year: '2023', category: 'Superbonus 110%' },
-  { title: 'Design of semi-detached villa', location: 'Gragnano, NA', year: '2022', category: 'Architectural Design' },
-  { title: 'Industrial construction site safety plan', location: 'Nocera Inferiore, SA', year: '2023', category: 'Workplace Safety' },
-  { title: 'Property appraisal of residential complex', location: 'Castellammare di Stabia, NA', year: '2022', category: 'Real Estate Valuation' },
+  { title: 'Energy refurbishment of residential building', location: 'Lettere, NA', year: '2023', category: 'Superbonus 110%', image: '/image/work-sm-a.jpg' },
+  { title: 'Design of semi-detached villa', location: 'Gragnano, NA', year: '2022', category: 'Architectural Design', image: '/image/work-sm-b.jpg' },
+  { title: 'Industrial construction site safety plan', location: 'Nocera Inferiore, SA', year: '2023', category: 'Workplace Safety', image: '/image/work-sm-c.jpg' },
+  { title: 'Property appraisal of residential complex', location: 'Castellammare di Stabia, NA', year: '2022', category: 'Real Estate Valuation', image: '/image/work-sm-d.jpg' },
 ];
 ---
 <Base lang={lang} title={t(lang, 'projects.title')}>
@@ -18,9 +18,7 @@ const projects = [
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {projects.map(p => (
         <div class="card overflow-hidden">
-          <div class="h-48 flex items-center justify-center px-6" style="background: var(--color-bg); border-bottom: 1px solid var(--color-border);">
-            <span class="text-xs uppercase tracking-widest text-center" style="color: var(--color-primary);">{p.category}</span>
-          </div>
+          <img src={p.image} alt={p.title} class="w-full h-48 object-cover" />
           <div class="p-6">
             <p class="text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{p.year} — {p.location}</p>
             <h3 class="font-heading font-bold text-sm" style="color: var(--color-text);">{p.title}</h3>

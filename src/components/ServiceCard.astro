@@ -5,15 +5,20 @@ interface Props {
   icon: string;
   href: string;
   linkLabel: string;
+  image?: string;
 }
 
-const { title, description, icon, href, linkLabel } = Astro.props;
+const { title, description, icon, href, linkLabel, image } = Astro.props;
 ---
 
 <a
   href={href}
-  class="card block p-6 transition-all hover:-translate-y-1"
+  class="card block overflow-hidden transition-all hover:-translate-y-1"
 >
+  {image && (
+    <img src={image} alt={title} class="w-full h-40 object-cover object-top" />
+  )}
+  <div class="p-6">
   <div class="text-3xl mb-4">{icon}</div>
   <h3
     class="font-heading font-bold text-sm uppercase tracking-wider mb-3"
@@ -30,4 +35,5 @@ const { title, description, icon, href, linkLabel } = Astro.props;
   >
     {linkLabel}
   </span>
+  </div>
 </a>

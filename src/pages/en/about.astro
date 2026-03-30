@@ -8,18 +8,29 @@ const lang = 'en';
     <p class="section-subtitle">{t(lang, 'about.subtitle')}</p>
     <h1 class="section-title mb-16" style="color: var(--color-text);">{t(lang, 'about.title')}</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-      <div>
-        <h2 class="text-xl font-heading font-bold mb-4" style="color: var(--color-text);">Our firm</h2>
-        <p class="text-sm leading-relaxed" style="color: var(--color-accent);">
-          Ing. Onofrio Fattoruso Engineering Solutions is a technical consulting and engineering firm based in Lettere, in the province of Naples. We offer professional services in architectural design, workplace safety, energy efficiency, and more.
-        </p>
+    <!-- Engineer photo + intro -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 items-start">
+      <div class="md:col-span-1">
+        <img
+          src="/image/headshot.jpeg"
+          alt="Ing. Onofrio Fattoruso"
+          class="w-full object-cover"
+          style="aspect-ratio: 3/4;"
+        />
       </div>
-      <div>
-        <h2 class="text-xl font-heading font-bold mb-4" style="color: var(--color-text);">Our mission</h2>
-        <p class="text-sm leading-relaxed" style="color: var(--color-accent);">
-          Our goal is to provide high-quality technical solutions, in compliance with current regulations and with attention to the specific needs of each client. We believe in transparency, precision, and innovation.
-        </p>
+      <div class="md:col-span-2 grid grid-cols-1 gap-8">
+        <div>
+          <h2 class="text-xl font-heading font-bold mb-4" style="color: var(--color-text);">Our firm</h2>
+          <p class="text-sm leading-relaxed" style="color: var(--color-accent);">
+            Ing. Onofrio Fattoruso Engineering Solutions is a technical consulting and engineering firm based in Lettere, in the province of Naples. We offer professional services in architectural design, workplace safety, energy efficiency, and more.
+          </p>
+        </div>
+        <div>
+          <h2 class="text-xl font-heading font-bold mb-4" style="color: var(--color-text);">Our mission</h2>
+          <p class="text-sm leading-relaxed" style="color: var(--color-accent);">
+            Our goal is to provide high-quality technical solutions, in compliance with current regulations and with attention to the specific needs of each client. We believe in transparency, precision, and innovation.
+          </p>
+        </div>
       </div>
     </div>
 
