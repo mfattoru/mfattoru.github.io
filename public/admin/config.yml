@@ -10,12 +10,14 @@
 # 6. Commit and push — then visit https://mfattoru.github.io/admin/
 # =============================================================================
 
+local_backend: true  # active only on localhost; ignored in production
+
 backend:
   name: github
   repo: mfattoru/mfattoru.github.io
   branch: master
   auth_type: pkce
-  app_id: REPLACE_WITH_GITHUB_OAUTH_APP_CLIENT_ID
+  app_id: Ov23ct12dUUR3BNAddag
 
 media_folder: public/image/uploads
 public_folder: /image/uploads
