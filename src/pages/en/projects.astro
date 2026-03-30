@@ -1,8 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { t } from '../../i18n/utils';
-import { projects } from '../../data/projects';
+import { getCollection } from 'astro:content';
 const lang = 'en';
+const projectEntries = (await getCollection('projects')).sort((a, b) => b.data.year.localeCompare(a.data.year));
 ---
 <Base lang={lang} title={t(lang, 'projects.title')}>
   <div class="max-w-6xl mx-auto px-6 md:px-12 py-24">
@@ -10,13 +11,13 @@ const lang = 'en';
     <h1 class="section-title mb-12" style="color: var(--color-text);">{t(lang, 'projects.title')}</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {projects.map(p => (
-        <a href={`/en/projects/${p.slug}`} class="card overflow-hidden block transition-all hover:-translate-y-1">
-          <img src={p.thumbnail} alt={p.titleEn} class="w-full h-48 object-cover" />
+      {projectEntries.map(entry => (
+        <a href={`/en/projects/${entry.slug}`} class="card overflow-hidden block transition-all hover:-translate-y-1">
+          <img src={entry.data.thumbnail} alt={entry.data.titleEn} class="w-full h-48 object-cover" />
           <div class="p-6">
-            <p class="text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{p.year} — {p.locationEn}</p>
-            <p class="text-xs uppercase tracking-widest mb-3" style="color: var(--color-primary);">{p.categoryEn}</p>
-            <h3 class="font-heading font-bold text-sm" style="color: var(--color-text);">{p.titleEn}</h3>
+            <p class="text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{entry.data.year} — {entry.data.locationEn}</p>
+            <p class="text-xs uppercase tracking-widest mb-3" style="color: var(--color-primary);">{entry.data.categoryEn}</p>
+            <h3 class="font-heading font-bold text-sm" style="color: var(--color-text);">{entry.data.titleEn}</h3>
           </div>
         </a>
       ))}
