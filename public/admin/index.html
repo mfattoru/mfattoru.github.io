@@ -10,8 +10,11 @@
 </head>
 <body>
   <script>
-    var isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-    CMS.init(isLocal ? { config: { local_backend: true } } : {});
+    if (['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+      CMS.init({ config: { local_backend: true } });
+    } else {
+      CMS.init();
+    }
   </script>
 </body>
 </html>
