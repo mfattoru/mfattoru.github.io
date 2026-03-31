@@ -1,8 +1,11 @@
 ---
 import ThemeSwitcher from './ThemeSwitcher.astro';
 import LangSwitcher from './LangSwitcher.astro';
+import FontSizer from './FontSizer.astro';
 import { t } from '../i18n/utils';
 import type { Lang } from '../i18n/utils';
+import { Image } from 'astro:assets';
+import logoLong from '../assets/logo-long.png';
 
 interface Props {
   lang: Lang;
@@ -16,6 +19,7 @@ const links = lang === 'it'
   ? [
       { href: `${base}/`, label: t(lang, 'nav.home') },
       { href: `${base}/chi-siamo`, label: t(lang, 'nav.about') },
+      { href: `${base}/soluzioni`, label: t(lang, 'nav.solutions') },
       { href: `${base}/progetti`, label: t(lang, 'nav.projects') },
       { href: `${base}/news`, label: t(lang, 'nav.news') },
       { href: `${base}/contatti`, label: t(lang, 'nav.contact') },
@@ -23,6 +27,7 @@ const links = lang === 'it'
   : [
       { href: `${base}/`, label: t(lang, 'nav.home') },
       { href: `${base}/about`, label: t(lang, 'nav.about') },
+      { href: `${base}/solutions`, label: t(lang, 'nav.solutions') },
       { href: `${base}/projects`, label: t(lang, 'nav.projects') },
       { href: `${base}/news`, label: t(lang, 'nav.news') },
       { href: `${base}/contact`, label: t(lang, 'nav.contact') },
@@ -38,11 +43,12 @@ const quoteHref = lang === 'it' ? `${base}/preventivo` : `${base}/quote`;
 >
   <!-- Logo -->
   <a href={`${base}/`} class="flex items-center h-10">
-    <img
-      src="/image/logo-long.png"
+    <Image
+      src={logoLong}
       alt="Ing. Fattoruso Engineering Solutions"
       class="h-10 w-auto object-contain"
       style="filter: brightness(0) invert(1);"
+      loading="eager"
     />
   </a>
 
@@ -63,6 +69,7 @@ const quoteHref = lang === 'it' ? `${base}/preventivo` : `${base}/quote`;
 
   <!-- Right controls -->
   <div class="hidden md:flex items-center gap-4">
+    <FontSizer />
     <ThemeSwitcher />
     <LangSwitcher lang={lang} currentUrl={currentUrl} />
     <a href={quoteHref} class="btn-primary text-xs">

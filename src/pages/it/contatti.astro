@@ -61,41 +61,45 @@ const services = [
         class="space-y-6"
       >
         <div>
-          <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">
+          <label for="c-name" class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">
             {t(lang, 'contact.name')} *
           </label>
-          <input type="text" name="name" required class="w-full px-4 py-3 text-sm outline-none transition-colors focus:border-[var(--color-primary)]"
+          <input id="c-name" type="text" name="name" required class="w-full px-4 py-3 text-sm outline-none transition-colors focus:border-[var(--color-primary)]"
             style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" />
         </div>
         <div>
-          <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">
+          <label for="c-email" class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">
             {t(lang, 'contact.email')} *
           </label>
-          <input type="email" name="email" required class="w-full px-4 py-3 text-sm outline-none"
+          <input id="c-email" type="email" name="email" required class="w-full px-4 py-3 text-sm outline-none"
             style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" />
         </div>
         <div>
-          <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">
+          <label for="c-phone" class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">
             {t(lang, 'contact.phone')}
           </label>
-          <input type="tel" name="phone" class="w-full px-4 py-3 text-sm outline-none"
+          <input id="c-phone" type="tel" name="phone" class="w-full px-4 py-3 text-sm outline-none"
             style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" />
         </div>
         <div>
-          <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">
+          <p class="block text-xs uppercase tracking-widest mb-3" style="color: var(--color-accent);">
             {t(lang, 'contact.service')}
-          </label>
-          <select name="service" class="w-full px-4 py-3 text-sm outline-none"
-            style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);">
-            <option value="">{t(lang, 'contact.service.placeholder')}</option>
-            {services.map(s => <option value={s}>{s}</option>)}
-          </select>
+          </p>
+          <div class="space-y-2 px-4 py-3" style="background: var(--color-surface); border: 1px solid var(--color-border);">
+            {services.map(s => (
+              <label class="flex items-center gap-3 cursor-pointer group">
+                <input type="checkbox" name="services" value={s}
+                  class="w-4 h-4 shrink-0 accent-[var(--color-primary)]" />
+                <span class="text-sm" style="color: var(--color-text);">{s}</span>
+              </label>
+            ))}
+          </div>
         </div>
         <div>
-          <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">
+          <label for="c-message" class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">
             {t(lang, 'contact.message')} *
           </label>
-          <textarea name="message" required rows="5" class="w-full px-4 py-3 text-sm resize-none outline-none"
+          <textarea id="c-message" name="message" required rows="5" class="w-full px-4 py-3 text-sm resize-none outline-none"
             style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);"></textarea>
         </div>
         <button type="submit" class="btn-primary w-full">{t(lang, 'contact.send')}</button>

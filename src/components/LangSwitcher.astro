@@ -12,18 +12,15 @@ const alternateUrl = getAlternateUrl(currentUrl, lang === 'it' ? 'en' : 'it');
 ---
 
 <div class="flex items-center gap-1 text-xs uppercase tracking-widest">
-  <span
-    class="px-2 py-1 font-bold"
-    style={lang === 'it' ? 'color: var(--color-primary);' : 'color: var(--color-accent);'}
-  >
-    IT
-  </span>
+  {lang === 'it' ? (
+    <span class="px-2 py-1 font-bold" style="color: var(--color-primary);">IT</span>
+  ) : (
+    <a href={alternateUrl} class="px-2 py-1 transition-colors" style="color: var(--color-accent);">IT</a>
+  )}
   <span style="color: var(--color-border);">|</span>
-  <a
-    href={alternateUrl}
-    class="px-2 py-1 transition-colors"
-    style={lang === 'en' ? 'color: var(--color-primary);' : 'color: var(--color-accent);'}
-  >
-    EN
-  </a>
+  {lang === 'en' ? (
+    <span class="px-2 py-1 font-bold" style="color: var(--color-primary);">EN</span>
+  ) : (
+    <a href={alternateUrl} class="px-2 py-1 transition-colors" style="color: var(--color-accent);">EN</a>
+  )}
 </div>

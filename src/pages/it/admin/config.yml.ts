@@ -23,15 +23,33 @@ media_library:
   auth_type: pkce
   app_id: Ov23ct12dUUR3BNAddag
 
-media_folder: public/image/uploads
-public_folder: /image/uploads
+media_folder: public/image
+public_folder: /image
 ${cloudinarySection}
 collections:
+  - name: "site-settings"
+    label: "⚙️ Impostazioni Sito"
+    editor:
+      preview: false
+    files:
+      - name: "general"
+        label: "Generali"
+        file: "src/content/site-settings/general.md"
+        fields:
+          - label: "File CV (PDF)"
+            name: "cvFile"
+            widget: "file"
+            media_folder: "public"
+            public_folder: ""
+            hint: "Carica il CV in formato PDF. Il file sarà disponibile su /nomefile.pdf"
+
   - name: "news"
-    label: "Notizie / News"
+    label: "📰 Notizie / News"
     folder: "src/content/news"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: false
     fields:
       - { label: "Titolo (IT)", name: "titleIt", widget: "string" }
       - { label: "Title (EN) — auto-tradotto al salvataggio", name: "titleEn", widget: "string", required: false }
@@ -43,30 +61,34 @@ collections:
       - { label: "Content (EN) — auto-tradotto al salvataggio", name: "bodyEn", widget: "markdown", required: false }
 
   - name: "projects"
-    label: "Progetti / Projects"
+    label: "🏗️ Progetti / Projects"
     folder: "src/content/projects"
     create: true
     slug: "{{slug}}"
+    editor:
+      preview: false
     fields:
       - { label: "Titolo (IT)", name: "titleIt", widget: "string" }
       - { label: "Title (EN) — auto-tradotto al salvataggio", name: "titleEn", widget: "string", required: false }
       - { label: "Anno", name: "year", widget: "string" }
+      - { label: "Categoria (IT)", name: "categoryIt", widget: "string" }
+      - { label: "Category (EN) — auto-tradotto al salvataggio", name: "categoryEn", widget: "string", required: false }
       - { label: "Località (IT)", name: "locationIt", widget: "string" }
       - { label: "Location (EN) — auto-tradotto al salvataggio", name: "locationEn", widget: "string", required: false }
       - { label: "Ruolo (IT)", name: "roleIt", widget: "string" }
       - { label: "Role (EN) — auto-tradotto al salvataggio", name: "roleEn", widget: "string", required: false }
       - { label: "Stato (IT)", name: "statusIt", widget: "string", default: "Completato" }
       - { label: "Status (EN)", name: "statusEn", widget: "string", default: "Completed" }
-      - { label: "Categoria (IT)", name: "categoryIt", widget: "string" }
-      - { label: "Category (EN) — auto-tradotto al salvataggio", name: "categoryEn", widget: "string", required: false }
-      - { label: "Sommario (IT)", name: "summaryIt", widget: "text" }
-      - { label: "Summary (EN) — auto-tradotto al salvataggio", name: "summaryEn", widget: "text", required: false }
-      - { label: "Risultato (IT)", name: "resultIt", widget: "text" }
+      - { label: "Descrizione breve (IT)", name: "summaryIt", widget: "text", hint: "Testo introduttivo visualizzato in cima alla pagina progetto." }
+      - { label: "Short description (EN) — auto-tradotto al salvataggio", name: "summaryEn", widget: "text", required: false }
+      - { label: "Risultato (IT)", name: "resultIt", widget: "text", hint: "Evidenziato in un box a parte nella pagina." }
       - { label: "Result (EN) — auto-tradotto al salvataggio", name: "resultEn", widget: "text", required: false }
-      - { label: "Immagine principale", name: "thumbnail", widget: "image" }
+      - { label: "Descrizione completa (IT/EN) — opzionale", name: "body", widget: "markdown", required: false, hint: "Testo esteso con formattazione markdown. Visualizzato dopo la descrizione breve." }
+      - { label: "Immagine principale", name: "thumbnail", widget: "image", hint: "Usata nella lista progetti e in cima alla pagina." }
       - label: "Galleria foto"
         name: "gallery"
         widget: "list"
+        hint: "Tutte le foto del progetto mostrate nel carosello."
         field:
           label: "Foto"
           name: "photo"
@@ -74,7 +96,24 @@ collections:
           media_library:
             config:
               multiple: true
-      - { label: "Descrizione (IT/EN)", name: "body", widget: "markdown", required: false }
+
+  - name: "solutions"
+    label: "🔧 Servizi / Services"
+    folder: "src/content/solutions"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - { label: "Titolo (IT)", name: "titleIt", widget: "string" }
+      - { label: "Title (EN) — auto-tradotto al salvataggio", name: "titleEn", widget: "string", required: false }
+      - { label: "Descrizione breve (IT)", name: "descriptionIt", widget: "string", hint: "Una riga. Mostrata nelle card e nella lista servizi." }
+      - { label: "Short description (EN) — auto-tradotto al salvataggio", name: "descriptionEn", widget: "string", required: false }
+      - { label: "Icona (emoji)", name: "icon", widget: "string", hint: "Es: 🏛️" }
+      - { label: "Ordine di visualizzazione", name: "order", widget: "number", value_type: "int", min: 1 }
+      - { label: "Immagine copertina", name: "image", widget: "image", required: false }
+      - { label: "Contenuto (IT)", name: "body", widget: "markdown" }
+      - { label: "Content (EN) — auto-tradotto al salvataggio", name: "bodyEn", widget: "markdown", required: false }
 `;
 
   return new Response(yaml, {

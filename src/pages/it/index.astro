@@ -4,18 +4,39 @@ import Hero from '../../components/Hero.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import { t } from '../../i18n/utils';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 
 const lang = 'it';
-const solutions = (await getCollection('solutions-it')).sort((a, b) => a.data.order - b.data.order);
+const solutions = (await getCollection('solutions')).sort((a, b) => a.data.order - b.data.order);
+const recentProjects = (await getCollection('projects'))
+  .sort((a, b) => b.data.year.localeCompare(a.data.year))
+  .slice(0, 3);
 ---
 
 <Base lang={lang} title={t(lang, 'nav.home')}>
   <Hero
     title={t(lang, 'hero.title')}
     subtitle={t(lang, 'hero.subtitle')}
-    ctaPrimary={{ label: t(lang, 'hero.cta.primary'), href: '/it/soluzioni/progettazione-architettonica' }}
+    ctaPrimary={{ label: t(lang, 'hero.cta.primary'), href: '/it/soluzioni' }}
     ctaSecondary={{ label: t(lang, 'hero.cta.secondary'), href: '/it/contatti' }}
   />
+
+  <!-- Stats strip -->
+  <section style="background: var(--color-surface); border-bottom: 1px solid var(--color-border);">
+    <div class="max-w-6xl mx-auto px-6 md:px-12 py-12 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      {[
+        { value: '10+', label: 'Anni di esperienza' },
+        { value: '9+',  label: 'Servizi offerti' },
+        { value: '100%', label: 'Conformità normativa' },
+        { value: 'NA',  label: 'Lettere, Napoli' },
+      ].map(stat => (
+        <div>
+          <p class="text-4xl font-heading font-black mb-1" style="color: var(--color-primary);">{stat.value}</p>
+          <p class="text-xs uppercase tracking-widest" style="color: var(--color-accent);">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+  </section>
 
   <!-- Services grid -->
   <section class="max-w-6xl mx-auto px-6 md:px-12 py-24">
@@ -24,8 +45,8 @@ const solutions = (await getCollection('solutions-it')).sort((a, b) => a.data.or
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
       {solutions.map(sol => (
         <ServiceCard
-          title={sol.data.title}
-          description={sol.data.description}
+          title={sol.data.titleIt}
+          description={sol.data.descriptionIt}
           icon={sol.data.icon}
           href={`/it/soluzioni/${sol.slug}`}
           linkLabel={t(lang, 'solutions.view')}
@@ -35,11 +56,35 @@ const solutions = (await getCollection('solutions-it')).sort((a, b) => a.data.or
     </div>
   </section>
 
+  <!-- Recent projects -->
+  {recentProjects.length > 0 && (
+    <section class="py-24" style="background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+      <div class="max-w-6xl mx-auto px-6 md:px-12">
+        <p class="section-subtitle">{t(lang, 'projects.subtitle')}</p>
+        <div class="flex items-end justify-between mb-12">
+          <h2 class="section-title mb-0" style="color: var(--color-text);">{t(lang, 'home.projects.title')}</h2>
+          <a href="/it/progetti" class="text-xs uppercase tracking-widest" style="color: var(--color-primary);">
+            {t(lang, 'solutions.view')}
+          </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {recentProjects.map(entry => (
+            <a href={`/it/progetti/${entry.slug}`} class="card overflow-hidden block transition-all hover:-translate-y-1">
+              <Image src={entry.data.thumbnail} alt={entry.data.titleIt} width={800} height={384} class="w-full h-48 object-cover" loading="eager" decoding="async" />
+              <div class="p-6">
+                <p class="text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{entry.data.year} — {entry.data.locationIt}</p>
+                <p class="text-xs uppercase tracking-widest mb-3" style="color: var(--color-primary);">{entry.data.categoryIt}</p>
+                <h3 class="font-heading font-bold text-sm" style="color: var(--color-text);">{entry.data.titleIt}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- CTA banner -->
-  <section
-    class="py-24"
-    style="background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);"
-  >
+  <section class="py-24">
     <div class="max-w-6xl mx-auto px-6 md:px-12 text-center">
       <h2 class="section-title mb-4" style="color: var(--color-text);">{t(lang, 'home.cta.title')}</h2>
       <p class="mb-8" style="color: var(--color-accent);">{t(lang, 'home.cta.text')}</p>

@@ -77,3 +77,13 @@
   --color-accent: #64748B;
   --color-border: #DBEAFE;
 }
+
+/* High Contrast — accessibility */
+[data-theme="high-contrast"] {
+  --color-bg: #000000;
+  --color-surface: #1A1A1A;
+  --color-primary: #FFFF00;
+  --color-text: #FFFFFF;
+  --color-accent: #CCCCCC;
+  --color-border: #FFFFFF;
+}

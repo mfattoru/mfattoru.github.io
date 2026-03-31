@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
   title: string;
   description: string;
@@ -16,10 +18,10 @@ const { title, description, icon, href, linkLabel, image } = Astro.props;
   class="card block overflow-hidden transition-all hover:-translate-y-1"
 >
   {image && (
-    <img src={image} alt={title} class="w-full h-40 object-cover object-top" />
+    <Image src={image} alt={title} width={800} height={320} class="w-full h-40 object-cover object-top" loading="lazy" decoding="async" />
   )}
   <div class="p-6">
-  <div class="text-3xl mb-4">{icon}</div>
+  {!image && <div class="text-3xl mb-4">{icon}</div>}
   <h3
     class="font-heading font-bold text-sm uppercase tracking-wider mb-3"
     style="color: var(--color-text);"

@@ -13,38 +13,38 @@ const FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
 
     <form id="quote-form" action={`https://formspree.io/f/${FORMSPREE_ID}`} method="POST" class="space-y-6">
       <div>
-        <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'contact.name')} *</label>
-        <input type="text" name="name" required class="w-full px-4 py-3 text-sm outline-none"
+        <label for="q-name" class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'contact.name')} *</label>
+        <input id="q-name" type="text" name="name" required class="w-full px-4 py-3 text-sm outline-none"
           style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" />
       </div>
       <div>
-        <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'contact.email')} *</label>
-        <input type="email" name="email" required class="w-full px-4 py-3 text-sm outline-none"
+        <label for="q-email" class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'contact.email')} *</label>
+        <input id="q-email" type="email" name="email" required class="w-full px-4 py-3 text-sm outline-none"
           style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" />
       </div>
       <div>
-        <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'contact.phone')}</label>
-        <input type="tel" name="phone" class="w-full px-4 py-3 text-sm outline-none"
+        <label for="q-phone" class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'contact.phone')}</label>
+        <input id="q-phone" type="tel" name="phone" class="w-full px-4 py-3 text-sm outline-none"
           style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" />
       </div>
       <div>
-        <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'quote.project.type')} *</label>
-        <input type="text" name="project_type" required class="w-full px-4 py-3 text-sm outline-none"
+        <label for="q-project-type" class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'quote.project.type')} *</label>
+        <input id="q-project-type" type="text" name="project_type" required class="w-full px-4 py-3 text-sm outline-none"
           style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" />
       </div>
       <div>
-        <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'quote.budget')}</label>
-        <input type="text" name="budget" class="w-full px-4 py-3 text-sm outline-none"
+        <label for="q-budget" class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'quote.budget')}</label>
+        <input id="q-budget" type="text" name="budget" class="w-full px-4 py-3 text-sm outline-none"
           style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" />
       </div>
       <div>
-        <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'quote.timeline')}</label>
-        <input type="text" name="timeline" class="w-full px-4 py-3 text-sm outline-none"
+        <label for="q-timeline" class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'quote.timeline')}</label>
+        <input id="q-timeline" type="text" name="timeline" class="w-full px-4 py-3 text-sm outline-none"
           style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);" />
       </div>
       <div>
-        <label class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'contact.message')}</label>
-        <textarea name="message" rows="4" class="w-full px-4 py-3 text-sm resize-none outline-none"
+        <label for="q-message" class="block text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{t(lang, 'contact.message')}</label>
+        <textarea id="q-message" name="message" rows="4" class="w-full px-4 py-3 text-sm resize-none outline-none"
           style="background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text);"></textarea>
       </div>
       <button type="submit" class="btn-primary w-full">{t(lang, 'quote.send')}</button>

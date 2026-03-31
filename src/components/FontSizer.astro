@@ -1,0 +1,45 @@
+---
+---
+<div class="flex items-center gap-1" aria-label="Font size">
+  <button
+    id="font-decrease"
+    class="px-2 py-1 text-xs border transition-colors"
+    style="border-color: var(--color-border); color: var(--color-accent);"
+    aria-label="Decrease font size"
+  >A-</button>
+  <button
+    id="font-increase"
+    class="px-2 py-1 text-sm border transition-colors"
+    style="border-color: var(--color-border); color: var(--color-accent);"
+    aria-label="Increase font size"
+  >A+</button>
+</div>
+
+<script>
+  const SIZES = [14, 16, 18, 20];
+  const DEFAULT = 16;
+
+  function getSize(): number {
+    const saved = parseInt(localStorage.getItem('font-size') || '', 10);
+    return SIZES.includes(saved) ? saved : DEFAULT;
+  }
+
+  function applySize(size: number) {
+    document.documentElement.style.fontSize = `${size}px`;
+    localStorage.setItem('font-size', String(size));
+  }
+
+  applySize(getSize());
+
+  document.getElementById('font-decrease')?.addEventListener('click', () => {
+    const current = getSize();
+    const idx = SIZES.indexOf(current);
+    if (idx > 0) applySize(SIZES[idx - 1]);
+  });
+
+  document.getElementById('font-increase')?.addEventListener('click', () => {
+    const current = getSize();
+    const idx = SIZES.indexOf(current);
+    if (idx < SIZES.length - 1) applySize(SIZES[idx + 1]);
+  });
+</script>

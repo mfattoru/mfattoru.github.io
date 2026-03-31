@@ -2,18 +2,28 @@
 import Base from '../../layouts/Base.astro';
 import { t } from '../../i18n/utils';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 const lang = 'it';
 const projectEntries = (await getCollection('projects')).sort((a, b) => b.data.year.localeCompare(a.data.year));
+const categories = [...new Set(projectEntries.map(e => e.data.categoryIt))];
 ---
 <Base lang={lang} title={t(lang, 'projects.title')}>
   <div class="max-w-6xl mx-auto px-6 md:px-12 py-24">
     <p class="section-subtitle">{t(lang, 'projects.subtitle')}</p>
-    <h1 class="section-title mb-12" style="color: var(--color-text);">{t(lang, 'projects.title')}</h1>
+    <h1 class="section-title mb-8" style="color: var(--color-text);">{t(lang, 'projects.title')}</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {projectEntries.map(entry => (
-        <a href={`/it/progetti/${entry.slug}`} class="card overflow-hidden block transition-all hover:-translate-y-1">
-          <img src={entry.data.thumbnail} alt={entry.data.titleIt} class="w-full h-48 object-cover" />
+    <!-- Category filters -->
+    <div class="flex flex-wrap gap-2 mb-10" id="filters">
+      <button class="filter-btn active text-xs uppercase tracking-widest px-4 py-2 transition-colors" data-cat="all">Tutti</button>
+      {categories.map(cat => (
+        <button class="filter-btn text-xs uppercase tracking-widest px-4 py-2 transition-colors" data-cat={cat}>{cat}</button>
+      ))}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="project-grid">
+      {projectEntries.map((entry, i) => (
+        <a href={`/it/progetti/${entry.slug}`} class="card overflow-hidden block transition-all hover:-translate-y-1 project-item" data-cat={entry.data.categoryIt}>
+          <Image src={entry.data.thumbnail} alt={entry.data.titleIt} width={800} height={384} class="w-full h-48 object-cover" loading={i < 2 ? 'eager' : 'lazy'} decoding="async" />
           <div class="p-6">
             <p class="text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{entry.data.year} — {entry.data.locationIt}</p>
             <p class="text-xs uppercase tracking-widest mb-3" style="color: var(--color-primary);">{entry.data.categoryIt}</p>
@@ -24,3 +34,32 @@ const projectEntries = (await getCollection('projects')).sort((a, b) => b.data.y
     </div>
   </div>
 </Base>
+
+<style>
+  .filter-btn {
+    background: var(--color-surface);
+    color: var(--color-accent);
+    border: 1px solid var(--color-border);
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+  }
+</style>
+
+<script>
+  const btns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const items = document.querySelectorAll<HTMLElement>('.project-item');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      items.forEach(item => {
+        item.style.display = (cat === 'all' || item.dataset.cat === cat) ? '' : 'none';
+      });
+    });
+  });
+</script>

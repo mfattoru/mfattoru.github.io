@@ -1,7 +1,7 @@
 ---
 ---
 <!doctype html>
-<html>
+<html lang="it">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,11 +10,111 @@
     if (!location.pathname.endsWith('/'))
       location.replace(location.pathname + '/' + location.search + location.hash);
   </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      min-height: 100vh;
+    }
+
+    /* Loading screen */
+    #cms-loading {
+      position: fixed;
+      inset: 0;
+      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      z-index: 9999;
+      transition: opacity 0.4s ease;
+    }
+
+    #cms-loading.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-logo {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #64748b;
+    }
+
+    .loading-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #f1f5f9;
+    }
+
+    .loading-bar {
+      width: 200px;
+      height: 2px;
+      background: #1e293b;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .loading-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #2563eb;
+      animation: loadbar 1.8s ease forwards;
+    }
+
+    @keyframes loadbar {
+      0%   { width: 0%; }
+      60%  { width: 75%; }
+      90%  { width: 92%; }
+      100% { width: 100%; }
+    }
+
+    .loading-hint {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #334155;
+    }
+
+    /* Override Decap CMS chrome */
+    #nc-root {
+      font-family: system-ui, sans-serif !important;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Loading screen shown until CMS is ready -->
+  <div id="cms-loading">
+    <p class="loading-logo">Ing. Fattoruso Engineering Solutions</p>
+    <p class="loading-title">Admin Panel</p>
+    <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+    <p class="loading-hint">Caricamento in corso…</p>
+  </div>
+
   <script is:inline src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
   <script is:inline>
-    // Auto-translate empty EN fields from IT using MyMemory (free, no key needed)
+    // Hide loading screen once CMS mounts
+    const interval = setInterval(() => {
+      if (document.getElementById('nc-root')?.children.length) {
+        clearInterval(interval);
+        const loader = document.getElementById('cms-loading');
+        if (loader) {
+          loader.classList.add('fade-out');
+          setTimeout(() => loader.remove(), 450);
+        }
+      }
+    }, 100);
+
+    // ── Auto-translate empty EN fields from IT using MyMemory (free, no key) ──
     async function translate(text) {
       if (!text || !text.trim()) return '';
       try {
@@ -42,16 +142,22 @@
       ['summaryIt', 'summaryEn'],
       ['resultIt', 'resultEn'],
     ];
+    const SOLUTION_FIELDS = [
+      ['titleIt', 'titleEn'],
+      ['descriptionIt', 'descriptionEn'],
+      ['body', 'bodyEn'],
+    ];
 
-    const interval = setInterval(() => {
+    const cmsInterval = setInterval(() => {
       if (typeof CMS !== 'undefined' && CMS.registerEventListener) {
-        clearInterval(interval);
+        clearInterval(cmsInterval);
         CMS.registerEventListener({
           name: 'preSave',
           handler: async ({ entry }) => {
             const collection = entry.get('collection');
             const fields = collection === 'news' ? NEWS_FIELDS
                          : collection === 'projects' ? PROJECT_FIELDS
+                         : collection === 'solutions' ? SOLUTION_FIELDS
                          : null;
             if (!fields) return entry;
 
@@ -69,5 +175,6 @@
       }
     }, 200);
   </script>
+
 </body>
 </html>
