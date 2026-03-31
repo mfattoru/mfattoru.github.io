@@ -9,9 +9,12 @@ const solutionSchema = z.object({
 });
 
 const newsSchema = z.object({
-  title: z.string(),
+  titleIt: z.string(),
+  titleEn: z.string().optional().default(''),
   date: z.string().or(z.date()),
-  description: z.string(),
+  descriptionIt: z.string(),
+  descriptionEn: z.string().optional().default(''),
+  bodyEn: z.string().optional().default(''),
   image: z.string().optional(),
 });
 
@@ -40,7 +43,6 @@ const projectSchema = z.object({
 export const collections = {
   'solutions-it': defineCollection({ type: 'content', schema: solutionSchema }),
   'solutions-en': defineCollection({ type: 'content', schema: solutionSchema }),
-  'news-it': defineCollection({ type: 'content', schema: newsSchema }),
-  'news-en': defineCollection({ type: 'content', schema: newsSchema }),
+  'news': defineCollection({ type: 'content', schema: newsSchema }),
   'projects': defineCollection({ type: 'content', schema: projectSchema }),
 };

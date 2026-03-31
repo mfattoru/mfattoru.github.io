@@ -1,25 +1,29 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
+import { marked } from 'marked';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('news-en');
+  const posts = await getCollection('news');
   return posts.map(entry => ({ params: { slug: entry.slug }, props: { entry } }));
 }
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 const lang = 'en';
+const title = entry.data.titleEn || entry.data.titleIt;
+const description = entry.data.descriptionEn || entry.data.descriptionIt;
+const bodyEnHtml = entry.data.bodyEn ? marked(entry.data.bodyEn) : null;
 ---
-<Base lang={lang} title={entry.data.title} description={entry.data.description}>
+<Base lang={lang} title={title} description={description}>
   <div class="max-w-3xl mx-auto px-6 md:px-12 py-24">
     <a href="/en/news" class="text-xs uppercase tracking-widest mb-8 inline-block" style="color: var(--color-primary);">← News</a>
     <p class="text-xs uppercase tracking-widest mb-4" style="color: var(--color-accent);">
-      {entry.data.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}
+      {new Date(entry.data.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}
     </p>
-    <h1 class="section-title mb-12" style="color: var(--color-text);">{entry.data.title}</h1>
+    <h1 class="section-title mb-12" style="color: var(--color-text);">{title}</h1>
     <div class="prose max-w-none" style="color: var(--color-text);">
-      <Content />
+      {bodyEnHtml ? <Fragment set:html={bodyEnHtml} /> : <Content />}
     </div>
   </div>
 </Base>

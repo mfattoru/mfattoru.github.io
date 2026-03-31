@@ -1,5 +1,4 @@
 ---
-// import.meta.env.DEV is true during `npm run dev`, false in production builds
 const isDevMode = import.meta.env.DEV;
 ---
 <!doctype html>
@@ -15,5 +14,65 @@ const isDevMode = import.meta.env.DEV;
   {isDevMode && (
     <script is:inline>CMS.init({ config: { local_backend: true } });</script>
   )}
+  <script is:inline>
+    // Auto-translate empty EN fields from IT using MyMemory (free, no key needed)
+    async function translate(text) {
+      if (!text || !text.trim()) return '';
+      try {
+        const res = await fetch(
+          'https://api.mymemory.translated.net/get?q=' +
+          encodeURIComponent(text) + '&langpair=it|en'
+        );
+        const data = await res.json();
+        return data.responseData.translatedText || text;
+      } catch {
+        return text;
+      }
+    }
+
+    // Fields to auto-translate: [itField, enField]
+    const NEWS_FIELDS = [
+      ['titleIt', 'titleEn'],
+      ['descriptionIt', 'descriptionEn'],
+      ['body', 'bodyEn'],
+    ];
+    const PROJECT_FIELDS = [
+      ['titleIt', 'titleEn'],
+      ['locationIt', 'locationEn'],
+      ['roleIt', 'roleEn'],
+      ['categoryIt', 'categoryEn'],
+      ['summaryIt', 'summaryEn'],
+      ['resultIt', 'resultEn'],
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Wait for CMS to be ready before registering
+      const interval = setInterval(() => {
+        if (typeof CMS !== 'undefined' && CMS.registerEventListener) {
+          clearInterval(interval);
+          CMS.registerEventListener({
+            name: 'preSave',
+            handler: async ({ entry }) => {
+              const collection = entry.get('collection');
+              const fields = collection === 'news' ? NEWS_FIELDS
+                           : collection === 'projects' ? PROJECT_FIELDS
+                           : null;
+              if (!fields) return entry;
+
+              let data = entry.get('data');
+              for (const [itField, enField] of fields) {
+                const itVal = data.get(itField);
+                const enVal = data.get(enField);
+                if (itVal && !enVal) {
+                  data = data.set(enField, await translate(itVal));
+                }
+              }
+              return entry.set('data', data);
+            },
+          });
+        }
+      }, 200);
+    });
+  </script>
 </body>
 </html>
