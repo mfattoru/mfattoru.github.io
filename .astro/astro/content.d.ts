@@ -140,13 +140,22 @@ declare module 'astro:content' {
 	>;
 
 	type ContentEntryMap = {
-		"news-en": {
+		"news": {
+"benvenuto.md": {
+	id: "benvenuto.md";
+  slug: "benvenuto";
+  body: string;
+  collection: "news";
+  data: InferEntrySchema<"news">
+} & { render(): Render[".md"] };
+};
+"news-en": {
 "welcome.md": {
 	id: "welcome.md";
   slug: "welcome";
   body: string;
   collection: "news-en";
-  data: InferEntrySchema<"news-en">
+  data: any
 } & { render(): Render[".md"] };
 };
 "news-it": {
@@ -155,7 +164,7 @@ declare module 'astro:content' {
   slug: "benvenuto";
   body: string;
   collection: "news-it";
-  data: InferEntrySchema<"news-it">
+  data: any
 } & { render(): Render[".md"] };
 };
 "projects": {
@@ -239,71 +248,14 @@ declare module 'astro:content' {
   data: InferEntrySchema<"solutions-en">
 } & { render(): Render[".md"] };
 };
-"solutions-it": {
-"acustica-edilizia.md": {
-	id: "acustica-edilizia.md";
-  slug: "acustica-edilizia";
+"solutions-it": Record<string, {
+  id: string;
+  slug: string;
   body: string;
   collection: "solutions-it";
-  data: InferEntrySchema<"solutions-it">
-} & { render(): Render[".md"] };
-"direzione-lavori.md": {
-	id: "direzione-lavori.md";
-  slug: "direzione-lavori";
-  body: string;
-  collection: "solutions-it";
-  data: InferEntrySchema<"solutions-it">
-} & { render(): Render[".md"] };
-"edilizia.md": {
-	id: "edilizia.md";
-  slug: "edilizia";
-  body: string;
-  collection: "solutions-it";
-  data: InferEntrySchema<"solutions-it">
-} & { render(): Render[".md"] };
-"estimo-immobiliare.md": {
-	id: "estimo-immobiliare.md";
-  slug: "estimo-immobiliare";
-  body: string;
-  collection: "solutions-it";
-  data: InferEntrySchema<"solutions-it">
-} & { render(): Render[".md"] };
-"formazione-sicurezza.md": {
-	id: "formazione-sicurezza.md";
-  slug: "formazione-sicurezza";
-  body: string;
-  collection: "solutions-it";
-  data: InferEntrySchema<"solutions-it">
-} & { render(): Render[".md"] };
-"progettazione-architettonica.md": {
-	id: "progettazione-architettonica.md";
-  slug: "progettazione-architettonica";
-  body: string;
-  collection: "solutions-it";
-  data: InferEntrySchema<"solutions-it">
-} & { render(): Render[".md"] };
-"sicurezza-sul-lavoro.md": {
-	id: "sicurezza-sul-lavoro.md";
-  slug: "sicurezza-sul-lavoro";
-  body: string;
-  collection: "solutions-it";
-  data: InferEntrySchema<"solutions-it">
-} & { render(): Render[".md"] };
-"sostenibilita-energetica.md": {
-	id: "sostenibilita-energetica.md";
-  slug: "sostenibilita-energetica";
-  body: string;
-  collection: "solutions-it";
-  data: InferEntrySchema<"solutions-it">
-} & { render(): Render[".md"] };
-"superbonus-110.md": {
-	id: "superbonus-110.md";
-  slug: "superbonus-110";
-  body: string;
-  collection: "solutions-it";
-  data: InferEntrySchema<"solutions-it">
-} & { render(): Render[".md"] };
-};
+  data: InferEntrySchema<"solutions-it">;
+  render(): Render[".md"];
+}>;
 
 	};
 

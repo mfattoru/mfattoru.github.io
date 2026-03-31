@@ -1,15 +1,25 @@
 ---
 title: "Acustica Edilizia ed Ambientale"
-description: "Valutazioni e soluzioni per il comfort acustico degli edifici e la mitigazione dell'inquinamento sonoro."
+description: "Consulenza tecnica e soluzioni d'avanguardia per il comfort acustico, la conformità normativa e la protezione dal rumore."
 icon: "🔊"
 order: 7
 image: "/image/acustica_edilizia.png"
 ---
-Le attività, condotte per clienti pubblici e privati, riguardano i seguenti settori:
 
-- Progettazione di interventi atti a limitare la propagazione del suono e al rispetto dei requisiti acustici passivi previsti dalla Legge 447/1995
-- Verifica dei requisiti acustici passivi degli edifici ai sensi della Legge 447/1995 mediante prove strumentali eseguite in loco, volte alla verifica della collaudabilità dell'opera
-- Progettazione degli interventi volti a migliorare il clima acustico degli ambienti interni, con particolare riguardo a grandi ambienti (sale di registrazione, scuole, ecc.) e ambienti per i quali i requisiti acustici sono un parametro fondamentale (auditorium, teatri, ecc.)
-- Redazione e/o aggiornamento di piani comunali di zonizzazione acustica (P.Z.A.)
-- Valutazioni di impatto ambientale per committenti privati e pubblici (V.I.A.)
-- Rilievi fonometrici e strumentali sia in campo edile sia in campo industriale
+Forniamo servizi specialistici di analisi e progettazione acustica per committenti pubblici e privati, garantendo ambienti sani, confortevoli e pienamente conformi alle normative vigenti.
+
+Le nostre attività si articolano in tre aree principali:
+
+### 🏗️ Acustica Edilizia e Architettonica
+* **Requisiti Acustici Passivi (Legge 447/1995):** Progettazione e verifica strumentale in loco per garantire l’isolamento dalle vibrazioni e dai rumori impattanti, aerei e degli impianti.
+* **Collaudo in Opera:** Prove fonometriche certificate per la verifica della collaudabilità delle opere e la conformità ai requisiti di legge.
+* **Acoustic Design & Comfort:** Ottimizzazione del clima acustico per ambienti interni complessi come sale di registrazione, teatri, auditorium e aule scolastiche, dove la qualità del suono è un parametro essenziale.
+
+### 🌿 Acustica Ambientale e Territoriale
+* **Piani Comunali di Zonizzazione (P.Z.A.):** Redazione e aggiornamento degli strumenti urbanistici per la gestione del clima acustico territoriale.
+* **Valutazioni di Impatto (V.I.A. e V.I.A.S.):** Analisi previsionali e post-operam per infrastrutture, attività produttive e insediamenti civili.
+* **Mitigazione del Rumore:** Progettazione di barriere e interventi di bonifica per l’inquinamento sonoro in ambito urbano e industriale.
+
+### 📏 Rilievi e Diagnostica Strumentale
+* **Monitoraggio Fonometrico:** Campagne di misura del rumore ambientale e industriale con strumentazione di precisione.
+* **Indagini Diagnostiche:** Analisi dettagliate per individuare ponti acustici o carenze strutturali e definire interventi correttivi mirati.
