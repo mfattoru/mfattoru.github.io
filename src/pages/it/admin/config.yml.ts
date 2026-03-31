@@ -5,6 +5,8 @@ export const GET: APIRoute = () => {
   const apiKey = import.meta.env.CLOUDINARY_API_KEY ?? '';
   const uploadPreset = import.meta.env.CLOUDINARY_UPLOAD_PRESET ?? '';
 
+  const localBackend = import.meta.env.DEV ? 'local_backend: true\n' : '';
+
   const cloudinarySection = cloudName ? `
 media_library:
   name: cloudinary
@@ -14,7 +16,7 @@ media_library:
     upload_preset: ${uploadPreset}
 ` : '';
 
-  const yaml = `backend:
+  const yaml = `${localBackend}backend:
   name: github
   repo: mfattoru/mfattoru.github.io
   branch: master

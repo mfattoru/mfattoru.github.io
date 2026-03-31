@@ -1,5 +1,4 @@
 ---
-const isDevMode = import.meta.env.DEV;
 ---
 <!doctype html>
 <html>
@@ -7,13 +6,9 @@ const isDevMode = import.meta.env.DEV;
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin — Ing. Fattoruso</title>
-  {isDevMode && <script is:inline>window.CMS_MANUAL_INIT = true;</script>}
   <script is:inline src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </head>
 <body>
-  {isDevMode && (
-    <script is:inline>CMS.init({ config: { local_backend: true } });</script>
-  )}
   <script is:inline>
     // Auto-translate empty EN fields from IT using MyMemory (free, no key needed)
     async function translate(text) {
@@ -30,7 +25,6 @@ const isDevMode = import.meta.env.DEV;
       }
     }
 
-    // Fields to auto-translate: [itField, enField]
     const NEWS_FIELDS = [
       ['titleIt', 'titleEn'],
       ['descriptionIt', 'descriptionEn'],
@@ -45,34 +39,31 @@ const isDevMode = import.meta.env.DEV;
       ['resultIt', 'resultEn'],
     ];
 
-    document.addEventListener('DOMContentLoaded', () => {
-      // Wait for CMS to be ready before registering
-      const interval = setInterval(() => {
-        if (typeof CMS !== 'undefined' && CMS.registerEventListener) {
-          clearInterval(interval);
-          CMS.registerEventListener({
-            name: 'preSave',
-            handler: async ({ entry }) => {
-              const collection = entry.get('collection');
-              const fields = collection === 'news' ? NEWS_FIELDS
-                           : collection === 'projects' ? PROJECT_FIELDS
-                           : null;
-              if (!fields) return entry;
+    const interval = setInterval(() => {
+      if (typeof CMS !== 'undefined' && CMS.registerEventListener) {
+        clearInterval(interval);
+        CMS.registerEventListener({
+          name: 'preSave',
+          handler: async ({ entry }) => {
+            const collection = entry.get('collection');
+            const fields = collection === 'news' ? NEWS_FIELDS
+                         : collection === 'projects' ? PROJECT_FIELDS
+                         : null;
+            if (!fields) return entry;
 
-              let data = entry.get('data');
-              for (const [itField, enField] of fields) {
-                const itVal = data.get(itField);
-                const enVal = data.get(enField);
-                if (itVal && !enVal) {
-                  data = data.set(enField, await translate(itVal));
-                }
+            let data = entry.get('data');
+            for (const [itField, enField] of fields) {
+              const itVal = data.get(itField);
+              const enVal = data.get(enField);
+              if (itVal && !enVal) {
+                data = data.set(enField, await translate(itVal));
               }
-              return entry.set('data', data);
-            },
-          });
-        }
-      }, 200);
-    });
+            }
+            return entry.set('data', data);
+          },
+        });
+      }
+    }, 200);
   </script>
 </body>
 </html>
