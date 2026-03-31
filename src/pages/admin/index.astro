@@ -1,0 +1,19 @@
+---
+// import.meta.env.DEV is true during `npm run dev`, false in production builds
+const isDevMode = import.meta.env.DEV;
+---
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Ing. Fattoruso</title>
+  {isDevMode && <script is:inline>window.CMS_MANUAL_INIT = true;</script>}
+  <script is:inline src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+</head>
+<body>
+  {isDevMode && (
+    <script is:inline>CMS.init({ config: { local_backend: true } });</script>
+  )}
+</body>
+</html>
