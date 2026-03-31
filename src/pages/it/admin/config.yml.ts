@@ -7,7 +7,7 @@ export const GET: APIRoute = () => {
 
   const localBackend = import.meta.env.DEV ? 'local_backend: true\n' : '';
 
-  const cloudinarySection = cloudName ? `
+  const cloudinarySection = cloudName && !import.meta.env.DEV ? `
 media_library:
   name: cloudinary
   config:
