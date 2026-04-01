@@ -44,10 +44,10 @@ const homepageContent = await getEntry('page-content', 'homepage');
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       {[
-        { value: '9+', label: 'Servizi offerti' },
-        { value: '100%', label: 'Conformità normativa' },
-        { value: '10+', label: 'Anni di esperienza' },
-        { value: 'NA', label: 'Lettere, Napoli' },
+        { value: homepageContent!.data.stat1Value, label: homepageContent!.data.stat1LabelIt },
+        { value: homepageContent!.data.stat2Value, label: homepageContent!.data.stat2LabelIt },
+        { value: homepageContent!.data.stat3Value, label: homepageContent!.data.stat3LabelIt },
+        { value: homepageContent!.data.stat4Value, label: homepageContent!.data.stat4LabelIt },
       ].map(stat => (
         <div class="card p-6 text-center">
           <p class="text-3xl font-heading font-black mb-2" style="color: var(--color-primary);">{stat.value}</p>

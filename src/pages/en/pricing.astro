@@ -1,7 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { t } from '../../i18n/utils';
+import { getEntry } from 'astro:content';
 const lang = 'en';
+const pricingContent = await getEntry('page-content', 'pricing');
 ---
 <Base lang={lang} title={t(lang, 'pricing.title')}>
   <div class="max-w-4xl mx-auto px-6 md:px-12 py-24">
@@ -9,10 +11,10 @@ const lang = 'en';
     <h1 class="section-title mb-12" style="color: var(--color-text);">{t(lang, 'pricing.title')}</h1>
     <div class="card p-8 mb-8">
       <p class="text-sm leading-relaxed mb-6" style="color: var(--color-accent);">
-        Our fees are defined based on the complexity and specificity of each project. We always provide a free, transparent quote before beginning any engagement.
+        {pricingContent!.data.introParagraphEn}
       </p>
       <p class="text-sm leading-relaxed mb-8" style="color: var(--color-accent);">
-        All our rates comply with the reference fee schedules established by current regulations and take into account the technical specifics of each intervention.
+        {pricingContent!.data.complianceParagraphEn}
       </p>
       <a href="/en/quote" class="btn-primary">{t(lang, 'home.cta.button')}</a>
     </div>
