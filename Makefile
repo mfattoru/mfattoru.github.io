@@ -9,8 +9,8 @@ install: ## Install dependencies
 dev: ## Start local dev server at http://localhost:4321
 	npm run dev
 
-cms: ## Start dev server + local CMS backend (admin at http://localhost:4321/it/admin/)
-	npx decap-server & npm run dev
+cms: ## Start dev server, then open /it/admin/ in Chrome and click "Work with Local Repository"
+	npm run dev
 
 build: ## Build for production
 	npm run build

@@ -35,7 +35,7 @@ The site is a static Astro build. GitHub Actions runs `npm run build`, injects s
 | **CMS software** | Sveltia CMS (loaded from unpkg CDN) |
 | **Backend** | GitHub (commits content directly to the repo) |
 | **Config source** | `src/pages/it/admin/config.yml.ts` (generated at build time) |
-| **Local dev** | `make cms` (starts `decap-server` proxy on port 8081) |
+| **Local dev** | `make cms` then click "Work with Local Repository" in Chrome (uses File System Access API — no proxy needed) |
 
 Content edits made through the CMS create commits on `master`, which automatically trigger a new deploy via GitHub Actions.
 

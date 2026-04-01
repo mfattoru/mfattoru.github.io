@@ -142,10 +142,16 @@ Astro reads `.env` automatically in dev mode.
 ```bash
 make install   # first time only — installs node_modules
 make dev       # site at http://localhost:4321/it/
-make cms       # site + Decap local backend at http://localhost:4321/it/admin/
+make cms       # alias for make dev — see note below
 ```
 
-`make cms` starts `decap-server` on port 8081 (the local backend proxy used by both Decap CMS and Sveltia CMS). This lets the admin panel read/write local files without GitHub OAuth. The admin page automatically detects `localhost` and activates `local_backend`.
+Sveltia CMS uses the browser's **File System Access API** for local development — no proxy server is needed.
+
+To edit content locally:
+1. Run `make cms` (starts the Astro dev server)
+2. Open `http://localhost:4321/it/admin/` in **Chrome or another Chromium-based browser** (Firefox is not supported — File System Access API is Chromium-only)
+3. Click **"Work with Local Repository"** and select the project root folder
+4. The CMS will read and write files directly on disk; commit changes manually with `git`
 
 ### 6c. Available commands
 
@@ -153,7 +159,7 @@ make cms       # site + Decap local backend at http://localhost:4321/it/admin/
 |---|---|
 | `make install` | Install dependencies |
 | `make dev` | Start dev server |
-| `make cms` | Start dev server + local CMS backend |
+| `make cms` | Start dev server (use with "Work with Local Repository" in Chrome) |
 | `make build` | Production build (output in `dist/`) |
 | `make preview` | Preview production build locally |
 | `make clean` | Remove `dist/` |

@@ -102,18 +102,6 @@
   <script is:inline src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
 
   <script is:inline>
-    // Hide loading screen once CMS mounts
-    const interval = setInterval(() => {
-      if (document.getElementById('nc-root')?.children.length) {
-        clearInterval(interval);
-        const loader = document.getElementById('cms-loading');
-        if (loader) {
-          loader.classList.add('fade-out');
-          setTimeout(() => loader.remove(), 450);
-        }
-      }
-    }, 100);
-
     // ── Auto-translate empty EN fields from IT using MyMemory (free, no key) ──
     async function translate(text) {
       if (!text || !text.trim()) return '';
@@ -148,9 +136,17 @@
       ['body', 'bodyEn'],
     ];
 
+    // Hide loading screen and register event listener once CMS global is ready
     const cmsInterval = setInterval(() => {
       if (typeof CMS !== 'undefined' && CMS.registerEventListener) {
         clearInterval(cmsInterval);
+
+        const loader = document.getElementById('cms-loading');
+        if (loader) {
+          loader.classList.add('fade-out');
+          setTimeout(() => loader.remove(), 450);
+        }
+
         CMS.registerEventListener({
           name: 'preSave',
           handler: async ({ entry }) => {
