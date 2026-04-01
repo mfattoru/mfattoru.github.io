@@ -39,6 +39,21 @@ collections:
             media_folder: "public"
             public_folder: ""
             hint: "Carica il CV in formato PDF. Il file sarà disponibile su /nomefile.pdf"
+          - label: "Tema predefinito del sito"
+            name: "theme"
+            widget: "select"
+            default: "steel"
+            hint: "Tema mostrato ai visitatori che non hanno ancora scelto un tema personale."
+            options:
+              - { label: "Steel (default)", value: "steel" }
+              - { label: "Blueprint", value: "blueprint" }
+              - { label: "Obsidian", value: "obsidian" }
+              - { label: "Industrial", value: "industrial" }
+              - { label: "Forest", value: "forest" }
+              - { label: "Limestone", value: "limestone" }
+              - { label: "Marble", value: "marble" }
+              - { label: "Daylight", value: "daylight" }
+              - { label: "High Contrast", value: "high-contrast" }
 
   - name: "news"
     label: "📰 Notizie / News"

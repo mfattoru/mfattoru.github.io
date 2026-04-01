@@ -2,6 +2,7 @@ import { defineCollection, z } from 'astro:content';
 
 const siteSettingsSchema = z.object({
   cvFile: z.string(),
+  theme: z.string().optional().default('steel'),
 });
 
 const solutionSchema = z.object({

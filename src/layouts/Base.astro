@@ -3,6 +3,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 import type { Lang } from '../i18n/utils';
+import { getCollection } from 'astro:content';
 
 interface Props {
   lang: Lang;
@@ -17,10 +18,13 @@ const {
   description = 'Ing. Onofrio Fattoruso — Engineering Solutions. Progettazione architettonica, sicurezza sul lavoro, efficienza energetica.',
   currentPath = Astro.url.pathname,
 } = Astro.props;
+
+const settings = await getCollection('site-settings');
+const defaultTheme = settings[0]?.data.theme ?? 'steel';
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} data-default-theme={defaultTheme}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,13 +35,14 @@ const {
     <link rel="apple-touch-icon" href="/image/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet" />
 
     <!-- Apply saved theme before first paint to prevent flash -->
     <script is:inline>
       (function () {
         try {
-          var saved = localStorage.getItem('theme') || 'steel';
+          var def = document.documentElement.getAttribute('data-default-theme') || 'steel';
+          var saved = localStorage.getItem('theme') || def;
           document.documentElement.setAttribute('data-theme', saved);
         } catch (e) {}
       })();

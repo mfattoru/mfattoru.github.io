@@ -1,13 +1,13 @@
 ---
 const themes = [
-  { id: 'steel',         label: 'Steel',          swatch: '#2563EB' },
-  { id: 'blueprint',     label: 'Blueprint',      swatch: '#0EA5E9' },
+  { id: 'steel',         label: 'Steel',          swatch: '#3B82F6' },
+  { id: 'blueprint',     label: 'Blueprint',      swatch: '#22D3EE' },
   { id: 'obsidian',      label: 'Obsidian',       swatch: '#F59E0B' },
-  { id: 'industrial',    label: 'Industrial',     swatch: '#EA580C' },
-  { id: 'forest',        label: 'Forest',         swatch: '#84CC16' },
+  { id: 'industrial',    label: 'Industrial',     swatch: '#F97316' },
+  { id: 'forest',        label: 'Forest',         swatch: '#86EFAC' },
   { id: 'limestone',     label: 'Limestone',      swatch: '#1E3A5F' },
-  { id: 'marble',        label: 'Marble',         swatch: '#B8860B' },
-  { id: 'daylight',      label: 'Daylight',       swatch: '#2563EB' },
+  { id: 'marble',        label: 'Marble',         swatch: '#8C6E3E' },
+  { id: 'daylight',      label: 'Daylight',       swatch: '#1D4ED8' },
   { id: 'high-contrast', label: 'High Contrast',  swatch: '#FFFF00' },
 ];
 ---
@@ -49,14 +49,14 @@ const themes = [
 
 <script>
   const THEMES = [
-    { id: 'steel',         label: 'Steel',         swatch: '#2563EB' },
-    { id: 'blueprint',     label: 'Blueprint',     swatch: '#0EA5E9' },
+    { id: 'steel',         label: 'Steel',         swatch: '#3B82F6' },
+    { id: 'blueprint',     label: 'Blueprint',     swatch: '#22D3EE' },
     { id: 'obsidian',      label: 'Obsidian',      swatch: '#F59E0B' },
-    { id: 'industrial',    label: 'Industrial',    swatch: '#EA580C' },
-    { id: 'forest',        label: 'Forest',        swatch: '#84CC16' },
+    { id: 'industrial',    label: 'Industrial',    swatch: '#F97316' },
+    { id: 'forest',        label: 'Forest',        swatch: '#86EFAC' },
     { id: 'limestone',     label: 'Limestone',     swatch: '#1E3A5F' },
-    { id: 'marble',        label: 'Marble',        swatch: '#B8860B' },
-    { id: 'daylight',      label: 'Daylight',      swatch: '#2563EB' },
+    { id: 'marble',        label: 'Marble',        swatch: '#8C6E3E' },
+    { id: 'daylight',      label: 'Daylight',      swatch: '#1D4ED8' },
     { id: 'high-contrast', label: 'High Contrast', swatch: '#FFFF00' },
   ];
 
@@ -91,7 +91,8 @@ const themes = [
     }
   });
 
-  // Initialize on load with saved or default theme
-  const saved = localStorage.getItem('theme') || 'steel';
+  // Initialize on load with saved or admin-set default theme
+  const def = document.documentElement.getAttribute('data-default-theme') || 'steel';
+  const saved = localStorage.getItem('theme') || def;
   applyTheme(saved);
 </script>

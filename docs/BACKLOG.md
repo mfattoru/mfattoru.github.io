@@ -2,24 +2,15 @@
 
 Always update this file after completing a task. Keep not completed tasks at top and completed tasks at the bottom. Give unique ID at each task so i can directly point at each one i need to work
 
-### To Add to Opem
-- the carousel now works badly after we transferred the pictures. it seems it downloads the first picture, and the small previews for the others, and then it needs to have the other
-  pictures scrolled to or selected to start the download.
-  i also get This IMG tag is below the fold and could be lazy-loaded to improve performance.
-  as well as : This image could be replaced with the Image component to improve performance.
-- This image could be replaced with the Image component to improve performance. for the headshot in the chi-siamo page
-- This IMG tag is below the fold and could be lazy-loaded to improve performance.for the recent project list in the home
-/news/<slug> don't seem to load any pictures within the news content
-- /news page where it list the news, should show the a picture preview on the side
 ### Open
 
 | ID | Task |
 |----|------|
 | B-01 | **Content Guidelines** — Add recommended image sizes within the admin panel for optimal display. |
 | B-02 | **Live Preview** — Update the admin page preview to show a 1:1 representation of the live website rather than a raw data blob. |
-| B-03 | **Theme Configuration** — Move theme selection to the admin panel to allow the admin to set a global site theme. |
-| B-04 | **Visual Identity: Themes** — Revise existing themes to move further from default styling. |
-| B-05 | **Visual Identity: Typography** — Improve typography scale and color contrast across interior pages. |
+| B-06 | **Admin Panel — Bilingual Field UX** — Clearly distinguish IT vs EN fields in content creation forms (flag icons, grouping, color coding). IT and EN fields should never share content. |
+| B-07 | **Admin Panel — Extended Site Settings** — Add common admin panel options to the Impostazioni section (social links, contact info, etc.). |
+| B-08 | **Admin Panel — Language Display Mode** — Setting to choose site language (IT only, EN only, or both). Controls: field visibility in content forms (hide unused language fields), auto-translation toggle (disabled for single-language), and auto-translate only populates empty fields to avoid overwriting manual content. |
 
 ---
 
@@ -47,3 +38,6 @@ Always update this file after completing a task. Keep not completed tasks at top
 | C-18 | **Project List Category Filter** | Filter buttons by category on `/it/progetti` and `/en/projects`; client-side JS show/hide. |
 | C-19 | **Contact Form — Multiselect Services** | `<select>` replaced with checkbox list; multiple services can now be selected and submitted. |
 | C-20 | **Image Component** | All static `<img>` tags replaced with Astro `<Image>` component for automatic format optimization and layout-shift prevention. Main carousel image kept as `<img>` (src swapped by JS). |
+| B-03 | **Theme Configuration** | `theme` field added to site-settings CMS collection. `Base.astro` reads `defaultTheme` and sets `data-default-theme` on `<html>`; inline anti-flash script and ThemeSwitcher both use it as fallback. |
+| B-04 | **Visual Identity: Themes** | All 9 themes revised with distinctive palettes. `--logo-filter` CSS variable added per theme (dark themes: white logo; light themes: black logo). Nav updated to use `var(--logo-filter)`. |
+| B-05 | **Visual Identity: Typography** | Google Fonts updated to Space Grotesk (headings) + Inter (body). `section-title` / `section-subtitle` utility classes refined; heading letter-spacing tightened. |

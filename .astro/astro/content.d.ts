@@ -183,15 +183,14 @@ declare module 'astro:content' {
   data: InferEntrySchema<"projects">
 } & { render(): Render[".md"] };
 };
-"site-settings": {
-"general.md": {
-	id: "general.md";
-  slug: "general";
+"site-settings": Record<string, {
+  id: string;
+  slug: string;
   body: string;
   collection: "site-settings";
-  data: InferEntrySchema<"site-settings">
-} & { render(): Render[".md"] };
-};
+  data: InferEntrySchema<"site-settings">;
+  render(): Render[".md"];
+}>;
 "solutions": {
 "acustica-edilizia.md": {
 	id: "acustica-edilizia.md";
