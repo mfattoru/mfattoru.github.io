@@ -5,7 +5,7 @@ descriptionIt: "Progettazione a basso impatto ambientale e soluzioni innovative 
 descriptionEn: "Low-impact design and innovative solutions for building energy efficiency and environmental protection."
 icon: "🌱"
 order: 6
-image: "/image/sostenibilita_energetica.png"
+image: "https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/solutions/sostenibilita_energetica"
 bodyEn: |
   The construction sector has a significant impact on our ecosystem. For this reason, we integrate sustainability criteria into every phase of design, aiming to reduce carbon footprints and optimize natural resources through a holistic and conscious approach.
   

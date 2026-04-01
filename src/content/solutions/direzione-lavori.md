@@ -5,7 +5,7 @@ descriptionIt: "Supervisione tecnica e coordinamento nella fase esecutiva dei pr
 descriptionEn: "Technical oversight, operational management, and safety coordination to ensure the flawless execution of every construction project."
 icon: "🏗"
 order: 4
-image: "/image/direzione_lavori.png"
+image: "https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/solutions/direzione_lavori"
 bodyEn: |
   We provide comprehensive management services for the execution phase, serving as the bridge between design and physical realization. Our goal is to ensure that every project is built to the highest standards, respecting timelines, budgets, and safety regulations.
   

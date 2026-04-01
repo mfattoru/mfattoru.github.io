@@ -70,7 +70,7 @@ const recentProjects = (await getCollection('projects'))
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {recentProjects.map(entry => (
             <a href={`/en/projects/${entry.slug}`} class="card overflow-hidden block transition-all hover:-translate-y-1">
-              <Image src={entry.data.thumbnail} alt={entry.data.titleEn} width={800} height={384} class="w-full h-48 object-cover" loading="eager" decoding="async" />
+              <Image src={entry.data.thumbnail} alt={entry.data.titleEn} width={800} height={384} class="w-full h-48 object-cover" loading="lazy" decoding="async" />
               <div class="p-6">
                 <p class="text-xs uppercase tracking-widest mb-2" style="color: var(--color-accent);">{entry.data.year} — {entry.data.locationEn}</p>
                 <p class="text-xs uppercase tracking-widest mb-3" style="color: var(--color-primary);">{entry.data.categoryEn}</p>

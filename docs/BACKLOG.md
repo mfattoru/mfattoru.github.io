@@ -3,10 +3,14 @@
 Always update this file after completing a task. Keep not completed tasks at top and completed tasks at the bottom. Give unique ID at each task so i can directly point at each one i need to work
 
 ### To Add to Opem
-- During githug action:
-  - Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/deploy-pages@v4.0.5. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
-  - Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v4.2.2, actions/configure-pages@v5.0.0, actions/setup-node@v4.4.0, actions/upload-artifact@v4. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
-- 
+- the carousel now works badly after we transferred the pictures. it seems it downloads the first picture, and the small previews for the others, and then it needs to have the other
+  pictures scrolled to or selected to start the download.
+  i also get This IMG tag is below the fold and could be lazy-loaded to improve performance.
+  as well as : This image could be replaced with the Image component to improve performance.
+- This image could be replaced with the Image component to improve performance. for the headshot in the chi-siamo page
+- This IMG tag is below the fold and could be lazy-loaded to improve performance.for the recent project list in the home
+/news/<slug> don't seem to load any pictures within the news content
+- /news page where it list the news, should show the a picture preview on the side
 ### Open
 
 | ID | Task |

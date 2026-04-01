@@ -56,15 +56,21 @@ const lang = 'it';
     <h2 class="text-xl font-heading font-bold mb-6" style="color: var(--color-text);">{t(lang, 'projects.gallery')}</h2>
 
     <div class="relative" id="carousel">
-      <!-- Main image -->
-      <div class="overflow-hidden w-full" style="aspect-ratio: 16/9; background: var(--color-surface);">
-        <img
-          id="carousel-main"
-          src={p.gallery[0]}
-          alt={p.titleIt}
-          class="w-full h-full object-cover"
-          loading="eager" decoding="async"
-        />
+      <!-- Slides (stacked, all loaded lazily together when carousel enters viewport) -->
+      <div class="relative overflow-hidden w-full" style="aspect-ratio: 16/9; background: var(--color-surface);">
+        {p.gallery.map((src, i) => (
+          <Image
+            src={src}
+            alt={`${p.titleIt} — foto ${i + 1}`}
+            width={1200}
+            height={675}
+            class="w-full h-full object-cover absolute inset-0 transition-opacity duration-200"
+            style={i === 0 ? 'opacity:1;' : 'opacity:0;'}
+            loading="lazy"
+            decoding="async"
+            data-slide={i}
+          />
+        ))}
       </div>
 
       <!-- Prev / Next arrows -->
@@ -106,25 +112,26 @@ const lang = 'it';
     </div>
   </div>
 
-  <script define:vars={{ gallery: p.gallery }}>
+  <script>
     let current = 0;
-    const main = document.getElementById('carousel-main');
-    const counter = document.getElementById('carousel-counter');
-    const thumbs = document.querySelectorAll('.carousel-thumb');
+    const slides = document.querySelectorAll<HTMLElement>('#carousel [data-slide]');
+    const total = slides.length;
+    const counter = document.getElementById('carousel-counter')!;
+    const thumbs = document.querySelectorAll<HTMLElement>('.carousel-thumb');
 
-    function goTo(index) {
-      current = (index + gallery.length) % gallery.length;
-      main.src = gallery[current];
-      counter.textContent = `${current + 1} / ${gallery.length}`;
+    function goTo(index: number) {
+      slides[current].style.opacity = '0';
+      current = (index + total) % total;
+      slides[current].style.opacity = '1';
+      counter.textContent = `${current + 1} / ${total}`;
       thumbs.forEach((t, i) => {
         t.style.borderColor = i === current ? 'var(--color-primary)' : 'transparent';
       });
     }
 
-    document.getElementById('carousel-prev').addEventListener('click', () => goTo(current - 1));
-    document.getElementById('carousel-next').addEventListener('click', () => goTo(current + 1));
+    document.getElementById('carousel-prev')!.addEventListener('click', () => goTo(current - 1));
+    document.getElementById('carousel-next')!.addEventListener('click', () => goTo(current + 1));
     thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => goTo(i)));
-
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') goTo(current - 1);
       if (e.key === 'ArrowRight') goTo(current + 1);

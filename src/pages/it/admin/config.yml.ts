@@ -44,7 +44,7 @@ collections:
     label: "📰 Notizie / News"
     folder: "src/content/news"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{fields.titleIt}}"
     editor:
       preview: false
     fields:
@@ -61,7 +61,7 @@ collections:
     label: "🏗️ Progetti / Projects"
     folder: "src/content/projects"
     create: true
-    slug: "{{slug}}"
+    slug: "{{fields.titleIt}}"
     editor:
       preview: false
     fields:
@@ -99,7 +99,7 @@ collections:
     label: "🔧 Servizi / Services"
     folder: "src/content/solutions"
     create: true
-    slug: "{{slug}}"
+    slug: "{{fields.titleIt}}"
     editor:
       preview: false
     fields:

@@ -5,7 +5,7 @@ descriptionIt: "Programmi formativi certificati e aggiornamenti normativi per la
 descriptionEn: "Certified training programs and regulatory updates for workplace and construction site safety."
 icon: "📋"
 order: 2
-image: "/image/formazione_sicurezza.png"
+image: "https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/solutions/formazione_sicurezza"
 bodyEn: |
   We promote a culture of safety through targeted training pathways, ensuring companies remain fully compliant with statutory obligations. All sessions are conducted by highly qualified instructors certified under Interministerial Decree 06/03/2013.
   

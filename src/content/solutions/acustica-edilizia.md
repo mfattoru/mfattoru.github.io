@@ -5,7 +5,7 @@ descriptionIt: "Consulenza tecnica e soluzioni d'avanguardia per il comfort acus
 descriptionEn: "Technical consulting and cutting-edge solutions for acoustic comfort, regulatory compliance, and noise protection."
 icon: "🔊"
 order: 7
-image: "/image/acustica_edilizia.png"
+image: "https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/solutions/acustica_edilizia"
 bodyEn: |
   We provide specialized acoustic analysis and design services for both public and private clients, ensuring healthy, comfortable environments that are fully compliant with current regulations.
   

@@ -5,7 +5,7 @@ descriptionIt: "Consulenza tecnica e gestione completa per l'accesso a Superbonu
 descriptionEn: "Comprehensive technical assistance and management for accessing Superbonus, Ecobonus, Sismabonus, and other building incentives."
 icon: "⚡"
 order: 5
-image: "/image/progettazione_interventi.png"
+image: "https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/solutions/progettazione_interventi"
 bodyEn: |
   We support clients in navigating the complex landscape of construction tax incentives. From initial feasibility studies to site completion, we manage every technical and bureaucratic aspect to maximize energy savings and optimize the economic return on investment.
   

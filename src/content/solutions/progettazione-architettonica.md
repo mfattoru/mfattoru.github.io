@@ -5,7 +5,7 @@ descriptionIt: "Sviluppo di edifici residenziali, commerciali e industriali attr
 descriptionEn: "Development of residential, commercial, and industrial buildings through BIM methodology for seamless integration of aesthetics and functionality."
 icon: "🏛️"
 order: 1
-image: "/image/progettazione_architettonica.png"
+image: "https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/solutions/progettazione_architettonica"
 bodyEn: |
   Modern architecture demands sophisticated information management. We utilize **BIM (Building Information Modeling)** methodology to create shared digital models that enable full cooperation between clients, designers, and contractors, optimizing timelines and reducing unforeseen issues during the construction phase.
   

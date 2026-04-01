@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import { t } from '../../i18n/utils';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 const lang = 'it';
 const settings = await getCollection('site-settings');
 const cvFile = settings[0]?.data.cvFile ?? '/Cv_ing_Onofrio_Fattoruso.pdf';
@@ -14,11 +15,13 @@ const cvFile = settings[0]?.data.cvFile ?? '/Cv_ing_Onofrio_Fattoruso.pdf';
     <!-- Engineer photo + intro -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 items-start">
       <div class="md:col-span-1">
-        <img
-          src="/image/headshot.jpeg"
+        <Image
+          src="https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/site/headshot"
           alt="Ing. Onofrio Fattoruso"
+          width={480} height={640}
           class="w-full object-cover"
           style="aspect-ratio: 3/4;"
+          loading="lazy"
         />
       </div>
       <div class="md:col-span-2 grid grid-cols-1 gap-8">

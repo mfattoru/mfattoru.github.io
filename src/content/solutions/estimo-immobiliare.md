@@ -5,7 +5,7 @@ descriptionIt: "Stime certificate e perizie tecniche per la determinazione del v
 descriptionEn: "Certified estimates and technical appraisals for market value determination and damage assessment."
 icon: "🏠"
 order: 8
-image: "/image/estimo_immobiliare.png"
+image: "https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/solutions/estimo_immobiliare"
 bodyEn: |
   We provide professional appraisal services to objectively and accurately determine the value of real estate assets and land. Our expert technical reports support individuals and businesses during critical phases such as property transactions, inheritance, or legal disputes.
   

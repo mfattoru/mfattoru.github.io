@@ -5,7 +5,7 @@ descriptionIt: "Servizi di consulenza specialistica per la gestione di appalti, 
 descriptionEn: "Specialized advisory services for tender management, cost estimation, and technical site support."
 icon: "🧱"
 order: 9
-image: "/image/edilizia.png"
+image: "https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/solutions/edilizia"
 bodyEn: |
   We provide high-value technical consulting for private individuals, corporations, and construction firms. Our support covers the entire lifecycle of a building project, from tendering and procurement to operational management and long-term maintenance.
   

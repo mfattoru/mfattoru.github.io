@@ -5,7 +5,7 @@ descriptionIt: "Gestione integrata della sicurezza, valutazione dei rischi e ade
 descriptionEn: "Integrated safety management, risk assessment, and regulatory compliance for all ATECO industrial sectors."
 icon: "🦺"
 order: 3
-image: "/image/sicurezza_sul_lavoro.png"
+image: "https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/solutions/sicurezza_sul_lavoro"
 bodyEn: |
   We provide comprehensive support to businesses for managing safety in both fixed workplaces and construction sites. With deep expertise across all ATECO sectors and a specialized focus on the construction industry, we ensure maximum worker protection and full compliance with Legislative Decree 81/08.
   

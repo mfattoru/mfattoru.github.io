@@ -2,6 +2,7 @@
 import Base from '../../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import { marked } from 'marked';
+import { Image } from 'astro:assets';
 
 export async function getStaticPaths() {
   const posts = await getCollection('news');
@@ -21,7 +22,10 @@ const bodyEnHtml = entry.data.bodyEn ? marked(entry.data.bodyEn) : null;
     <p class="text-xs uppercase tracking-widest mb-4" style="color: var(--color-accent);">
       {new Date(entry.data.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}
     </p>
-    <h1 class="section-title mb-12" style="color: var(--color-text);">{title}</h1>
+    <h1 class="section-title mb-8" style="color: var(--color-text);">{title}</h1>
+    {entry.data.image && (
+      <Image src={entry.data.image} alt={title} width={900} height={450} class="w-full object-cover mb-12" loading="eager" decoding="async" />
+    )}
     <div class="prose max-w-none" style="color: var(--color-text);">
       {bodyEnHtml ? <Fragment set:html={bodyEnHtml} /> : <Content />}
     </div>
