@@ -18,7 +18,6 @@ Always update this file after completing a task. Keep not completed tasks at top
 | B-07 | **Admin Panel — Extended Site Settings** — Add common admin panel options to the Impostazioni section (social links, contact info, etc.). |
 | B-08 | **Admin Panel — Language Display Mode** — Setting to choose site language (IT only, EN only, or both). Controls: field visibility in content forms (hide unused language fields), auto-translation toggle (disabled for single-language), and auto-translate only populates empty fields to avoid overwriting manual content. |
 | B-09 | **Performance — Eager Loading Above the Fold** — News list page hero and chi-siamo headshot are above the fold but use `loading="lazy"`. Switch them to `loading="eager"` (or `fetchpriority="high"`) to improve LCP. |
-| B-10 | **Admin Panel — Full Page Content Editor** — Extend the admin panel to allow editing all hardcoded page content (about page bio, homepage tagline, pricing copy, etc.). Currently only news and projects are editable; static pages require a code deploy to update. |
 
 ---
 
@@ -49,3 +48,4 @@ Always update this file after completing a task. Keep not completed tasks at top
 | B-03 | **Theme Configuration** | `theme` field added to site-settings CMS collection. `Base.astro` reads `defaultTheme` and sets `data-default-theme` on `<html>`; inline anti-flash script and ThemeSwitcher both use it as fallback. |
 | B-04 | **Visual Identity: Themes** | All 9 themes revised with distinctive palettes. `--logo-filter` CSS variable added per theme (dark themes: white logo; light themes: black logo). Nav updated to use `var(--logo-filter)`. |
 | B-05 | **Visual Identity: Typography** | Google Fonts updated to Space Grotesk (headings) + Inter (body). `section-title` / `section-subtitle` utility classes refined; heading letter-spacing tightened. |
+| B-10 | **Admin Panel — Full Page Content Editor** | `page-content` Astro collection with `about.md`, `pricing.md`, `homepage.md`. CMS `📄 Contenuto Pagine` files collection. All About, Pricing, and Homepage stats wired to content files. Auto-translation on save for IT→EN fields. |
