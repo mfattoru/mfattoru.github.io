@@ -54,6 +54,36 @@ const projectSchema = z.object({
   gallery: z.array(z.union([z.string(), z.array(z.string())])).transform(a => a.flat()),
 });
 
+const pageContentSchema = z.object({
+  // About
+  firmHeadingIt: z.string().optional().default(''),
+  firmHeadingEn: z.string().optional().default(''),
+  firmBodyIt: z.string().optional().default(''),
+  firmBodyEn: z.string().optional().default(''),
+  missionHeadingIt: z.string().optional().default(''),
+  missionHeadingEn: z.string().optional().default(''),
+  missionBodyIt: z.string().optional().default(''),
+  missionBodyEn: z.string().optional().default(''),
+  // Pricing
+  introParagraphIt: z.string().optional().default(''),
+  introParagraphEn: z.string().optional().default(''),
+  complianceParagraphIt: z.string().optional().default(''),
+  complianceParagraphEn: z.string().optional().default(''),
+  // Stats
+  stat1Value: z.string().optional().default(''),
+  stat1LabelIt: z.string().optional().default(''),
+  stat1LabelEn: z.string().optional().default(''),
+  stat2Value: z.string().optional().default(''),
+  stat2LabelIt: z.string().optional().default(''),
+  stat2LabelEn: z.string().optional().default(''),
+  stat3Value: z.string().optional().default(''),
+  stat3LabelIt: z.string().optional().default(''),
+  stat3LabelEn: z.string().optional().default(''),
+  stat4Value: z.string().optional().default(''),
+  stat4LabelIt: z.string().optional().default(''),
+  stat4LabelEn: z.string().optional().default(''),
+});
+
 export const collections = {
   'solutions-it': defineCollection({ type: 'content', schema: solutionSchema }),
   'solutions-en': defineCollection({ type: 'content', schema: solutionSchema }),
@@ -61,4 +91,5 @@ export const collections = {
   'news': defineCollection({ type: 'content', schema: newsSchema }),
   'projects': defineCollection({ type: 'content', schema: projectSchema }),
   'site-settings': defineCollection({ type: 'content', schema: siteSettingsSchema }),
+  'page-content': defineCollection({ type: 'content', schema: pageContentSchema }),
 };
