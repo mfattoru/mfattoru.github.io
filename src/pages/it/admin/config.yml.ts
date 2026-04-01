@@ -110,6 +110,48 @@ collections:
             config:
               multiple: true
 
+  - name: "page-content"
+    label: "📄 Contenuto Pagine"
+    editor:
+      preview: false
+    files:
+      - name: "about"
+        label: "Chi Siamo / About"
+        file: "src/content/page-content/about.md"
+        fields:
+          - { label: "Intestazione Studio (IT)", name: "firmHeadingIt", widget: "string" }
+          - { label: "Firm Heading (EN) — auto-tradotto al salvataggio", name: "firmHeadingEn", widget: "string", required: false }
+          - { label: "Testo Studio (IT)", name: "firmBodyIt", widget: "text" }
+          - { label: "Firm Body (EN) — auto-tradotto al salvataggio", name: "firmBodyEn", widget: "text", required: false }
+          - { label: "Intestazione Missione (IT)", name: "missionHeadingIt", widget: "string" }
+          - { label: "Mission Heading (EN) — auto-tradotto al salvataggio", name: "missionHeadingEn", widget: "string", required: false }
+          - { label: "Testo Missione (IT)", name: "missionBodyIt", widget: "text" }
+          - { label: "Mission Body (EN) — auto-tradotto al salvataggio", name: "missionBodyEn", widget: "text", required: false }
+      - name: "pricing"
+        label: "Prezzi / Pricing"
+        file: "src/content/page-content/pricing.md"
+        fields:
+          - { label: "Paragrafo intro (IT)", name: "introParagraphIt", widget: "text" }
+          - { label: "Intro paragraph (EN) — auto-tradotto al salvataggio", name: "introParagraphEn", widget: "text", required: false }
+          - { label: "Paragrafo conformità (IT)", name: "complianceParagraphIt", widget: "text" }
+          - { label: "Compliance paragraph (EN) — auto-tradotto al salvataggio", name: "complianceParagraphEn", widget: "text", required: false }
+      - name: "homepage"
+        label: "Homepage"
+        file: "src/content/page-content/homepage.md"
+        fields:
+          - { label: "Statistica 1 — Valore", name: "stat1Value", widget: "string" }
+          - { label: "Statistica 1 — Etichetta (IT)", name: "stat1LabelIt", widget: "string" }
+          - { label: "Statistica 1 — Label (EN)", name: "stat1LabelEn", widget: "string" }
+          - { label: "Statistica 2 — Valore", name: "stat2Value", widget: "string" }
+          - { label: "Statistica 2 — Etichetta (IT)", name: "stat2LabelIt", widget: "string" }
+          - { label: "Statistica 2 — Label (EN)", name: "stat2LabelEn", widget: "string" }
+          - { label: "Statistica 3 — Valore", name: "stat3Value", widget: "string" }
+          - { label: "Statistica 3 — Etichetta (IT)", name: "stat3LabelIt", widget: "string" }
+          - { label: "Statistica 3 — Label (EN)", name: "stat3LabelEn", widget: "string" }
+          - { label: "Statistica 4 — Valore", name: "stat4Value", widget: "string" }
+          - { label: "Statistica 4 — Etichetta (IT)", name: "stat4LabelIt", widget: "string" }
+          - { label: "Statistica 4 — Label (EN)", name: "stat4LabelEn", widget: "string" }
+
   - name: "solutions"
     label: "🔧 Servizi / Services"
     folder: "src/content/solutions"
