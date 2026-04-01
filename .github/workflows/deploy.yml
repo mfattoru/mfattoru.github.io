@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_CLOUD_NAME: dd3aknabk
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
           CLOUDINARY_UPLOAD_PRESET: ${{ secrets.CLOUDINARY_UPLOAD_PRESET }}
           CLOUDINARY_CACHE_WORKER_URL: ${{ secrets.CLOUDINARY_CACHE_WORKER_URL }}
