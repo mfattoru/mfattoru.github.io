@@ -177,6 +177,18 @@
       ['descriptionIt', 'descriptionEn'],
       ['body', 'bodyEn'],
     ];
+    const PAGE_CONTENT_FIELDS = {
+      about: [
+        ['firmHeadingIt', 'firmHeadingEn'],
+        ['firmBodyIt', 'firmBodyEn'],
+        ['missionHeadingIt', 'missionHeadingEn'],
+        ['missionBodyIt', 'missionBodyEn'],
+      ],
+      pricing: [
+        ['introParagraphIt', 'introParagraphEn'],
+        ['complianceParagraphIt', 'complianceParagraphEn'],
+      ],
+    };
 
     // Hide loading screen and register event listener once CMS global is ready
     const cmsInterval = setInterval(() => {
@@ -195,10 +207,11 @@
           name: 'preSave',
           handler: async ({ entry }) => {
             const collection = entry.get('collection');
-            const fields = collection === 'news' ? NEWS_FIELDS
-                         : collection === 'projects' ? PROJECT_FIELDS
-                         : collection === 'solutions' ? SOLUTION_FIELDS
-                         : null;
+            let fields = collection === 'news' ? NEWS_FIELDS
+                       : collection === 'projects' ? PROJECT_FIELDS
+                       : collection === 'solutions' ? SOLUTION_FIELDS
+                       : collection === 'page-content' ? PAGE_CONTENT_FIELDS[entry.get('slug')] ?? null
+                       : null;
             if (!fields) return entry;
 
             let data = entry.get('data');
