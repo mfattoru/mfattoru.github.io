@@ -117,19 +117,16 @@ This affects sitemaps, canonical URLs, and Open Graph tags.
 
 ---
 
-## 5. Update the GitHub OAuth App callback URL
+## 5. Update the Cloudflare Worker allowed domain
 
-The Decap CMS admin panel uses a GitHub OAuth App for authentication. The callback URL must match the domain where the admin is hosted.
+The CMS uses a Cloudflare Worker (`sveltia-cms-auth`) as an OAuth proxy. The `ALLOWED_DOMAINS` secret must include your new domain.
 
-1. Go to **github.com → Settings → Developer settings → OAuth Apps**
-2. Open your existing OAuth App (Ing. Fattoruso Admin)
-3. Change **Authorization callback URL** from:
-   `https://mfattoru.github.io/it/admin/`
-   to:
-   `https://yourdomain.com/it/admin/`
-4. Save changes
-
-> **Note:** GitHub OAuth Apps allow only one callback URL. If you want to keep the GitHub Pages site running in parallel during migration, you'll need to create a second OAuth App temporarily.
+1. Go to **cloudflare.com → Workers & Pages → your worker → Settings → Variables → Secrets**
+2. Update `ALLOWED_DOMAINS` to include both domains (comma-separated) if running in parallel, or replace with the new domain:
+   ```
+   yourdomain.com
+   ```
+3. The GitHub OAuth App's **Authorization callback URL** stays pointing at the Cloudflare Worker — it does **not** need to change when you switch hosting domains.
 
 ---
 
@@ -143,12 +140,11 @@ backend:
   name: github
   repo: mfattoru/mfattoru.github.io   // ← must match your GitHub repo
   branch: master
-  auth_type: pkce
-  app_id: Ov23ct12dUUR3BNAddag        // ← must match the OAuth App Client ID
+  base_url: https://onofrio-cms-auth.michele-fattoruso.workers.dev
 ...`;
 ```
 
-If you moved the repo to a different GitHub account or renamed it, update `repo` and `app_id` accordingly.
+If you moved the repo to a different GitHub account or renamed it, update `repo` accordingly. The `base_url` (Cloudflare Worker) does not need to change.
 
 ---
 
@@ -220,7 +216,7 @@ Local dev (`make cms`, `make dev`) is unaffected by the hosting change. It still
 - [ ] Add `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD` to GitHub Actions secrets
 - [ ] Replace `.github/workflows/deploy.yml` with the GoDaddy version above
 - [ ] Update `site:` in `astro.config.mjs` to your GoDaddy domain
-- [ ] Update GitHub OAuth App callback URL to `https://yourdomain.com/it/admin/`
+- [ ] Update Cloudflare Worker `ALLOWED_DOMAINS` secret to include your GoDaddy domain
 - [ ] Create `public/.htaccess` for Apache routing and HTTPS redirect
 - [ ] Confirm SSL is active on GoDaddy
 - [ ] Push to `master` — GitHub Actions will build and FTP-deploy automatically

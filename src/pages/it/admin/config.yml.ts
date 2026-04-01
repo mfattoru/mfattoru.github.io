@@ -20,8 +20,7 @@ media_library:
   name: github
   repo: mfattoru/mfattoru.github.io
   branch: master
-  auth_type: pkce
-  app_id: Ov23ct12dUUR3BNAddag
+  base_url: https://onofrio-cms-auth.michele-fattoruso.workers.dev
 
 media_folder: public/image
 public_folder: /image

@@ -25,35 +25,50 @@ The site will be live at `https://<username>.github.io` within a few minutes.
 
 ---
 
-## 3. Admin Panel — Decap CMS (GitHub OAuth)
+## 3. Admin Panel — Sveltia CMS (GitHub OAuth via Cloudflare Worker)
 
-The admin panel at `/it/admin/` uses Decap CMS with GitHub as the backend. Authentication uses PKCE (no server required).
+The admin panel at `/it/admin/` uses **Sveltia CMS** with GitHub as the backend. Authentication requires a Cloudflare Worker as an OAuth proxy (GitHub's token endpoint does not support CORS, so a server-side middleman is unavoidable for static sites).
 
-### 3a. Create a GitHub OAuth App
+### 3a. Deploy the OAuth proxy (Cloudflare Worker)
+
+1. Go to **github.com/sveltia/sveltia-cms-auth** and click **Deploy with Workers**.
+2. Sign in to Cloudflare (free account is sufficient) and give the worker a name (e.g. `my-cms-auth`).
+3. Click **Deploy**.
+4. In the worker's **Settings → Variables → Secrets**, add:
+
+| Secret name | Value |
+|---|---|
+| `GITHUB_CLIENT_ID` | your OAuth App's Client ID (see step 3b) |
+| `GITHUB_CLIENT_SECRET` | your OAuth App's Client Secret |
+| `ALLOWED_DOMAINS` | `<username>.github.io` |
+
+5. Note the worker URL: `https://<worker-name>.<subdomain>.workers.dev`
+
+### 3b. Create a GitHub OAuth App
 
 1. Go to **github.com → Settings → Developer settings → OAuth Apps → New OAuth App**
 2. Fill in:
    - **Application name**: anything (e.g. `Fattoruso Admin`)
    - **Homepage URL**: `https://<username>.github.io`
-   - **Authorization callback URL**: `https://<username>.github.io/it/admin/`
-   - ⚠️ GitHub OAuth Apps allow only **one** callback URL. For local dev, use the `local_backend` (see section 6).
+   - **Authorization callback URL**: `https://<worker-name>.<subdomain>.workers.dev/callback`
+     ⚠️ This must point to the **Cloudflare Worker**, not the CMS page.
 3. Click **Register application**.
-4. On the next page, copy the **Client ID**.
+4. Copy the **Client ID** and generate a **Client Secret**.
+5. Add both to the Cloudflare Worker secrets (step 3a).
 
-### 3b. Update the CMS config
+### 3c. Update the CMS config
 
-Open `src/pages/it/admin/config.yml.ts` and update:
+Open `src/pages/it/admin/config.yml.ts` and update `base_url`:
 
 ```typescript
 backend:
   name: github
   repo: <username>/<username>.github.io   // ← update this
   branch: master
-  auth_type: pkce
-  app_id: <YOUR_CLIENT_ID>               // ← paste Client ID here
+  base_url: https://<worker-name>.<subdomain>.workers.dev
 ```
 
-> **Note:** With `auth_type: pkce` you do **not** need a Client Secret. The Client ID alone is safe to commit — it only works for the registered callback URL.
+> **Note:** The `base_url` must NOT include `/callback` — that suffix is appended automatically by the CMS for the OAuth redirect.
 
 ---
 
@@ -130,7 +145,7 @@ make dev       # site at http://localhost:4321/it/
 make cms       # site + Decap local backend at http://localhost:4321/it/admin/
 ```
 
-`make cms` starts `decap-server` on port 8081, which lets the admin panel read/write local files without GitHub OAuth. The admin page automatically detects `localhost` and activates `local_backend`.
+`make cms` starts `decap-server` on port 8081 (the local backend proxy used by both Decap CMS and Sveltia CMS). This lets the admin panel read/write local files without GitHub OAuth. The admin page automatically detects `localhost` and activates `local_backend`.
 
 ### 6c. Available commands
 
@@ -138,7 +153,7 @@ make cms       # site + Decap local backend at http://localhost:4321/it/admin/
 |---|---|
 | `make install` | Install dependencies |
 | `make dev` | Start dev server |
-| `make cms` | Start dev server + Decap local backend |
+| `make cms` | Start dev server + local CMS backend |
 | `make build` | Production build (output in `dist/`) |
 | `make preview` | Preview production build locally |
 | `make clean` | Remove `dist/` |
@@ -154,8 +169,9 @@ make cms       # site + Decap local backend at http://localhost:4321/it/admin/
 | CMS config (generated) | `src/pages/it/admin/config.yml.ts` |
 | News articles | `src/content/news/*.md` |
 | Projects | `src/content/projects/*.md` |
-| Uploaded images (git) | `public/image/uploads/` |
-| Project photos (git) | `public/projects/<id>/photos/` |
+| Solutions | `src/content/solutions/*.md` |
+| Images | `public/image/` |
 | Deploy workflow | `.github/workflows/deploy.yml` |
 | Cloudinary credentials | GitHub Actions secrets (never in repo) |
-| OAuth Client ID | `src/pages/it/admin/config.yml.ts` (safe to commit) |
+| OAuth proxy | Cloudflare Worker (`sveltia-cms-auth`) |
+| OAuth Worker URL | `src/pages/it/admin/config.yml.ts` (`base_url`) |

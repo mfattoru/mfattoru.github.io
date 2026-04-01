@@ -9,7 +9,7 @@ install: ## Install dependencies
 dev: ## Start local dev server at http://localhost:4321
 	npm run dev
 
-cms: ## Start dev server + Decap CMS local backend (admin at http://localhost:4321/admin/)
+cms: ## Start dev server + local CMS backend (admin at http://localhost:4321/it/admin/)
 	npx decap-server & npm run dev
 
 build: ## Build for production
