@@ -14,7 +14,7 @@ summaryIt: Intervento di ammodernamento funzionale e tecnologico del complesso s
 summaryEn: Functional and technological modernization of the municipal sports complex to meet competitive standards.
 resultIt: Realizzazione di un impianto sportivo d'eccellenza, pienamente conforme al Regolamento della Lega Nazionale Dilettanti (LND).
 resultEn: Delivery of a high-performance sports facility, fully compliant with the National Amateur League (LND) regulations.
-thumbnail: https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/projects/campo-sportivo/1.jpg
+thumbnail: /image/Gemini_Generated_Image_f4ag1kf4ag1kf4ag.png
 gallery:
   - - https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/projects/campo-sportivo/1.jpg
     - https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/projects/campo-sportivo/2.jpg

@@ -192,71 +192,14 @@ declare module 'astro:content' {
   data: InferEntrySchema<"site-settings">
 } & { render(): Render[".md"] };
 };
-"solutions": {
-"acustica-edilizia.md": {
-	id: "acustica-edilizia.md";
-  slug: "acustica-edilizia";
+"solutions": Record<string, {
+  id: string;
+  slug: string;
   body: string;
   collection: "solutions";
-  data: InferEntrySchema<"solutions">
-} & { render(): Render[".md"] };
-"direzione-lavori.md": {
-	id: "direzione-lavori.md";
-  slug: "direzione-lavori";
-  body: string;
-  collection: "solutions";
-  data: InferEntrySchema<"solutions">
-} & { render(): Render[".md"] };
-"edilizia.md": {
-	id: "edilizia.md";
-  slug: "edilizia";
-  body: string;
-  collection: "solutions";
-  data: InferEntrySchema<"solutions">
-} & { render(): Render[".md"] };
-"estimo-immobiliare.md": {
-	id: "estimo-immobiliare.md";
-  slug: "estimo-immobiliare";
-  body: string;
-  collection: "solutions";
-  data: InferEntrySchema<"solutions">
-} & { render(): Render[".md"] };
-"formazione-sicurezza.md": {
-	id: "formazione-sicurezza.md";
-  slug: "formazione-sicurezza";
-  body: string;
-  collection: "solutions";
-  data: InferEntrySchema<"solutions">
-} & { render(): Render[".md"] };
-"progettazione-architettonica.md": {
-	id: "progettazione-architettonica.md";
-  slug: "progettazione-architettonica";
-  body: string;
-  collection: "solutions";
-  data: InferEntrySchema<"solutions">
-} & { render(): Render[".md"] };
-"sicurezza-sul-lavoro.md": {
-	id: "sicurezza-sul-lavoro.md";
-  slug: "sicurezza-sul-lavoro";
-  body: string;
-  collection: "solutions";
-  data: InferEntrySchema<"solutions">
-} & { render(): Render[".md"] };
-"sostenibilita-energetica.md": {
-	id: "sostenibilita-energetica.md";
-  slug: "sostenibilita-energetica";
-  body: string;
-  collection: "solutions";
-  data: InferEntrySchema<"solutions">
-} & { render(): Render[".md"] };
-"superbonus-110.md": {
-	id: "superbonus-110.md";
-  slug: "superbonus-110";
-  body: string;
-  collection: "solutions";
-  data: InferEntrySchema<"solutions">
-} & { render(): Render[".md"] };
-};
+  data: InferEntrySchema<"solutions">;
+  render(): Render[".md"];
+}>;
 "solutions-en": {
 "acoustic-engineering.md": {
 	id: "acoustic-engineering.md";

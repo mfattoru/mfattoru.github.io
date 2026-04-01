@@ -115,6 +115,7 @@ collections:
     folder: "src/content/solutions"
     create: true
     slug: "{{fields.titleIt}}"
+    identifier_field: titleIt
     editor:
       preview: false
     fields:

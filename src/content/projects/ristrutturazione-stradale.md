@@ -14,7 +14,7 @@ summaryIt: Interventi di manutenzione straordinaria e ripristino del manto strad
 summaryEn: Extraordinary maintenance and road surface restoration across various districts and squares within the municipal area.
 resultIt: Ripristino della sicurezza viaria, miglioramento del decoro urbano e abbattimento dei rischi legati alla sconnessione del piano stradale.
 resultEn: Restoration of road safety, improvement of urban decor, and mitigation of risks associated with uneven road surfaces.
-thumbnail: https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/projects/ristrutturazione-stradale/1.jpg
+thumbnail: /image/Gemini_Generated_Image_ftw7vuftw7vuftw7.png
 gallery:
   - - https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/projects/ristrutturazione-stradale/1.jpg
     - https://res.cloudinary.com/dd3aknabk/image/upload/f_auto,q_auto/projects/ristrutturazione-stradale/2.jpg

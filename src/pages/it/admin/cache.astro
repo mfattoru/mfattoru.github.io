@@ -1,6 +1,5 @@
 ---
 import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
 
 const WORKER_URL = import.meta.env.CLOUDINARY_CACHE_WORKER_URL
   ?? 'https://onofrio-cloudinary-cache.michele-fattoruso.workers.dev';
@@ -510,13 +509,12 @@ const totalImages = uniqueImages.length;
                   </svg>
                 </div>
                 <div class="thumb-wrap">
-                  <Image
+                  <img
                     class="image-thumb"
                     src={THUMB(img.publicId)}
                     alt={img.label}
-                    width={400}
-                    height={240}
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div class="image-info">
