@@ -50,7 +50,7 @@ const projectSchema = z.object({
   resultIt: z.string(),
   resultEn: z.string(),
   thumbnail: z.string(),
-  gallery: z.array(z.string()),
+  gallery: z.array(z.union([z.string(), z.array(z.string())])).transform(a => a.flat()),
 });
 
 export const collections = {

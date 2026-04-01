@@ -86,6 +86,7 @@ collections:
         name: "gallery"
         widget: "list"
         hint: "Tutte le foto del progetto mostrate nel carosello."
+        summary: "{{fields.photo}}"
         field:
           label: "Foto"
           name: "photo"

@@ -167,14 +167,22 @@ declare module 'astro:content' {
   data: any
 } & { render(): Render[".md"] };
 };
-"projects": Record<string, {
-  id: string;
-  slug: string;
+"projects": {
+"campo-sportivo.md": {
+	id: "campo-sportivo.md";
+  slug: "campo-sportivo";
   body: string;
   collection: "projects";
-  data: InferEntrySchema<"projects">;
-  render(): Render[".md"];
-}>;
+  data: InferEntrySchema<"projects">
+} & { render(): Render[".md"] };
+"ristrutturazione-stradale.md": {
+	id: "ristrutturazione-stradale.md";
+  slug: "ristrutturazione-stradale";
+  body: string;
+  collection: "projects";
+  data: InferEntrySchema<"projects">
+} & { render(): Render[".md"] };
+};
 "site-settings": {
 "general.md": {
 	id: "general.md";
