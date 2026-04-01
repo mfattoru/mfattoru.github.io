@@ -36,6 +36,7 @@ jobs:
           CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
           CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
           CLOUDINARY_UPLOAD_PRESET: ${{ secrets.CLOUDINARY_UPLOAD_PRESET }}
+          CLOUDINARY_CACHE_WORKER_URL: ${{ secrets.CLOUDINARY_CACHE_WORKER_URL }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

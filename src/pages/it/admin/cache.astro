@@ -1,0 +1,643 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+const WORKER_URL = import.meta.env.CLOUDINARY_CACHE_WORKER_URL
+  ?? 'https://onofrio-cloudinary-cache.michele-fattoruso.workers.dev';
+
+const CLOUD = import.meta.env.CLOUDINARY_CLOUD_NAME ?? 'dd3aknabk';
+const THUMB = (publicId: string) =>
+  `https://res.cloudinary.com/${CLOUD}/image/upload/c_fill,w_400,h_240,f_auto,q_auto/${publicId}`;
+
+function extractPublicId(url: string | undefined): string | null {
+  if (!url?.includes('res.cloudinary.com')) return null;
+  const marker = '/f_auto,q_auto/';
+  const idx = url.indexOf(marker);
+  if (idx !== -1) return url.slice(idx + marker.length);
+  const uploadIdx = url.indexOf('/upload/');
+  if (uploadIdx === -1) return null;
+  return url.slice(uploadIdx + 8).replace(/^v\d+\//, '');
+}
+
+type ImageEntry = { publicId: string; label: string; group: string };
+const images: ImageEntry[] = [];
+
+images.push({ publicId: 'site/eng_background_2', label: 'Hero background', group: 'Sito' });
+images.push({ publicId: 'site/headshot',          label: 'Foto profilo (Chi siamo)', group: 'Sito' });
+
+const solutions = await getCollection('solutions');
+for (const s of solutions) {
+  const id = extractPublicId(s.data.image);
+  if (id) images.push({ publicId: id, label: s.data.titleIt, group: 'Servizi' });
+}
+
+const projects = await getCollection('projects');
+for (const p of projects) {
+  const thumbId = extractPublicId(p.data.thumbnail);
+  if (thumbId) images.push({ publicId: thumbId, label: `${p.data.titleIt} — copertina`, group: 'Progetti' });
+  const gallery = (p.data.gallery as any[]).flat();
+  gallery.forEach((url: string, i: number) => {
+    const id = extractPublicId(url);
+    if (id) images.push({ publicId: id, label: `${p.data.titleIt} — foto ${i + 1}`, group: 'Progetti' });
+  });
+}
+
+const news = await getCollection('news');
+for (const n of news) {
+  const id = extractPublicId(n.data.image);
+  if (id) images.push({ publicId: id, label: n.data.titleIt, group: 'Notizie' });
+}
+
+const seen = new Set<string>();
+const uniqueImages = images.filter(img => {
+  if (seen.has(img.publicId)) return false;
+  seen.add(img.publicId);
+  return true;
+});
+
+const groups = [...new Set(uniqueImages.map(i => i.group))];
+const totalImages = uniqueImages.length;
+---
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cache CDN — Admin</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #080f1e;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #475569;
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: color 0.15s;
+      flex-shrink: 0;
+    }
+    .back-link:hover { color: #94a3b8; }
+    .back-link svg { width: 14px; height: 14px; }
+
+    .header-sep {
+      width: 1px;
+      height: 18px;
+      background: #1e293b;
+      flex-shrink: 0;
+    }
+
+    .header-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #cbd5e1;
+    }
+
+    .header-badge {
+      margin-left: auto;
+      font-size: 0.68rem;
+      color: #475569;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Page body ── */
+    .page-body {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 4rem;
+    }
+
+    /* ── Hero section ── */
+    .hero {
+      margin-bottom: 2.5rem;
+    }
+
+    .hero h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #f8fafc;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      margin-top: 0.5rem;
+      color: #64748b;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    /* ── Action bar ── */
+    .action-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1.25rem;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      font-size: 0.775rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(37,99,235,0.4);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: #1d4ed8;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.5);
+    }
+    .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; box-shadow: none; }
+
+    .btn-ghost {
+      background: #1e293b;
+      color: #64748b;
+      border: 1px solid #1e293b;
+    }
+    .btn-ghost:hover { background: #273549; color: #94a3b8; }
+
+    .divider { width: 1px; height: 20px; background: #1e293b; flex-shrink: 0; }
+
+    .selection-info {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.775rem;
+      color: #475569;
+    }
+
+    .selection-info strong {
+      color: #94a3b8;
+      font-weight: 700;
+    }
+
+    /* ── Section ── */
+    .group-section { margin-bottom: 3rem; }
+
+    .group-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .group-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #334155;
+      white-space: nowrap;
+    }
+
+    .group-count {
+      font-size: 0.68rem;
+      color: #1e293b;
+      background: #1e293b;
+      padding: 0.1rem 0.45rem;
+      border-radius: 99px;
+      color: #475569;
+    }
+
+    .group-line {
+      flex: 1;
+      height: 1px;
+      background: #1a2640;
+    }
+
+    /* ── Image grid ── */
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .image-card {
+      position: relative;
+      background: #0f172a;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1.5px solid #1e293b;
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+      user-select: none;
+    }
+
+    .image-card:hover {
+      border-color: #334155;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      transform: translateY(-2px);
+    }
+
+    .image-card.selected {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 1px #3b82f6, 0 4px 20px rgba(59,130,246,0.2);
+    }
+
+    /* Hide native checkbox */
+    .image-card input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* Custom checkmark overlay */
+    .check-overlay {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      background: rgba(15,23,42,0.5);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      z-index: 2;
+    }
+
+    .check-overlay svg {
+      width: 12px;
+      height: 12px;
+      opacity: 0;
+      transition: opacity 0.15s;
+      color: #fff;
+    }
+
+    .image-card.selected .check-overlay {
+      background: #3b82f6;
+      border-color: #3b82f6;
+    }
+
+    .image-card.selected .check-overlay svg {
+      opacity: 1;
+    }
+
+    /* Thumbnail */
+    .thumb-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 5/3;
+      background: #0a111f;
+      overflow: hidden;
+    }
+
+    .image-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease, opacity 0.3s;
+    }
+
+    .image-card:hover .image-thumb { transform: scale(1.03); }
+    .image-card.selected .image-thumb { opacity: 0.8; }
+
+    /* Selected tint */
+    .thumb-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(59,130,246,0.15);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .image-card.selected .thumb-wrap::after { opacity: 1; }
+
+    .image-info {
+      padding: 0.65rem 0.75rem 0.7rem;
+      border-top: 1px solid #1e293b;
+    }
+
+    .image-label {
+      font-size: 0.775rem;
+      color: #cbd5e1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 500;
+    }
+
+    .image-id {
+      font-size: 0.65rem;
+      color: #334155;
+      margin-top: 0.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: ui-monospace, monospace;
+    }
+
+    /* ── Results ── */
+    #results {
+      margin-top: 2.5rem;
+      display: none;
+    }
+
+    .results-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .results-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #334155;
+    }
+
+    .result-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .result-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 1rem;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      font-size: 0.8rem;
+    }
+
+    .result-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .result-item.ok    .result-dot { background: #22c55e; }
+    .result-item.error .result-dot { background: #ef4444; }
+
+    .result-id   { color: #64748b; font-family: ui-monospace, monospace; flex: 1; font-size: 0.75rem; }
+
+    .result-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+    .result-item.ok    .result-badge { background: rgba(34,197,94,0.1);  color: #4ade80; }
+    .result-item.error .result-badge { background: rgba(239,68,68,0.1);  color: #f87171; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 1.75rem;
+      right: 1.75rem;
+      padding: 0.7rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: none;
+      z-index: 200;
+      max-width: 360px;
+      backdrop-filter: blur(8px);
+      border: 1px solid transparent;
+    }
+    #toast.success { background: rgba(20,83,45,0.95);  color: #86efac; border-color: rgba(34,197,94,0.2); }
+    #toast.error   { background: rgba(127,29,29,0.95); color: #fca5a5; border-color: rgba(239,68,68,0.2); }
+    #toast.info    { background: rgba(23,37,84,0.95);  color: #93c5fd; border-color: rgba(59,130,246,0.2); }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <a href="/it/admin/" class="back-link">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 12L6 8l4-4"/>
+      </svg>
+      Admin
+    </a>
+    <div class="header-sep"></div>
+    <span class="header-title">Cache CDN</span>
+    <span class="header-badge">{totalImages} immagini totali</span>
+  </header>
+
+  <div class="page-body">
+
+    <div class="hero">
+      <h1>Gestione Cache CDN</h1>
+      <p>Seleziona una o più immagini e premi <strong>Invalida</strong> per forzare il rinnovo sulla CDN di Cloudinary. Utile dopo aver sostituito un'immagine mantenendo lo stesso URL.</p>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn btn-ghost" id="btn-select-all">Seleziona tutto</button>
+      <button class="btn btn-ghost" id="btn-deselect-all">Deseleziona tutto</button>
+      <div class="divider"></div>
+      <div class="selection-info">
+        <strong id="count">0</strong> selezionate
+      </div>
+      <button class="btn btn-primary" id="btn-invalidate" disabled>
+        Invalida cache
+      </button>
+    </div>
+
+    {groups.map(group => {
+      const groupImages = uniqueImages.filter(img => img.group === group);
+      return (
+        <div class="group-section">
+          <div class="group-header">
+            <span class="group-title">{group}</span>
+            <span class="group-count">{groupImages.length}</span>
+            <div class="group-line"></div>
+          </div>
+          <div class="image-grid">
+            {groupImages.map(img => (
+              <label class="image-card" data-id={img.publicId}>
+                <input type="checkbox" class="img-checkbox" value={img.publicId} />
+                <div class="check-overlay">
+                  <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="2,6 5,9 10,3"/>
+                  </svg>
+                </div>
+                <div class="thumb-wrap">
+                  <Image
+                    class="image-thumb"
+                    src={THUMB(img.publicId)}
+                    alt={img.label}
+                    width={400}
+                    height={240}
+                    loading="lazy"
+                  />
+                </div>
+                <div class="image-info">
+                  <div class="image-label" title={img.label}>{img.label}</div>
+                  <div class="image-id" title={img.publicId}>{img.publicId}</div>
+                </div>
+              </label>
+            ))}
+          </div>
+        </div>
+      );
+    })}
+
+    <div id="results">
+      <div class="results-header">
+        <span class="results-title">Risultati</span>
+        <div class="group-line"></div>
+      </div>
+      <ul class="result-list" id="result-list"></ul>
+    </div>
+
+  </div>
+
+  <div id="toast"></div>
+
+  <script is:inline define:vars={{ WORKER_URL }}>
+    const checkboxes = document.querySelectorAll('.img-checkbox');
+    const countEl = document.getElementById('count');
+    const btnInvalidate = document.getElementById('btn-invalidate');
+    const btnSelectAll = document.getElementById('btn-select-all');
+    const btnDeselectAll = document.getElementById('btn-deselect-all');
+    const toast = document.getElementById('toast');
+    const results = document.getElementById('results');
+    const resultList = document.getElementById('result-list');
+
+    function updateCount() {
+      const n = document.querySelectorAll('.img-checkbox:checked').length;
+      countEl.textContent = n;
+      btnInvalidate.disabled = n === 0;
+    }
+
+    function syncCard(checkbox) {
+      checkbox.closest('.image-card').classList.toggle('selected', checkbox.checked);
+    }
+
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', () => { syncCard(cb); updateCount(); });
+    });
+
+    btnSelectAll.addEventListener('click', () => {
+      checkboxes.forEach(cb => { cb.checked = true; syncCard(cb); });
+      updateCount();
+    });
+
+    btnDeselectAll.addEventListener('click', () => {
+      checkboxes.forEach(cb => { cb.checked = false; syncCard(cb); });
+      updateCount();
+    });
+
+    function showToast(msg, type = 'info', ms = 4000) {
+      toast.textContent = msg;
+      toast.className = type;
+      toast.style.display = 'block';
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => { toast.style.display = 'none'; }, ms);
+    }
+
+    btnInvalidate.addEventListener('click', async () => {
+      const selected = [...document.querySelectorAll('.img-checkbox:checked')].map(cb => cb.value);
+      if (!selected.length) return;
+
+      btnInvalidate.disabled = true;
+      btnInvalidate.textContent = 'Invio…';
+      showToast(`Invalidazione di ${selected.length} immagine/i in corso…`, 'info', 30000);
+
+      try {
+        const res = await fetch(`${WORKER_URL}/invalidate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ public_ids: selected }),
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
+
+        results.style.display = 'block';
+        resultList.innerHTML = '';
+        let okCount = 0, errCount = 0;
+
+        for (const r of data.results) {
+          const isOk = r.status === 'ok';
+          isOk ? okCount++ : errCount++;
+          const li = document.createElement('li');
+          li.className = `result-item ${isOk ? 'ok' : 'error'}`;
+          li.innerHTML = `
+            <span class="result-dot"></span>
+            <span class="result-id">${r.public_id}</span>
+            <span class="result-badge">${isOk ? 'Invalidata' : 'Errore'}</span>
+          `;
+          resultList.appendChild(li);
+        }
+
+        showToast(
+          errCount === 0
+            ? `✓ ${okCount} immagine/i invalidate con successo`
+            : `${okCount} ok · ${errCount} errori — vedi risultati`,
+          errCount === 0 ? 'success' : 'error',
+          6000
+        );
+
+        results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      } catch (err) {
+        showToast(`Errore: ${err.message}`, 'error', 8000);
+      } finally {
+        btnInvalidate.disabled = false;
+        btnInvalidate.textContent = 'Invalida cache';
+        updateCount();
+      }
+    });
+  </script>
+
+</body>
+</html>

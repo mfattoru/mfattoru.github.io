@@ -104,7 +104,56 @@ These are injected at build time into `dist/it/admin/config.yml` — they never 
 
 ---
 
-## 5. Git History — Removing Accidentally Committed Secrets
+## 5. CDN Cache Invalidation Worker
+
+The admin page at `/it/admin/cache` lets you invalidate Cloudinary CDN cache for any site image. It requires a Cloudflare Worker to sign requests with the API secret (which must never be in browser code).
+
+### 5a. Deploy the worker via wrangler
+
+```bash
+cd cloudflare-workers
+npx wrangler deploy cloudinary-invalidate.js --name onofrio-cloudinary-cache
+```
+
+### 5b. Add worker secrets
+
+Via wrangler (run once per secret):
+
+```bash
+npx wrangler secret put CLOUDINARY_CLOUD_NAME --name onofrio-cloudinary-cache
+npx wrangler secret put CLOUDINARY_API_KEY    --name onofrio-cloudinary-cache
+npx wrangler secret put CLOUDINARY_API_SECRET --name onofrio-cloudinary-cache
+```
+
+Or via the dashboard: Worker → **Settings → Variables → Secrets**.
+
+| Secret name | Value |
+|---|---|
+| `CLOUDINARY_CLOUD_NAME` | your Cloudinary cloud name |
+| `CLOUDINARY_API_KEY` | your Cloudinary API key |
+| `CLOUDINARY_API_SECRET` | your Cloudinary API secret — from cloudinary.com → Settings → API Keys |
+
+### 5c. Add the worker URL as a GitHub Actions secret
+
+Go to your repo → **Settings → Secrets and variables → Actions → New repository secret**:
+
+| Secret name | Value |
+|---|---|
+| `CLOUDINARY_CACHE_WORKER_URL` | `https://onofrio-cloudinary-cache.<subdomain>.workers.dev` |
+
+This URL is injected at build time into the admin cache page so it knows where to call.
+
+### 5d. Local `.env`
+
+Add the same URL to your `.env` for local development:
+
+```
+CLOUDINARY_CACHE_WORKER_URL=https://onofrio-cloudinary-cache.<subdomain>.workers.dev
+```
+
+---
+
+## 6. Git History — Removing Accidentally Committed Secrets
 
 If credentials were ever committed to git, remove them from history:
 
@@ -123,7 +172,7 @@ After this, rotate the exposed credentials immediately (revoke and create new on
 
 ---
 
-## 6. Local Development
+## 7. Local Development
 
 ### 6a. Environment variables
 
@@ -166,7 +215,7 @@ To edit content locally:
 
 ---
 
-## 7. Summary of What Lives Where
+## 8. Summary of What Lives Where
 
 | Thing | Where |
 |---|---|
@@ -181,3 +230,6 @@ To edit content locally:
 | Cloudinary credentials | GitHub Actions secrets (never in repo) |
 | OAuth proxy | Cloudflare Worker (`sveltia-cms-auth`) |
 | OAuth Worker URL | `src/pages/it/admin/config.yml.ts` (`base_url`) |
+| Cache invalidation page | `src/pages/it/admin/cache.astro` |
+| Cache invalidation worker | `cloudflare-workers/cloudinary-invalidate.js` |
+| Cache Worker URL | GitHub Actions secret `CLOUDINARY_CACHE_WORKER_URL` |

@@ -74,11 +74,11 @@ The callback URL points to the Cloudflare Worker, not the CMS page. The worker e
 
 ---
 
-## Media — Cloudinary (optional)
+## Media — Cloudinary
 
 | | |
 |---|---|
-| **Purpose** | Multi-image picker for project galleries in the CMS |
+| **Purpose** | Multi-image picker for project galleries in the CMS; CDN for all site images |
 | **Managed at** | cloudinary.com |
 | **Credentials stored** | GitHub Actions secrets (never in the repo) |
 | **Active in** | Production builds only (disabled in local dev) |
@@ -90,8 +90,30 @@ The callback URL points to the Cloudflare Worker, not the CMS page. The worker e
 | `CLOUDINARY_CLOUD_NAME` | Cloud name from Cloudinary dashboard |
 | `CLOUDINARY_API_KEY` | API key (public — safe to use in frontend) |
 | `CLOUDINARY_UPLOAD_PRESET` | Unsigned upload preset name |
+| `CLOUDINARY_CACHE_WORKER_URL` | URL of the cache invalidation Cloudflare Worker (see below) |
 
 Manage at: github.com/mfattoru/mfattoru.github.io → Settings → Secrets and variables → Actions
+
+---
+
+## CDN Cache Invalidation — Cloudflare Worker
+
+| | |
+|---|---|
+| **Worker name** | `onofrio-cloudinary-cache` |
+| **Worker URL** | `https://onofrio-cloudinary-cache.michele-fattoruso.workers.dev` |
+| **Source** | `cloudflare-workers/cloudinary-invalidate.js` |
+| **Managed at** | cloudflare.com → Workers & Pages → `onofrio-cloudinary-cache` |
+| **Admin page** | `https://mfattoru.github.io/it/admin/cache` |
+| **Purpose** | Signs Cloudinary invalidation requests server-side (API secret must never be in browser code) |
+
+### Worker secrets
+
+| Secret | Description |
+|---|---|
+| `CLOUDINARY_CLOUD_NAME` | Cloud name |
+| `CLOUDINARY_API_KEY` | API key |
+| `CLOUDINARY_API_SECRET` | API secret — from Cloudinary dashboard → Settings → API Keys |
 
 ---
 
@@ -110,10 +132,15 @@ Browser
 
 CMS Admin (browser)
   └─► Sveltia CMS (CDN script)
-        └─► Cloudflare Worker (OAuth proxy)
+        └─► Cloudflare Worker: onofrio-cms-auth (OAuth proxy)
               └─► GitHub OAuth App
                     └─► GitHub API (read/write repo content)
 
 CMS Media Upload (browser)
   └─► Cloudinary (direct unsigned upload)
+
+Cache Invalidation Admin (browser)
+  └─► /it/admin/cache
+        └─► Cloudflare Worker: onofrio-cloudinary-cache
+              └─► Cloudinary Explicit API (invalidate=true)
 ```

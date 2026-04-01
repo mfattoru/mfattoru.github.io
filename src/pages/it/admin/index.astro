@@ -87,9 +87,51 @@
     #nc-root {
       font-family: system-ui, sans-serif !important;
     }
+
+    #admin-tools {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 2147483647;
+      display: flex;
+      gap: 0.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    #admin-tools.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .admin-tool-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 0.8rem;
+      background: #1e293b;
+      color: #94a3b8;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1px solid #334155;
+      transition: background 0.15s, color 0.15s;
+    }
+    .admin-tool-link:hover {
+      background: #273549;
+      color: #f1f5f9;
+    }
   </style>
 </head>
 <body>
+
+  <div id="admin-tools">
+    <a class="admin-tool-link" href="/it/admin/cache">🖼 Cache CDN</a>
+  </div>
 
   <!-- Loading screen shown until CMS is ready -->
   <div id="cms-loading">
@@ -146,6 +188,8 @@
           loader.classList.add('fade-out');
           setTimeout(() => loader.remove(), 450);
         }
+
+        document.getElementById('admin-tools').classList.add('visible');
 
         CMS.registerEventListener({
           name: 'preSave',
