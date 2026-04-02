@@ -101,7 +101,10 @@ const quoteHref = lang === 'it' ? `${base}/preventivo` : `${base}/quote`;
       {link.label}
     </a>
   ))}
-  <div class="flex items-center gap-4 mt-4">
+  <a href={quoteHref} class="btn-primary text-sm">
+    {t(lang, 'nav.quote')}
+  </a>
+  <div class="flex items-center gap-4">
     {showLangSwitcher && <LangSwitcher lang={lang} currentUrl={currentUrl} />}
   </div>
 </div>
