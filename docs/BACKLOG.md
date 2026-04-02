@@ -13,8 +13,6 @@ Always update this file after completing a task. Keep not completed tasks at top
 | ID | Task |
 |----|------|
 | B-02 | **Live Preview** — Update the admin page preview to show a 1:1 representation of the live website rather than a raw data blob. |
-| B-06 | **Admin Panel — Bilingual Field UX** — Clearly distinguish IT vs EN fields in content creation forms (flag icons, grouping, color coding). IT and EN fields should never share content. |
-| B-08 | **Admin Panel — Language Display Mode** — Setting to choose site language (IT only, EN only, or both). Controls: field visibility in content forms (hide unused language fields), auto-translation toggle (disabled for single-language), and auto-translate only populates empty fields to avoid overwriting manual content. |
 
 ---
 
@@ -49,3 +47,5 @@ Always update this file after completing a task. Keep not completed tasks at top
 | B-01 | **Content Guidelines** | Added `hint` text with recommended dimensions to all image fields in the CMS (news cover: 1200×480px, project thumbnail: 1200×800px, gallery: 1600×1067px, service cover: 1200×800px). |
 | B-07 | **Admin Panel — Extended Site Settings** | Email, phone, mobile, address, VAT, hours (IT/EN), LinkedIn URL added to `site-settings` schema and CMS. Footer, Contact, and Careers pages now read from CMS instead of i18n JSON. |
 | B-09 | **Performance — Eager Loading Above the Fold** | Headshot on chi-siamo/about gets `loading="eager" fetchpriority="high"`. First news card image on IT/EN list pages also eager-loaded. |
+| B-06 | **Admin Panel — Bilingual Field UX** | 🇮🇹/🇬🇧 flag emoji prefixes on all bilingual field labels across news, projects, solutions, page-content, and site-settings collections. |
+| B-08 | **Admin Panel — Language Display Mode** | `siteLanguage` field in site-settings (both/it/en). CMS config endpoint reads it at request time and hides unused language fields. Auto-translation disabled when not in `both` mode. |
