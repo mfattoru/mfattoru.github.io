@@ -68,7 +68,7 @@ collections:
       - { label: "Data pubblicazione", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
       - { label: "Descrizione breve (IT)", name: "descriptionIt", widget: "string" }
       - { label: "Description (EN) — auto-tradotto al salvataggio", name: "descriptionEn", widget: "string", required: false }
-      - { label: "Immagine copertina", name: "image", widget: "image", required: false }
+      - { label: "Immagine copertina", name: "image", widget: "image", required: false, hint: "Dimensione consigliata: 1200×480px (rapporto 5:2). Mostrata in cima all'articolo." }
       - { label: "Contenuto (IT)", name: "body", widget: "markdown" }
       - { label: "Content (EN) — auto-tradotto al salvataggio", name: "bodyEn", widget: "markdown", required: false }
 
@@ -96,11 +96,11 @@ collections:
       - { label: "Risultato (IT)", name: "resultIt", widget: "text", hint: "Evidenziato in un box a parte nella pagina." }
       - { label: "Result (EN) — auto-tradotto al salvataggio", name: "resultEn", widget: "text", required: false }
       - { label: "Descrizione completa (IT/EN) — opzionale", name: "body", widget: "markdown", required: false, hint: "Testo esteso con formattazione markdown. Visualizzato dopo la descrizione breve." }
-      - { label: "Immagine principale", name: "thumbnail", widget: "image", hint: "Usata nella lista progetti e in cima alla pagina." }
+      - { label: "Immagine principale", name: "thumbnail", widget: "image", hint: "Dimensione consigliata: 1200×800px (rapporto 3:2). Usata nella lista progetti e in cima alla pagina." }
       - label: "Galleria foto"
         name: "gallery"
         widget: "list"
-        hint: "Tutte le foto del progetto mostrate nel carosello."
+        hint: "Tutte le foto del progetto mostrate nel carosello. Dimensione consigliata: 1600×1067px (rapporto 3:2)."
         summary: "{{fields.photo}}"
         field:
           label: "Foto"
@@ -167,7 +167,7 @@ collections:
       - { label: "Short description (EN) — auto-tradotto al salvataggio", name: "descriptionEn", widget: "string", required: false }
       - { label: "Icona (emoji)", name: "icon", widget: "string", hint: "Es: 🏛️" }
       - { label: "Ordine di visualizzazione", name: "order", widget: "number", value_type: "int", min: 1 }
-      - { label: "Immagine copertina", name: "image", widget: "image", required: false }
+      - { label: "Immagine copertina", name: "image", widget: "image", required: false, hint: "Dimensione consigliata: 1200×800px (rapporto 3:2). Mostrata nella card e in cima alla pagina servizio." }
       - { label: "Contenuto (IT)", name: "body", widget: "markdown" }
       - { label: "Content (EN) — auto-tradotto al salvataggio", name: "bodyEn", widget: "markdown", required: false }
 `;
