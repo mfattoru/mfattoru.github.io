@@ -10,9 +10,10 @@ import logoLong from '../assets/logo-long.png';
 interface Props {
   lang: Lang;
   currentPath: string;
+  showLangSwitcher?: boolean;
 }
 
-const { lang, currentPath } = Astro.props;
+const { lang, currentPath, showLangSwitcher = true } = Astro.props;
 const base = `/${lang}`;
 
 const links = lang === 'it'
@@ -71,7 +72,7 @@ const quoteHref = lang === 'it' ? `${base}/preventivo` : `${base}/quote`;
   <div class="hidden md:flex items-center gap-4">
     <FontSizer />
     <ThemeSwitcher />
-    <LangSwitcher lang={lang} currentUrl={currentUrl} />
+    {showLangSwitcher && <LangSwitcher lang={lang} currentUrl={currentUrl} />}
     <a href={quoteHref} class="btn-primary text-xs">
       {t(lang, 'nav.quote')}
     </a>
@@ -102,7 +103,7 @@ const quoteHref = lang === 'it' ? `${base}/preventivo` : `${base}/quote`;
     </a>
   ))}
   <div class="flex items-center gap-4 mt-4">
-    <LangSwitcher lang={lang} currentUrl={currentUrl} />
+    {showLangSwitcher && <LangSwitcher lang={lang} currentUrl={currentUrl} />}
   </div>
 </div>
 

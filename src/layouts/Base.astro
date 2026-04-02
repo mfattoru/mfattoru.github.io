@@ -20,7 +20,9 @@ const {
 } = Astro.props;
 
 const settings = await getCollection('site-settings');
-const defaultTheme = settings[0]?.data.theme ?? 'steel';
+const settingsData = settings[0]?.data;
+const defaultTheme = settingsData?.theme ?? 'steel';
+const showLangSwitcher = (settingsData?.siteLanguage ?? 'both') === 'both';
 ---
 
 <!doctype html>
@@ -49,7 +51,7 @@ const defaultTheme = settings[0]?.data.theme ?? 'steel';
     </script>
   </head>
   <body>
-    <Nav lang={lang} currentPath={currentPath} />
+    <Nav lang={lang} currentPath={currentPath} showLangSwitcher={showLangSwitcher} />
     <main>
       <slot />
     </main>
