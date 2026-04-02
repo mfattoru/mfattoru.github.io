@@ -23,7 +23,8 @@ const homepageContent = await getEntry('page-content', 'homepage');
           width={480} height={640}
           class="w-full object-cover"
           style="aspect-ratio: 3/4;"
-          loading="lazy"
+          loading="eager"
+          fetchpriority="high"
         />
       </div>
       <div class="md:col-span-2 grid grid-cols-1 gap-8">

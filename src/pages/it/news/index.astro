@@ -13,10 +13,10 @@ const posts = (await getCollection('news')).sort((a, b) => new Date(b.data.date)
     <h1 class="section-title mb-12" style="color: var(--color-text);">{t(lang, 'news.title')}</h1>
 
     <div class="space-y-4">
-      {posts.map(post => (
+      {posts.map((post, i) => (
         <a href={`/it/news/${post.slug}`} class="card block overflow-hidden transition-all hover:-translate-y-1">
           {post.data.image && (
-            <Image src={post.data.image} alt={post.data.titleIt} width={800} height={320} class="w-full h-48 object-cover" loading="lazy" decoding="async" />
+            <Image src={post.data.image} alt={post.data.titleIt} width={800} height={320} class="w-full h-48 object-cover" loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'auto'} decoding="async" />
           )}
           <div class="p-6">
             <p class="text-xs uppercase tracking-widest mb-2" style="color: var(--color-primary);">
