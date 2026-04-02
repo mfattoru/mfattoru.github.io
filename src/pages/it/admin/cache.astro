@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 
 const WORKER_URL = import.meta.env.CLOUDINARY_CACHE_WORKER_URL
-  ?? 'https://onofrio-cloudinary-cache.michele-fattoruso.workers.dev';
+  || 'https://onofrio-cloudinary-cache.michele-fattoruso.workers.dev';
 
 const CLOUD = import.meta.env.CLOUDINARY_CLOUD_NAME ?? 'dd3aknabk';
 const THUMB = (publicId: string) =>

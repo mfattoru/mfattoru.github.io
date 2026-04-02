@@ -107,8 +107,9 @@ Go to your GitHub repo → **Settings → Secrets and variables → Actions → 
 | `CLOUDINARY_CLOUD_NAME` | your cloud name (e.g. `abc123xyz`) |
 | `CLOUDINARY_API_KEY` | your API key (e.g. `479373179279441`) |
 | `CLOUDINARY_UPLOAD_PRESET` | your unsigned preset name |
+| `CLOUDINARY_CACHE_WORKER_URL` | your Cloudflare Worker URL (see section 5) — e.g. `https://onofrio-cloudinary-cache.<subdomain>.workers.dev` |
 
-These are injected at build time into `dist/it/admin/config.yml` — they never appear in the repository.
+These are injected at build time — they never appear in the repository. If `CLOUDINARY_CACHE_WORKER_URL` is missing or empty, the Cache CDN page will POST to the wrong URL and return a 405 error.
 
 ---
 
