@@ -76,6 +76,7 @@ collections:
               - { label: "Marble", value: "marble" }
               - { label: "Daylight", value: "daylight" }
               - { label: "High Contrast", value: "high-contrast" }
+          - { label: "Mostra selettore tema", name: "showThemeSwitcher", widget: "boolean", default: true, hint: "Se disabilitato, il pulsante per cambiare tema viene nascosto dal sito. Il tema predefinito sopra sarà l'unico usato." }
           - label: "Lingua del sito"
             name: "siteLanguage"
             widget: "select"

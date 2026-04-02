@@ -11,9 +11,10 @@ interface Props {
   lang: Lang;
   currentPath: string;
   showLangSwitcher?: boolean;
+  showThemeSwitcher?: boolean;
 }
 
-const { lang, currentPath, showLangSwitcher = true } = Astro.props;
+const { lang, currentPath, showLangSwitcher = true, showThemeSwitcher = true } = Astro.props;
 const base = `/${lang}`;
 
 const links = lang === 'it'
@@ -71,7 +72,7 @@ const quoteHref = lang === 'it' ? `${base}/preventivo` : `${base}/quote`;
   <!-- Right controls -->
   <div class="hidden md:flex items-center gap-4">
     <FontSizer />
-    <ThemeSwitcher />
+    {showThemeSwitcher && <ThemeSwitcher />}
     {showLangSwitcher && <LangSwitcher lang={lang} currentUrl={currentUrl} />}
     <a href={quoteHref} class="btn-primary text-xs">
       {t(lang, 'nav.quote')}

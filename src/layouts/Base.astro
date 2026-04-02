@@ -23,6 +23,7 @@ const settings = await getCollection('site-settings');
 const settingsData = settings[0]?.data;
 const defaultTheme = settingsData?.theme ?? 'steel';
 const showLangSwitcher = (settingsData?.siteLanguage ?? 'both') === 'both';
+const showThemeSwitcher = settingsData?.showThemeSwitcher ?? true;
 ---
 
 <!doctype html>
@@ -51,7 +52,7 @@ const showLangSwitcher = (settingsData?.siteLanguage ?? 'both') === 'both';
     </script>
   </head>
   <body>
-    <Nav lang={lang} currentPath={currentPath} showLangSwitcher={showLangSwitcher} />
+    <Nav lang={lang} currentPath={currentPath} showLangSwitcher={showLangSwitcher} showThemeSwitcher={showThemeSwitcher} />
     <main>
       <slot />
     </main>

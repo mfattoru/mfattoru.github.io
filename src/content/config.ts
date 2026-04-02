@@ -12,6 +12,7 @@ const siteSettingsSchema = z.object({
   hoursEn: z.string().optional().default(''),
   linkedinUrl: z.string().optional().default(''),
   siteLanguage: z.enum(['both', 'it', 'en']).optional().default('both'),
+  showThemeSwitcher: z.boolean().optional().default(true),
 });
 
 const solutionSchema = z.object({
