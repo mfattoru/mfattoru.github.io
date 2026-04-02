@@ -1,4 +1,7 @@
 ---
+ctaBannerImage: /image/Gemini_Generated_Image_5rgcnc5rgcnc5rgc.png
+formspreeId: ''
+logoFile: /image/logo.jpeg
 cvFile: /Cv_ing_Onofrio_Fattoruso.pdf
 theme: daylight
 showThemeSwitcher: false
