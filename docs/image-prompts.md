@@ -30,6 +30,21 @@ of renovated historic buildings and new contemporary structures. Soft golden-hou
 clear sky, neutral tones. No people, no text. Photorealistic, high detail.
 ```
 
+### CTA Banner — "Hai un progetto in mente?"
+**CMS field:** Admin → ⚙️ Impostazioni Sito → Immagine banner CTA homepage
+**Display:** Full-width section background with 55% black overlay — image must read well behind dark semi-transparent layer
+**Aspect ratio:** 16:5 (very wide landscape)
+**Recommended upload size:** 1920×600px
+
+```
+Wide-angle photograph of an Italian engineering or construction site at dusk: a partially
+completed modern building or public infrastructure project with warm ambient lighting,
+construction cranes silhouetted against a deep blue sky. Atmospheric, cinematic depth,
+no people in foreground, no text. The image should feel aspirational and professional —
+suitable as a muted dark background behind white call-to-action text.
+Photorealistic, high detail.
+```
+
 ---
 
 ## About Page (`/it/chi-siamo`, `/en/about`)
@@ -256,6 +271,7 @@ left-center third, clean right portion for headline text overlay.
 | Section | Upload Size | Astro Component Size | Aspect Ratio | Cloudinary Path Prefix |
 |---|---|---|---|---|
 | Hero background | 1920×1080 | CSS bg-image | 16:9 | `site/` |
+| CTA banner | 1920×600 | CSS bg-image | 16:5 | `site/` |
 | Headshot | 960×1280 | 480×640 | 3:4 | `site/` |
 | Solution card | 1600×640 | 800×320 | 2.5:1 | `solutions/` |
 | Solution banner | 2400×960 | 1200×480 | 2.5:1 | `solutions/` |

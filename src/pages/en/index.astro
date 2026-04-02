@@ -12,6 +12,8 @@ const recentProjects = (await getCollection('projects'))
   .sort((a, b) => b.data.year.localeCompare(a.data.year))
   .slice(0, 3);
 const homepageContent = await getEntry('page-content', 'homepage');
+const siteSettings = (await getCollection('site-settings'))[0]?.data;
+const ctaBannerImage = siteSettings?.ctaBannerImage;
 ---
 
 <Base lang={lang} title={t(lang, 'nav.home')}>
@@ -85,10 +87,16 @@ const homepageContent = await getEntry('page-content', 'homepage');
   )}
 
   <!-- CTA banner -->
-  <section class="py-24">
-    <div class="max-w-6xl mx-auto px-6 md:px-12 text-center">
-      <h2 class="section-title mb-4" style="color: var(--color-text);">{t(lang, 'home.cta.title')}</h2>
-      <p class="mb-8" style="color: var(--color-accent);">{t(lang, 'home.cta.text')}</p>
+  <section
+    class="py-24 relative overflow-hidden"
+    style={ctaBannerImage
+      ? `background-image: url('${ctaBannerImage}'); background-size: cover; background-position: center;`
+      : `background: var(--color-surface);`}
+  >
+    {ctaBannerImage && <div class="absolute inset-0" style="background: rgba(0,0,0,0.55);" />}
+    <div class="relative max-w-6xl mx-auto px-6 md:px-12 text-center">
+      <h2 class="section-title mb-4" style={ctaBannerImage ? 'color: #fff;' : 'color: var(--color-text);'}>{t(lang, 'home.cta.title')}</h2>
+      <p class="mb-8" style={ctaBannerImage ? 'color: rgba(255,255,255,0.8);' : 'color: var(--color-accent);'}>{t(lang, 'home.cta.text')}</p>
       <a href="/en/quote" class="btn-primary">{t(lang, 'home.cta.button')}</a>
     </div>
   </section>
