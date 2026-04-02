@@ -28,7 +28,6 @@ const lang = 'it';
       {t(lang, 'solutions.back')}
     </a>
 
-    <div class="text-5xl mb-6">{entry.data.icon}</div>
     <h1 class="section-title mb-4" style="color: var(--color-text);">{entry.data.titleIt}</h1>
     <p class="text-lg mb-16" style="color: var(--color-accent);">{entry.data.descriptionIt}</p>
 
@@ -36,9 +35,63 @@ const lang = 'it';
       <Content />
     </div>
 
+    {entry.data.gallery.length > 0 && (
+      <div class="mt-16">
+        <h2 class="text-xl font-heading font-bold mb-6" style="color: var(--color-text);">{t(lang, 'projects.gallery')}</h2>
+        <div class="relative" id="carousel">
+          <div class="relative overflow-hidden w-full" style="aspect-ratio: 16/9; background: var(--color-surface);">
+            {entry.data.gallery.map((src, i) => (
+              <Image
+                src={src}
+                alt={`${entry.data.titleIt} — foto ${i + 1}`}
+                width={1200} height={675}
+                class="w-full h-full object-cover absolute inset-0 transition-opacity duration-200"
+                style={i === 0 ? 'opacity:1;' : 'opacity:0;'}
+                loading="lazy" decoding="async" data-slide={i}
+              />
+            ))}
+          </div>
+          <button id="carousel-prev" type="button" class="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 focus:outline-none" style="background: rgba(0,0,0,0.55); color: #fff; border: none; cursor: pointer; font-size: 1.5rem;" aria-label="Foto precedente">‹</button>
+          <button id="carousel-next" type="button" class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 focus:outline-none" style="background: rgba(0,0,0,0.55); color: #fff; border: none; cursor: pointer; font-size: 1.5rem;" aria-label="Foto successiva">›</button>
+          <div class="absolute bottom-3 right-4 text-xs px-2 py-1" id="carousel-counter" style="background: rgba(0,0,0,0.55); color: #fff;">1 / {entry.data.gallery.length}</div>
+        </div>
+        <div class="flex gap-2 mt-3 overflow-x-auto pb-2">
+          {entry.data.gallery.map((src, i) => (
+            <button type="button" class="flex-shrink-0 focus:outline-none carousel-thumb" data-index={i} style={`width: 80px; height: 56px; border: 2px solid ${i === 0 ? 'var(--color-primary)' : 'transparent'};`}>
+              <Image src={src} alt={`Foto ${i + 1}`} width={160} height={112} class="w-full h-full object-cover" loading="lazy" decoding="async" />
+            </button>
+          ))}
+        </div>
+      </div>
+    )}
+
     <div class="mt-16 pt-8" style="border-top: 1px solid var(--color-border);">
       <p class="text-sm mb-4" style="color: var(--color-accent);">Hai bisogno di questo servizio?</p>
       <a href="/it/preventivo" class="btn-primary">{t(lang, 'home.cta.button')}</a>
     </div>
   </div>
 </Base>
+
+<script>
+  const slides = document.querySelectorAll<HTMLElement>('#carousel [data-slide]');
+  if (slides.length > 0) {
+    let current = 0;
+    const total = slides.length;
+    const counter = document.getElementById('carousel-counter')!;
+    const thumbs = document.querySelectorAll<HTMLElement>('.carousel-thumb');
+    function goTo(index: number) {
+      slides[current].style.opacity = '0';
+      current = (index + total) % total;
+      slides[current].style.opacity = '1';
+      counter.textContent = `${current + 1} / ${total}`;
+      thumbs.forEach((t, i) => { t.style.borderColor = i === current ? 'var(--color-primary)' : 'transparent'; });
+    }
+    document.getElementById('carousel-prev')!.addEventListener('click', () => goTo(current - 1));
+    document.getElementById('carousel-next')!.addEventListener('click', () => goTo(current + 1));
+    thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => goTo(i)));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') goTo(current - 1);
+      if (e.key === 'ArrowRight') goTo(current + 1);
+    });
+  }
+</script>

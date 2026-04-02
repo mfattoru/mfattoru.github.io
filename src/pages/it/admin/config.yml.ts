@@ -187,6 +187,19 @@ collections:
       - { label: "Ordine di visualizzazione", name: "order", widget: "number", value_type: "int", min: 1 }
       - { label: "Immagine copertina", name: "image", widget: "image", required: false, hint: "Dimensione consigliata: 1200×800px (rapporto 3:2). Mostrata nella card e in cima alla pagina servizio." }
       ${showIt ? `- { label: "${it('Contenuto')}", name: "body", widget: "markdown" }` : ''}${enField(`- { label: "${en('Content')}${showIt ? ' — auto-tradotto al salvataggio' : ''}", name: "bodyEn", widget: "markdown"${showIt ? ', required: false' : ''} }`)}
+      - label: "Galleria foto"
+        name: "gallery"
+        widget: "list"
+        required: false
+        hint: "Foto mostrate nel carosello nella pagina servizio. Dimensione consigliata: 1600×1067px (rapporto 3:2)."
+        summary: "{{fields.photo}}"
+        field:
+          label: "Foto"
+          name: "photo"
+          widget: "image"
+          media_library:
+            config:
+              multiple: true
 `;
 
   return new Response(yaml, {

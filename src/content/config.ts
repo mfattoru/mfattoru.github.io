@@ -32,6 +32,7 @@ const solutionBilingualSchema = z.object({
   icon: z.string(),
   order: z.number(),
   image: z.string().optional(),
+  gallery: z.array(z.union([z.string(), z.array(z.string())])).optional().default([]).transform(a => a.flat()),
 });
 
 const newsSchema = z.object({
