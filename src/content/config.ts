@@ -3,6 +3,14 @@ import { defineCollection, z } from 'astro:content';
 const siteSettingsSchema = z.object({
   cvFile: z.string(),
   theme: z.string().optional().default('steel'),
+  email: z.string().optional().default(''),
+  phone: z.string().optional().default(''),
+  phoneMobile: z.string().optional().default(''),
+  address: z.string().optional().default(''),
+  vatNumber: z.string().optional().default(''),
+  hoursIt: z.string().optional().default(''),
+  hoursEn: z.string().optional().default(''),
+  linkedinUrl: z.string().optional().default(''),
 });
 
 const solutionSchema = z.object({

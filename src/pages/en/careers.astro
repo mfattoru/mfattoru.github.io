@@ -1,7 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { t } from '../../i18n/utils';
+import { getCollection } from 'astro:content';
 const lang = 'en';
+const siteSettings = (await getCollection('site-settings'))[0]?.data;
+const email = siteSettings?.email || t(lang, 'contact.email.value');
 ---
 <Base lang={lang} title={t(lang, 'careers.title')}>
   <div class="max-w-4xl mx-auto px-6 md:px-12 py-24">
@@ -14,7 +17,7 @@ const lang = 'en';
       <p class="text-sm leading-relaxed mb-8" style="color: var(--color-accent);">
         If you are an engineer, surveyor, or technician with experience in construction, safety, or design, send us your spontaneous application.
       </p>
-      <a href={`mailto:${t(lang, 'contact.email.value')}?subject=Spontaneous%20Application`} class="btn-outline">
+      <a href={`mailto:${email}?subject=Spontaneous%20Application`} class="btn-outline">
         Send spontaneous application
       </a>
     </div>

@@ -1,9 +1,16 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { t } from '../../i18n/utils';
+import { getCollection } from 'astro:content';
 
 const lang = 'en';
 const FORMSPREE_ID = 'mlgobndz';
+const siteSettings = (await getCollection('site-settings'))[0]?.data;
+const email = siteSettings?.email || t(lang, 'contact.email.value');
+const phone = siteSettings?.phone || t(lang, 'contact.phone.value');
+const phoneMobile = siteSettings?.phoneMobile || t(lang, 'contact.phone.mobile.value');
+const address = siteSettings?.address || t(lang, 'contact.address');
+const vatNumber = siteSettings?.vatNumber || '09348851214';
 
 const services = [
   'Architectural Design',
@@ -26,27 +33,27 @@ const services = [
       <ul class="space-y-8">
         <li>
           <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--color-accent);">Address</p>
-          <p style="color: var(--color-text);">{t(lang, 'contact.address')}</p>
+          <p style="color: var(--color-text);">{address}</p>
         </li>
         <li>
           <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--color-accent);">Phone</p>
-          <a href={`tel:${t(lang, 'contact.phone.value')}`} class="transition-colors hover:opacity-80" style="color: var(--color-primary);">
-            {t(lang, 'contact.phone.value')}
+          <a href={`tel:${phone}`} class="transition-colors hover:opacity-80" style="color: var(--color-primary);">
+            {phone}
           </a>
           <br />
-          <a href={`tel:${t(lang, 'contact.phone.mobile.value')}`} class="transition-colors hover:opacity-80" style="color: var(--color-primary);">
-            {t(lang, 'contact.phone.mobile.value')}
+          <a href={`tel:${phoneMobile}`} class="transition-colors hover:opacity-80" style="color: var(--color-primary);">
+            {phoneMobile}
           </a>
         </li>
         <li>
           <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--color-accent);">Email</p>
-          <a href={`mailto:${t(lang, 'contact.email.value')}`} class="transition-colors hover:opacity-80" style="color: var(--color-primary);">
-            {t(lang, 'contact.email.value')}
+          <a href={`mailto:${email}`} class="transition-colors hover:opacity-80" style="color: var(--color-primary);">
+            {email}
           </a>
         </li>
         <li>
           <p class="text-xs uppercase tracking-widest mb-1" style="color: var(--color-accent);">VAT</p>
-          <p style="color: var(--color-text);">{t(lang, 'contact.vat')}</p>
+          <p style="color: var(--color-text);">VAT: {vatNumber}</p>
         </li>
       </ul>
     </div>

@@ -1,6 +1,7 @@
 ---
 import { t } from '../i18n/utils';
 import type { Lang } from '../i18n/utils';
+import { getCollection } from 'astro:content';
 
 interface Props {
   lang: Lang;
@@ -8,6 +9,14 @@ interface Props {
 
 const { lang } = Astro.props;
 const base = `/${lang}`;
+const settings = (await getCollection('site-settings'))[0]?.data;
+const email = settings?.email || t(lang, 'contact.email.value');
+const phone = settings?.phone || t(lang, 'contact.phone.value');
+const phoneMobile = settings?.phoneMobile || t(lang, 'contact.phone.mobile.value');
+const address = settings?.address || t(lang, 'contact.address');
+const vatNumber = settings?.vatNumber || '09348851214';
+const hours = lang === 'it' ? (settings?.hoursIt || t(lang, 'contact.hours')) : (settings?.hoursEn || t(lang, 'contact.hours'));
+const linkedinUrl = settings?.linkedinUrl || 'https://www.linkedin.com/in/onofriofattoruso/';
 
 const solutionLinks = lang === 'it'
   ? [
@@ -35,7 +44,7 @@ const solutionLinks = lang === 'it'
       </p>
       <p class="text-sm leading-relaxed" style="color: var(--color-accent);">
         Engineering Solutions<br />
-        {t(lang, 'contact.address')}
+        {address}
       </p>
     </div>
 
@@ -62,27 +71,29 @@ const solutionLinks = lang === 'it'
       </p>
       <ul class="space-y-2 text-sm" style="color: var(--color-accent);">
         <li>
-          <a href={`mailto:${t(lang, 'contact.email.value')}`} class="transition-colors hover:text-[var(--color-primary)]" style="color: var(--color-accent);">
-            {t(lang, 'contact.email.value')}
+          <a href={`mailto:${email}`} class="transition-colors hover:text-[var(--color-primary)]" style="color: var(--color-accent);">
+            {email}
           </a>
         </li>
         <li>
-          <a href={`tel:${t(lang, 'contact.phone.value')}`} class="transition-colors hover:text-[var(--color-primary)]" style="color: var(--color-accent);">
-            {t(lang, 'contact.phone.value')}
+          <a href={`tel:${phone}`} class="transition-colors hover:text-[var(--color-primary)]" style="color: var(--color-accent);">
+            {phone}
           </a>
         </li>
         <li>
-          <a href={`tel:${t(lang, 'contact.phone.mobile.value')}`} class="transition-colors hover:text-[var(--color-primary)]" style="color: var(--color-accent);">
-            {t(lang, 'contact.phone.mobile.value')}
+          <a href={`tel:${phoneMobile}`} class="transition-colors hover:text-[var(--color-primary)]" style="color: var(--color-accent);">
+            {phoneMobile}
           </a>
         </li>
-        <li>{t(lang, 'contact.vat')}</li>
+        <li>{lang === 'it' ? 'P.IVA: ' : 'VAT: '}{vatNumber}</li>
       </ul>
       <div class="mt-4 space-y-2 text-sm">
-        <p style="color: var(--color-accent);">{t(lang, 'contact.hours')}</p>
-        <a href="https://www.linkedin.com/in/onofriofattoruso/" target="_blank" rel="noopener" class="transition-colors hover:text-[var(--color-primary)]" style="color: var(--color-accent);">
-          {t(lang, 'contact.linkedin')}
-        </a>
+        <p style="color: var(--color-accent);">{hours}</p>
+        {linkedinUrl && (
+          <a href={linkedinUrl} target="_blank" rel="noopener" class="transition-colors hover:text-[var(--color-primary)]" style="color: var(--color-accent);">
+            {t(lang, 'contact.linkedin')}
+          </a>
+        )}
       </div>
     </div>
   </div>

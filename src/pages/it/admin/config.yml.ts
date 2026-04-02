@@ -54,6 +54,14 @@ collections:
               - { label: "Marble", value: "marble" }
               - { label: "Daylight", value: "daylight" }
               - { label: "High Contrast", value: "high-contrast" }
+          - { label: "Email", name: "email", widget: "string", hint: "Indirizzo email di contatto. Visibile nel footer, pagina contatti e carriere." }
+          - { label: "Telefono fisso", name: "phone", widget: "string", hint: "Es: +39 081-1808-8820" }
+          - { label: "Cellulare", name: "phoneMobile", widget: "string", hint: "Es: +39 333-40-46-355" }
+          - { label: "Indirizzo", name: "address", widget: "string", hint: "Indirizzo completo dello studio." }
+          - { label: "Partita IVA", name: "vatNumber", widget: "string", hint: "Solo il numero, senza 'P.IVA:' o 'VAT:'." }
+          - { label: "Orari (IT)", name: "hoursIt", widget: "string", hint: "Es: Lun - Sab: 8:00 - 19:00" }
+          - { label: "Orari (EN)", name: "hoursEn", widget: "string", hint: "Es: Mon - Sat: 8AM - 7PM" }
+          - { label: "URL LinkedIn", name: "linkedinUrl", widget: "string", required: false, hint: "URL completo del profilo LinkedIn." }
 
   - name: "news"
     label: "📰 Notizie / News"
