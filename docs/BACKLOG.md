@@ -12,7 +12,6 @@ Always update this file after completing a task. Keep not completed tasks at top
 
 | ID | Task |
 |----|------|
-| B-11 | **CI/CD — Node.js 24 upgrade** — GitHub Actions runners will drop Node.js 20 on Sep 16 2026. Upgrade `actions/checkout`, `actions/configure-pages`, `actions/setup-node`, `actions/upload-artifact`, `actions/deploy-pages` to versions that support Node.js 24. Deadline: before June 2 2026 (forced default switch). |
 
 ---
 
@@ -50,3 +49,5 @@ Always update this file after completing a task. Keep not completed tasks at top
 | B-06 | **Admin Panel — Bilingual Field UX** | 🇮🇹/🇬🇧 flag emoji prefixes on all bilingual field labels across news, projects, solutions, page-content, and site-settings collections. |
 | B-08 | **Admin Panel — Language Display Mode** | `siteLanguage` field in site-settings (both/it/en). CMS config endpoint reads it at request time and hides unused language fields. Auto-translation disabled when not in `both` mode. |
 | B-02 | **Admin Panel — Live Preview** | Custom styled preview templates registered for news, projects, and solutions via `CMS.registerPreviewTemplate`. Preview pane enabled on those three collections; site-settings and page-content keep `preview: false`. |
+| B-11 | **CI/CD — Node.js 24 upgrade** | `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` added as top-level env in deploy.yml. Action versions corrected to checkout@v4, setup-node@v4, configure-pages@v5, upload-pages-artifact@v3, deploy-pages@v4. |
+| B-12 | **SEO — Sitemap** | `@astrojs/sitemap@3.2.1` added (3.7.x requires Astro 5). Generates `sitemap-index.xml` at build. `robots.txt` updated to reference correct filename. i18n configured (it-IT / en-US). |

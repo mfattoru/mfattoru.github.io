@@ -56,7 +56,15 @@ The admin panel at `/it/admin/` uses **Sveltia CMS** with GitHub as the backend.
 4. Copy the **Client ID** and generate a **Client Secret**.
 5. Add both to the Cloudflare Worker secrets (step 3a).
 
-### 3c. Update the CMS config
+### 3c. Update `robots.txt`
+
+Open `public/robots.txt` and update the sitemap URL to match your domain:
+
+```
+Sitemap: https://<username>.github.io/sitemap-index.xml
+```
+
+### 3d. Update the CMS config
 
 Open `src/pages/it/admin/config.yml.ts` and update `base_url`:
 
