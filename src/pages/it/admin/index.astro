@@ -1,4 +1,8 @@
 ---
+import { getCollection } from 'astro:content';
+const settings = (await getCollection('site-settings'))[0]?.data;
+const siteLanguage = settings?.siteLanguage ?? 'both';
+const autoTranslateEnabled = siteLanguage === 'both';
 ---
 <!doctype html>
 <html lang="it">
@@ -143,7 +147,7 @@
 
   <script is:inline src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
 
-  <script is:inline>
+  <script is:inline define:vars={{ autoTranslateEnabled }}>
     // ── Auto-translate empty EN fields from IT using MyMemory (free, no key) ──
     async function translate(text) {
       if (!text || !text.trim()) return '';
@@ -206,6 +210,7 @@
         CMS.registerEventListener({
           name: 'preSave',
           handler: async ({ entry }) => {
+            if (!autoTranslateEnabled) return entry;
             const collection = entry.get('collection');
             let fields = collection === 'news' ? NEWS_FIELDS
                        : collection === 'projects' ? PROJECT_FIELDS

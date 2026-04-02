@@ -11,6 +11,7 @@ const siteSettingsSchema = z.object({
   hoursIt: z.string().optional().default(''),
   hoursEn: z.string().optional().default(''),
   linkedinUrl: z.string().optional().default(''),
+  siteLanguage: z.enum(['both', 'it', 'en']).optional().default('both'),
 });
 
 const solutionSchema = z.object({

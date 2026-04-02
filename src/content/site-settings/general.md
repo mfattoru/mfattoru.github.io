@@ -9,4 +9,5 @@ vatNumber: "09348851214"
 hoursIt: "Lun - Sab: 8:00 - 19:00"
 hoursEn: "Mon - Sat: 8AM - 7PM"
 linkedinUrl: "https://www.linkedin.com/in/onofriofattoruso/"
+siteLanguage: both
 ---
