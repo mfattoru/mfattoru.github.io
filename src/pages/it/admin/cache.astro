@@ -1,8 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
+import '@/styles/themes.css';
 
 const WORKER_URL = import.meta.env.CLOUDINARY_CACHE_WORKER_URL
   || 'https://onofrio-cloudinary-cache.michele-fattoruso.workers.dev';
+
+const settings = (await getCollection('site-settings'))[0]?.data;
+const defaultTheme = settings?.theme ?? 'steel';
 
 const CLOUD = import.meta.env.CLOUDINARY_CLOUD_NAME ?? 'dd3aknabk';
 const THUMB = (publicId: string) =>
@@ -28,6 +32,11 @@ const solutions = await getCollection('solutions');
 for (const s of solutions) {
   const id = extractPublicId(s.data.image);
   if (id) images.push({ publicId: id, label: s.data.titleIt, group: 'Servizi' });
+  const sGallery = (s.data.gallery as any[] ?? []).flat();
+  sGallery.forEach((url: string, i: number) => {
+    const gid = extractPublicId(url);
+    if (gid) images.push({ publicId: gid, label: `${s.data.titleIt} — foto ${i + 1}`, group: 'Servizi' });
+  });
 }
 
 const projects = await getCollection('projects');
@@ -58,25 +67,34 @@ const groups = [...new Set(uniqueImages.map(i => i.group))];
 const totalImages = uniqueImages.length;
 ---
 <!doctype html>
-<html lang="it">
+<html lang="it" data-default-theme={defaultTheme}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cache CDN — Admin</title>
+  <script is:inline>
+    (function () {
+      try {
+        var def = document.documentElement.getAttribute('data-default-theme') || 'steel';
+        var saved = localStorage.getItem('theme') || def;
+        document.documentElement.setAttribute('data-theme', saved);
+      } catch (e) {}
+    })();
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: system-ui, -apple-system, sans-serif;
-      background: #080f1e;
-      color: #e2e8f0;
+      background: var(--color-bg);
+      color: var(--color-text);
       min-height: 100vh;
     }
 
     /* ── Header ── */
     .page-header {
-      background: #0f172a;
-      border-bottom: 1px solid #1e293b;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
       padding: 0 2rem;
       display: flex;
       align-items: center;
@@ -91,7 +109,7 @@ const totalImages = uniqueImages.length;
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      color: #475569;
+      color: var(--color-accent);
       text-decoration: none;
       font-size: 0.75rem;
       letter-spacing: 0.06em;
@@ -100,13 +118,13 @@ const totalImages = uniqueImages.length;
       transition: color 0.15s;
       flex-shrink: 0;
     }
-    .back-link:hover { color: #94a3b8; }
+    .back-link:hover { color: var(--color-text); }
     .back-link svg { width: 14px; height: 14px; }
 
     .header-sep {
       width: 1px;
       height: 18px;
-      background: #1e293b;
+      background: var(--color-border);
       flex-shrink: 0;
     }
 
@@ -115,13 +133,13 @@ const totalImages = uniqueImages.length;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #cbd5e1;
+      color: var(--color-text);
     }
 
     .header-badge {
       margin-left: auto;
       font-size: 0.68rem;
-      color: #475569;
+      color: var(--color-accent);
       letter-spacing: 0.04em;
     }
 
@@ -141,13 +159,13 @@ const totalImages = uniqueImages.length;
       font-size: 1.6rem;
       font-weight: 800;
       letter-spacing: -0.01em;
-      color: #f8fafc;
+      color: var(--color-text);
       line-height: 1.2;
     }
 
     .hero p {
       margin-top: 0.5rem;
-      color: #64748b;
+      color: var(--color-accent);
       font-size: 0.875rem;
       line-height: 1.6;
       max-width: 520px;
@@ -159,8 +177,8 @@ const totalImages = uniqueImages.length;
       align-items: center;
       gap: 0.75rem;
       padding: 0.875rem 1.25rem;
-      background: #0f172a;
-      border: 1px solid #1e293b;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
       border-radius: 10px;
       margin-bottom: 2.5rem;
       flex-wrap: wrap;
@@ -182,24 +200,24 @@ const totalImages = uniqueImages.length;
     }
 
     .btn-primary {
-      background: #2563eb;
+      background: var(--color-primary);
       color: #fff;
-      box-shadow: 0 1px 3px rgba(37,99,235,0.4);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
     .btn-primary:hover:not(:disabled) {
-      background: #1d4ed8;
-      box-shadow: 0 2px 8px rgba(37,99,235,0.5);
+      filter: brightness(1.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
     .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; box-shadow: none; }
 
     .btn-ghost {
-      background: #1e293b;
-      color: #64748b;
-      border: 1px solid #1e293b;
+      background: var(--color-border);
+      color: var(--color-accent);
+      border: 1px solid var(--color-border);
     }
-    .btn-ghost:hover { background: #273549; color: #94a3b8; }
+    .btn-ghost:hover { filter: brightness(1.15); color: var(--color-text); }
 
-    .divider { width: 1px; height: 20px; background: #1e293b; flex-shrink: 0; }
+    .divider { width: 1px; height: 20px; background: var(--color-border); flex-shrink: 0; }
 
     .selection-info {
       margin-left: auto;
@@ -207,11 +225,11 @@ const totalImages = uniqueImages.length;
       align-items: center;
       gap: 0.5rem;
       font-size: 0.775rem;
-      color: #475569;
+      color: var(--color-accent);
     }
 
     .selection-info strong {
-      color: #94a3b8;
+      color: var(--color-text);
       font-weight: 700;
     }
 
@@ -230,23 +248,22 @@ const totalImages = uniqueImages.length;
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #334155;
+      color: var(--color-accent);
       white-space: nowrap;
     }
 
     .group-count {
       font-size: 0.68rem;
-      color: #1e293b;
-      background: #1e293b;
+      background: var(--color-border);
       padding: 0.1rem 0.45rem;
       border-radius: 99px;
-      color: #475569;
+      color: var(--color-accent);
     }
 
     .group-line {
       flex: 1;
       height: 1px;
-      background: #1a2640;
+      background: var(--color-border);
     }
 
     /* ── Image grid ── */
@@ -258,24 +275,24 @@ const totalImages = uniqueImages.length;
 
     .image-card {
       position: relative;
-      background: #0f172a;
+      background: var(--color-surface);
       border-radius: 10px;
       overflow: hidden;
       cursor: pointer;
-      border: 1.5px solid #1e293b;
+      border: 1.5px solid var(--color-border);
       transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
       user-select: none;
     }
 
     .image-card:hover {
-      border-color: #334155;
+      border-color: var(--color-accent);
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
       transform: translateY(-2px);
     }
 
     .image-card.selected {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 1px #3b82f6, 0 4px 20px rgba(59,130,246,0.2);
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 1px var(--color-primary), 0 4px 20px rgba(0,0,0,0.2);
     }
 
     /* Hide native checkbox */
@@ -295,7 +312,7 @@ const totalImages = uniqueImages.length;
       height: 22px;
       border-radius: 50%;
       border: 2px solid rgba(255,255,255,0.3);
-      background: rgba(15,23,42,0.5);
+      background: rgba(0,0,0,0.4);
       backdrop-filter: blur(4px);
       display: flex;
       align-items: center;
@@ -313,8 +330,8 @@ const totalImages = uniqueImages.length;
     }
 
     .image-card.selected .check-overlay {
-      background: #3b82f6;
-      border-color: #3b82f6;
+      background: var(--color-primary);
+      border-color: var(--color-primary);
     }
 
     .image-card.selected .check-overlay svg {
@@ -326,7 +343,7 @@ const totalImages = uniqueImages.length;
       position: relative;
       width: 100%;
       aspect-ratio: 5/3;
-      background: #0a111f;
+      background: var(--color-bg);
       overflow: hidden;
     }
 
@@ -346,7 +363,7 @@ const totalImages = uniqueImages.length;
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(59,130,246,0.15);
+      background: rgba(0,0,0,0.15);
       opacity: 0;
       transition: opacity 0.15s;
     }
@@ -354,12 +371,12 @@ const totalImages = uniqueImages.length;
 
     .image-info {
       padding: 0.65rem 0.75rem 0.7rem;
-      border-top: 1px solid #1e293b;
+      border-top: 1px solid var(--color-border);
     }
 
     .image-label {
       font-size: 0.775rem;
-      color: #cbd5e1;
+      color: var(--color-text);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -368,7 +385,7 @@ const totalImages = uniqueImages.length;
 
     .image-id {
       font-size: 0.65rem;
-      color: #334155;
+      color: var(--color-accent);
       margin-top: 0.2rem;
       white-space: nowrap;
       overflow: hidden;
@@ -394,7 +411,7 @@ const totalImages = uniqueImages.length;
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #334155;
+      color: var(--color-accent);
     }
 
     .result-list {
@@ -409,8 +426,8 @@ const totalImages = uniqueImages.length;
       align-items: center;
       gap: 0.75rem;
       padding: 0.65rem 1rem;
-      background: #0f172a;
-      border: 1px solid #1e293b;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
       border-radius: 8px;
       font-size: 0.8rem;
     }
@@ -424,7 +441,7 @@ const totalImages = uniqueImages.length;
     .result-item.ok    .result-dot { background: #22c55e; }
     .result-item.error .result-dot { background: #ef4444; }
 
-    .result-id   { color: #64748b; font-family: ui-monospace, monospace; flex: 1; font-size: 0.75rem; }
+    .result-id   { color: var(--color-accent); font-family: ui-monospace, monospace; flex: 1; font-size: 0.75rem; }
 
     .result-badge {
       font-size: 0.65rem;
