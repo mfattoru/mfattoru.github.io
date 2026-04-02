@@ -4,8 +4,8 @@ import { t } from '../../i18n/utils';
 import { getCollection } from 'astro:content';
 
 const lang = 'en';
-const FORMSPREE_ID = siteSettings?.formspreeId || 'mlgobndz';
 const siteSettings = (await getCollection('site-settings'))[0]?.data;
+const FORMSPREE_ID = siteSettings?.formspreeId || 'mlgobndz';
 const email = siteSettings?.email || t(lang, 'contact.email.value');
 const phone = siteSettings?.phone || t(lang, 'contact.phone.value');
 const phoneMobile = siteSettings?.phoneMobile || t(lang, 'contact.phone.mobile.value');
