@@ -59,8 +59,8 @@ collections:
           - { label: "Cellulare", name: "phoneMobile", widget: "string", hint: "Es: +39 333-40-46-355" }
           - { label: "Indirizzo", name: "address", widget: "string", hint: "Indirizzo completo dello studio." }
           - { label: "Partita IVA", name: "vatNumber", widget: "string", hint: "Solo il numero, senza 'P.IVA:' o 'VAT:'." }
-          - { label: "Orari (IT)", name: "hoursIt", widget: "string", hint: "Es: Lun - Sab: 8:00 - 19:00" }
-          - { label: "Orari (EN)", name: "hoursEn", widget: "string", hint: "Es: Mon - Sat: 8AM - 7PM" }
+          - { label: "🇮🇹 Orari", name: "hoursIt", widget: "string", hint: "Es: Lun - Sab: 8:00 - 19:00" }
+          - { label: "🇬🇧 Hours", name: "hoursEn", widget: "string", hint: "Es: Mon - Sat: 8AM - 7PM" }
           - { label: "URL LinkedIn", name: "linkedinUrl", widget: "string", required: false, hint: "URL completo del profilo LinkedIn." }
 
   - name: "news"
@@ -71,14 +71,14 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Titolo (IT)", name: "titleIt", widget: "string" }
-      - { label: "Title (EN) — auto-tradotto al salvataggio", name: "titleEn", widget: "string", required: false }
+      - { label: "🇮🇹 Titolo", name: "titleIt", widget: "string" }
+      - { label: "🇬🇧 Title — auto-tradotto al salvataggio", name: "titleEn", widget: "string", required: false }
       - { label: "Data pubblicazione", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
-      - { label: "Descrizione breve (IT)", name: "descriptionIt", widget: "string" }
-      - { label: "Description (EN) — auto-tradotto al salvataggio", name: "descriptionEn", widget: "string", required: false }
+      - { label: "🇮🇹 Descrizione breve", name: "descriptionIt", widget: "string" }
+      - { label: "🇬🇧 Description — auto-tradotto al salvataggio", name: "descriptionEn", widget: "string", required: false }
       - { label: "Immagine copertina", name: "image", widget: "image", required: false, hint: "Dimensione consigliata: 1200×480px (rapporto 5:2). Mostrata in cima all'articolo." }
-      - { label: "Contenuto (IT)", name: "body", widget: "markdown" }
-      - { label: "Content (EN) — auto-tradotto al salvataggio", name: "bodyEn", widget: "markdown", required: false }
+      - { label: "🇮🇹 Contenuto", name: "body", widget: "markdown" }
+      - { label: "🇬🇧 Content — auto-tradotto al salvataggio", name: "bodyEn", widget: "markdown", required: false }
 
   - name: "projects"
     label: "🏗️ Progetti / Projects"
@@ -88,22 +88,22 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Titolo (IT)", name: "titleIt", widget: "string" }
-      - { label: "Title (EN) — auto-tradotto al salvataggio", name: "titleEn", widget: "string", required: false }
+      - { label: "🇮🇹 Titolo", name: "titleIt", widget: "string" }
+      - { label: "🇬🇧 Title — auto-tradotto al salvataggio", name: "titleEn", widget: "string", required: false }
       - { label: "Anno", name: "year", widget: "string" }
-      - { label: "Categoria (IT)", name: "categoryIt", widget: "string" }
-      - { label: "Category (EN) — auto-tradotto al salvataggio", name: "categoryEn", widget: "string", required: false }
-      - { label: "Località (IT)", name: "locationIt", widget: "string" }
-      - { label: "Location (EN) — auto-tradotto al salvataggio", name: "locationEn", widget: "string", required: false }
-      - { label: "Ruolo (IT)", name: "roleIt", widget: "string" }
-      - { label: "Role (EN) — auto-tradotto al salvataggio", name: "roleEn", widget: "string", required: false }
-      - { label: "Stato (IT)", name: "statusIt", widget: "string", default: "Completato" }
-      - { label: "Status (EN)", name: "statusEn", widget: "string", default: "Completed" }
-      - { label: "Descrizione breve (IT)", name: "summaryIt", widget: "text", hint: "Testo introduttivo visualizzato in cima alla pagina progetto." }
-      - { label: "Short description (EN) — auto-tradotto al salvataggio", name: "summaryEn", widget: "text", required: false }
-      - { label: "Risultato (IT)", name: "resultIt", widget: "text", hint: "Evidenziato in un box a parte nella pagina." }
-      - { label: "Result (EN) — auto-tradotto al salvataggio", name: "resultEn", widget: "text", required: false }
-      - { label: "Descrizione completa (IT/EN) — opzionale", name: "body", widget: "markdown", required: false, hint: "Testo esteso con formattazione markdown. Visualizzato dopo la descrizione breve." }
+      - { label: "🇮🇹 Categoria", name: "categoryIt", widget: "string" }
+      - { label: "🇬🇧 Category — auto-tradotto al salvataggio", name: "categoryEn", widget: "string", required: false }
+      - { label: "🇮🇹 Località", name: "locationIt", widget: "string" }
+      - { label: "🇬🇧 Location — auto-tradotto al salvataggio", name: "locationEn", widget: "string", required: false }
+      - { label: "🇮🇹 Ruolo", name: "roleIt", widget: "string" }
+      - { label: "🇬🇧 Role — auto-tradotto al salvataggio", name: "roleEn", widget: "string", required: false }
+      - { label: "🇮🇹 Stato", name: "statusIt", widget: "string", default: "Completato" }
+      - { label: "🇬🇧 Status", name: "statusEn", widget: "string", default: "Completed" }
+      - { label: "🇮🇹 Descrizione breve", name: "summaryIt", widget: "text", hint: "Testo introduttivo visualizzato in cima alla pagina progetto." }
+      - { label: "🇬🇧 Short description — auto-tradotto al salvataggio", name: "summaryEn", widget: "text", required: false }
+      - { label: "🇮🇹 Risultato", name: "resultIt", widget: "text", hint: "Evidenziato in un box a parte nella pagina." }
+      - { label: "🇬🇧 Result — auto-tradotto al salvataggio", name: "resultEn", widget: "text", required: false }
+      - { label: "Descrizione completa (opzionale)", name: "body", widget: "markdown", required: false, hint: "Testo esteso con formattazione markdown. Visualizzato dopo la descrizione breve." }
       - { label: "Immagine principale", name: "thumbnail", widget: "image", hint: "Dimensione consigliata: 1200×800px (rapporto 3:2). Usata nella lista progetti e in cima alla pagina." }
       - label: "Galleria foto"
         name: "gallery"
@@ -127,38 +127,38 @@ collections:
         label: "Chi Siamo / About"
         file: "src/content/page-content/about.md"
         fields:
-          - { label: "Intestazione Studio (IT)", name: "firmHeadingIt", widget: "string" }
-          - { label: "Firm Heading (EN) — auto-tradotto al salvataggio", name: "firmHeadingEn", widget: "string", required: false }
-          - { label: "Testo Studio (IT)", name: "firmBodyIt", widget: "text" }
-          - { label: "Firm Body (EN) — auto-tradotto al salvataggio", name: "firmBodyEn", widget: "text", required: false }
-          - { label: "Intestazione Missione (IT)", name: "missionHeadingIt", widget: "string" }
-          - { label: "Mission Heading (EN) — auto-tradotto al salvataggio", name: "missionHeadingEn", widget: "string", required: false }
-          - { label: "Testo Missione (IT)", name: "missionBodyIt", widget: "text" }
-          - { label: "Mission Body (EN) — auto-tradotto al salvataggio", name: "missionBodyEn", widget: "text", required: false }
+          - { label: "🇮🇹 Intestazione Studio", name: "firmHeadingIt", widget: "string" }
+          - { label: "🇬🇧 Firm Heading — auto-tradotto al salvataggio", name: "firmHeadingEn", widget: "string", required: false }
+          - { label: "🇮🇹 Testo Studio", name: "firmBodyIt", widget: "text" }
+          - { label: "🇬🇧 Firm Body — auto-tradotto al salvataggio", name: "firmBodyEn", widget: "text", required: false }
+          - { label: "🇮🇹 Intestazione Missione", name: "missionHeadingIt", widget: "string" }
+          - { label: "🇬🇧 Mission Heading — auto-tradotto al salvataggio", name: "missionHeadingEn", widget: "string", required: false }
+          - { label: "🇮🇹 Testo Missione", name: "missionBodyIt", widget: "text" }
+          - { label: "🇬🇧 Mission Body — auto-tradotto al salvataggio", name: "missionBodyEn", widget: "text", required: false }
       - name: "pricing"
         label: "Prezzi / Pricing"
         file: "src/content/page-content/pricing.md"
         fields:
-          - { label: "Paragrafo intro (IT)", name: "introParagraphIt", widget: "text" }
-          - { label: "Intro paragraph (EN) — auto-tradotto al salvataggio", name: "introParagraphEn", widget: "text", required: false }
-          - { label: "Paragrafo conformità (IT)", name: "complianceParagraphIt", widget: "text" }
-          - { label: "Compliance paragraph (EN) — auto-tradotto al salvataggio", name: "complianceParagraphEn", widget: "text", required: false }
+          - { label: "🇮🇹 Paragrafo intro", name: "introParagraphIt", widget: "text" }
+          - { label: "🇬🇧 Intro paragraph — auto-tradotto al salvataggio", name: "introParagraphEn", widget: "text", required: false }
+          - { label: "🇮🇹 Paragrafo conformità", name: "complianceParagraphIt", widget: "text" }
+          - { label: "🇬🇧 Compliance paragraph — auto-tradotto al salvataggio", name: "complianceParagraphEn", widget: "text", required: false }
       - name: "homepage"
         label: "Homepage"
         file: "src/content/page-content/homepage.md"
         fields:
           - { label: "Statistica 1 — Valore", name: "stat1Value", widget: "string" }
-          - { label: "Statistica 1 — Etichetta (IT)", name: "stat1LabelIt", widget: "string" }
-          - { label: "Statistica 1 — Label (EN)", name: "stat1LabelEn", widget: "string" }
+          - { label: "🇮🇹 Statistica 1 — Etichetta", name: "stat1LabelIt", widget: "string" }
+          - { label: "🇬🇧 Stat 1 — Label", name: "stat1LabelEn", widget: "string" }
           - { label: "Statistica 2 — Valore", name: "stat2Value", widget: "string" }
-          - { label: "Statistica 2 — Etichetta (IT)", name: "stat2LabelIt", widget: "string" }
-          - { label: "Statistica 2 — Label (EN)", name: "stat2LabelEn", widget: "string" }
+          - { label: "🇮🇹 Statistica 2 — Etichetta", name: "stat2LabelIt", widget: "string" }
+          - { label: "🇬🇧 Stat 2 — Label", name: "stat2LabelEn", widget: "string" }
           - { label: "Statistica 3 — Valore", name: "stat3Value", widget: "string" }
-          - { label: "Statistica 3 — Etichetta (IT)", name: "stat3LabelIt", widget: "string" }
-          - { label: "Statistica 3 — Label (EN)", name: "stat3LabelEn", widget: "string" }
+          - { label: "🇮🇹 Statistica 3 — Etichetta", name: "stat3LabelIt", widget: "string" }
+          - { label: "🇬🇧 Stat 3 — Label", name: "stat3LabelEn", widget: "string" }
           - { label: "Statistica 4 — Valore", name: "stat4Value", widget: "string" }
-          - { label: "Statistica 4 — Etichetta (IT)", name: "stat4LabelIt", widget: "string" }
-          - { label: "Statistica 4 — Label (EN)", name: "stat4LabelEn", widget: "string" }
+          - { label: "🇮🇹 Statistica 4 — Etichetta", name: "stat4LabelIt", widget: "string" }
+          - { label: "🇬🇧 Stat 4 — Label", name: "stat4LabelEn", widget: "string" }
 
   - name: "solutions"
     label: "🔧 Servizi / Services"
@@ -169,15 +169,15 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Titolo (IT)", name: "titleIt", widget: "string" }
-      - { label: "Title (EN) — auto-tradotto al salvataggio", name: "titleEn", widget: "string", required: false }
-      - { label: "Descrizione breve (IT)", name: "descriptionIt", widget: "string", hint: "Una riga. Mostrata nelle card e nella lista servizi." }
-      - { label: "Short description (EN) — auto-tradotto al salvataggio", name: "descriptionEn", widget: "string", required: false }
+      - { label: "🇮🇹 Titolo", name: "titleIt", widget: "string" }
+      - { label: "🇬🇧 Title — auto-tradotto al salvataggio", name: "titleEn", widget: "string", required: false }
+      - { label: "🇮🇹 Descrizione breve", name: "descriptionIt", widget: "string", hint: "Una riga. Mostrata nelle card e nella lista servizi." }
+      - { label: "🇬🇧 Short description — auto-tradotto al salvataggio", name: "descriptionEn", widget: "string", required: false }
       - { label: "Icona (emoji)", name: "icon", widget: "string", hint: "Es: 🏛️" }
       - { label: "Ordine di visualizzazione", name: "order", widget: "number", value_type: "int", min: 1 }
       - { label: "Immagine copertina", name: "image", widget: "image", required: false, hint: "Dimensione consigliata: 1200×800px (rapporto 3:2). Mostrata nella card e in cima alla pagina servizio." }
-      - { label: "Contenuto (IT)", name: "body", widget: "markdown" }
-      - { label: "Content (EN) — auto-tradotto al salvataggio", name: "bodyEn", widget: "markdown", required: false }
+      - { label: "🇮🇹 Contenuto", name: "body", widget: "markdown" }
+      - { label: "🇬🇧 Content — auto-tradotto al salvataggio", name: "bodyEn", widget: "markdown", required: false }
 `;
 
   return new Response(yaml, {
