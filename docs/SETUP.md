@@ -4,6 +4,19 @@ Complete guide to reproduce the full setup on a new GitHub account or repository
 
 ---
 
+## 0. Accounts to Register
+
+Before starting, create an account on each of these services:
+
+| Service | Purpose | URL | Free tier |
+|---|---|---|---|
+| **GitHub** | Repository hosting + Pages deployment | github.com | Yes |
+| **Cloudflare** | OAuth proxy worker + cache invalidation worker | cloudflare.com | Yes |
+| **Cloudinary** | Image hosting + CDN + multi-upload gallery | cloudinary.com | Yes (25 GB) |
+| **Formspree** | Contact and quote form submissions → email | formspree.io | Yes (50 submissions/month) |
+
+---
+
 ## 1. GitHub Repository
 
 1. Create a new repository named `<username>.github.io` (must match your GitHub username exactly for the free Pages domain).
@@ -181,7 +194,31 @@ After this, rotate the exposed credentials immediately (revoke and create new on
 
 ---
 
-## 7. Local Development
+## 7. Formspree — Contact & Quote Forms
+
+The contact page (`/it/contatti`, `/en/contact`) and quote page (`/it/preventivo`, `/en/quote`) submit to Formspree, which forwards submissions to the client's email.
+
+### 7a. Create a Formspree form
+
+1. Sign up at **formspree.io**
+2. Click **+ New Form**
+3. Give it a name (e.g. `Contact — Cliente`)
+4. Set the notification email to the client's address
+5. Copy the **Form ID** from the form's endpoint URL — it's the 8-character code after `/f/` (e.g. `mlgobndz`)
+
+### 7b. Set the Form ID in the admin panel
+
+Go to **Admin → ⚙️ Impostazioni Sito → Generali** and paste the Form ID into the **Formspree ID** field. Save and redeploy — all four forms (contact IT/EN, quote IT/EN) will use it automatically.
+
+> All four forms share the same ID. If you need separate routing per form, create multiple Formspree forms and hardcode the IDs individually in `contatti.astro`, `contact.astro`, `preventivo.astro`, `quote.astro`.
+
+### 7c. Verify
+
+After deploying, submit a test message from the contact page and confirm it arrives in the client's inbox. Formspree's free tier allows 50 submissions/month; upgrade if the client expects more.
+
+---
+
+## 8. Local Development
 
 ### 6a. Environment variables
 
@@ -224,7 +261,7 @@ To edit content locally:
 
 ---
 
-## 8. Summary of What Lives Where
+## 9. Summary of What Lives Where
 
 | Thing | Where |
 |---|---|
@@ -242,3 +279,4 @@ To edit content locally:
 | Cache invalidation page | `src/pages/it/admin/cache.astro` |
 | Cache invalidation worker | `cloudflare-workers/cloudinary-invalidate.js` |
 | Cache Worker URL | GitHub Actions secret `CLOUDINARY_CACHE_WORKER_URL` |
+| Contact/quote form ID | Admin → Impostazioni Sito → Formspree ID (`src/content/site-settings/general.md`) |

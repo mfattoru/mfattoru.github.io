@@ -24,6 +24,7 @@ const settingsData = settings[0]?.data;
 const defaultTheme = settingsData?.theme ?? 'steel';
 const showLangSwitcher = (settingsData?.siteLanguage ?? 'both') === 'both';
 const showThemeSwitcher = settingsData?.showThemeSwitcher ?? true;
+const logoFile = settingsData?.logoFile;
 ---
 
 <!doctype html>
@@ -52,7 +53,7 @@ const showThemeSwitcher = settingsData?.showThemeSwitcher ?? true;
     </script>
   </head>
   <body>
-    <Nav lang={lang} currentPath={currentPath} showLangSwitcher={showLangSwitcher} showThemeSwitcher={showThemeSwitcher} />
+    <Nav lang={lang} currentPath={currentPath} showLangSwitcher={showLangSwitcher} showThemeSwitcher={showThemeSwitcher} logoFile={logoFile} />
     <main>
       <slot />
     </main>

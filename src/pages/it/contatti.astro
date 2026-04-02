@@ -10,7 +10,7 @@ const phone = siteSettings?.phone || t(lang, 'contact.phone.value');
 const phoneMobile = siteSettings?.phoneMobile || t(lang, 'contact.phone.mobile.value');
 const address = siteSettings?.address || t(lang, 'contact.address');
 const vatNumber = siteSettings?.vatNumber || '09348851214';
-const FORMSPREE_ID = 'mlgobndz';
+const FORMSPREE_ID = siteSettings?.formspreeId || 'mlgobndz';
 
 const services = [
   'Progettazione Architettonica',

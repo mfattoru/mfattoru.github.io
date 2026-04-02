@@ -55,6 +55,12 @@ collections:
         label: "Generali"
         file: "src/content/site-settings/general.md"
         fields:
+          - { label: "Formspree ID", name: "formspreeId", widget: "string", required: false, hint: "L'ID del form Formspree per i moduli di contatto e preventivo. Trovalo su formspree.io → il codice dopo /f/ nell'URL del form (es: mlgobndz)." }
+          - label: "Logo sito"
+            name: "logoFile"
+            widget: "image"
+            required: false
+            hint: "Carica il logo del sito (PNG con sfondo trasparente consigliato). Se vuoto, viene usato il logo predefinito."
           - label: "File CV (PDF)"
             name: "cvFile"
             widget: "file"

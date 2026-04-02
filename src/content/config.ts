@@ -13,6 +13,8 @@ const siteSettingsSchema = z.object({
   linkedinUrl: z.string().optional().default(''),
   siteLanguage: z.enum(['both', 'it', 'en']).optional().default('both'),
   showThemeSwitcher: z.boolean().optional().default(true),
+  logoFile: z.string().optional(),
+  formspreeId: z.string().optional().default(''),
 });
 
 const solutionSchema = z.object({

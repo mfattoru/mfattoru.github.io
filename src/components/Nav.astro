@@ -12,9 +12,10 @@ interface Props {
   currentPath: string;
   showLangSwitcher?: boolean;
   showThemeSwitcher?: boolean;
+  logoFile?: string;
 }
 
-const { lang, currentPath, showLangSwitcher = true, showThemeSwitcher = true } = Astro.props;
+const { lang, currentPath, showLangSwitcher = true, showThemeSwitcher = true, logoFile } = Astro.props;
 const base = `/${lang}`;
 
 const links = lang === 'it'
@@ -45,13 +46,10 @@ const quoteHref = lang === 'it' ? `${base}/preventivo` : `${base}/quote`;
 >
   <!-- Logo -->
   <a href={`${base}/`} class="flex items-center h-10">
-    <Image
-      src={logoLong}
-      alt="Ing. Fattoruso Engineering Solutions"
-      class="h-10 w-auto object-contain"
-      style="filter: var(--logo-filter);"
-      loading="eager"
-    />
+    {logoFile
+      ? <img src={logoFile} alt="Logo" class="h-10 w-auto object-contain" style="filter: var(--logo-filter);" loading="eager" />
+      : <Image src={logoLong} alt="Ing. Fattoruso Engineering Solutions" class="h-10 w-auto object-contain" style="filter: var(--logo-filter);" loading="eager" />
+    }
   </a>
 
   <!-- Desktop nav links -->
