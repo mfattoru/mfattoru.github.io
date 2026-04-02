@@ -100,8 +100,6 @@ collections:
     folder: "src/content/news"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{fields.titleIt}}"
-    editor:
-      preview: false
     fields:
       ${showIt ? `- { label: "${it('Titolo')}", name: "titleIt", widget: "string" }` : ''}${enField(`- { label: "${en('Title')}${showIt ? ' — auto-tradotto al salvataggio' : ''}", name: "titleEn", widget: "string"${showIt ? ', required: false' : ''} }`)}
       - { label: "Data pubblicazione", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
@@ -114,8 +112,6 @@ collections:
     folder: "src/content/projects"
     create: true
     slug: "{{fields.titleIt}}"
-    editor:
-      preview: false
     fields:
       ${showIt ? `- { label: "${it('Titolo')}", name: "titleIt", widget: "string" }` : ''}${enField(`- { label: "${en('Title')}${showIt ? ' — auto-tradotto al salvataggio' : ''}", name: "titleEn", widget: "string"${showIt ? ', required: false' : ''} }`)}
       - { label: "Anno", name: "year", widget: "string" }
@@ -178,8 +174,6 @@ collections:
     create: true
     slug: "{{fields.titleIt}}"
     identifier_field: titleIt
-    editor:
-      preview: false
     fields:
       ${showIt ? `- { label: "${it('Titolo')}", name: "titleIt", widget: "string" }` : ''}${enField(`- { label: "${en('Title')}${showIt ? ' — auto-tradotto al salvataggio' : ''}", name: "titleEn", widget: "string"${showIt ? ', required: false' : ''} }`)}
       ${showIt ? `- { label: "${it('Descrizione breve')}", name: "descriptionIt", widget: "string", hint: "Una riga. Mostrata nelle card e nella lista servizi." }` : ''}${enField(`- { label: "${en('Short description')}${showIt ? ' — auto-tradotto al salvataggio' : ''}", name: "descriptionEn", widget: "string"${showIt ? ', required: false' : ''} }`)}

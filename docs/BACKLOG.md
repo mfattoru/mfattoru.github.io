@@ -12,7 +12,7 @@ Always update this file after completing a task. Keep not completed tasks at top
 
 | ID | Task |
 |----|------|
-| B-02 | **Live Preview** — Update the admin page preview to show a 1:1 representation of the live website rather than a raw data blob. |
+| B-11 | **CI/CD — Node.js 24 upgrade** — GitHub Actions runners will drop Node.js 20 on Sep 16 2026. Upgrade `actions/checkout`, `actions/configure-pages`, `actions/setup-node`, `actions/upload-artifact`, `actions/deploy-pages` to versions that support Node.js 24. Deadline: before June 2 2026 (forced default switch). |
 
 ---
 
@@ -49,3 +49,4 @@ Always update this file after completing a task. Keep not completed tasks at top
 | B-09 | **Performance — Eager Loading Above the Fold** | Headshot on chi-siamo/about gets `loading="eager" fetchpriority="high"`. First news card image on IT/EN list pages also eager-loaded. |
 | B-06 | **Admin Panel — Bilingual Field UX** | 🇮🇹/🇬🇧 flag emoji prefixes on all bilingual field labels across news, projects, solutions, page-content, and site-settings collections. |
 | B-08 | **Admin Panel — Language Display Mode** | `siteLanguage` field in site-settings (both/it/en). CMS config endpoint reads it at request time and hides unused language fields. Auto-translation disabled when not in `both` mode. |
+| B-02 | **Admin Panel — Live Preview** | Custom styled preview templates registered for news, projects, and solutions via `CMS.registerPreviewTemplate`. Preview pane enabled on those three collections; site-settings and page-content keep `preview: false`. |
