@@ -61,6 +61,7 @@ collections:
             required: false
             hint: "Immagine di sfondo per la sezione 'Hai un progetto in mente?' in homepage. Dimensione consigliata: 1920×600px. Verrà oscurata da un overlay semi-trasparente."
           - { label: "Formspree ID", name: "formspreeId", widget: "string", required: false, hint: "L'ID del form Formspree per i moduli di contatto e preventivo. Trovalo su formspree.io → il codice dopo /f/ nell'URL del form (es: mlgobndz)." }
+          - { label: "Cloudflare Analytics Token", name: "cloudflareAnalyticsToken", widget: "string", required: false, hint: "Token da Cloudflare Web Analytics (dash.cloudflare.com → Web Analytics). Lascia vuoto per disabilitare il tracciamento." }
           - label: "Logo sito"
             name: "logoFile"
             widget: "image"
