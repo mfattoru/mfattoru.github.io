@@ -15,6 +15,7 @@ const siteSettingsSchema = z.object({
   showThemeSwitcher: z.boolean().optional().default(true),
   logoFile: z.string().optional(),
   formspreeId: z.string().optional().default(''),
+  cloudflareAnalyticsToken: z.string().optional().default(''),
   ctaBannerImage: z.string().optional(),
 });
 
