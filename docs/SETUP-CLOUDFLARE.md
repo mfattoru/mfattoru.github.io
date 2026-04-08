@@ -19,21 +19,26 @@ Complete guide to deploy a new client instance of this codebase using Cloudflare
 
 ## 1. Create Client GitHub Repository
 
-1. Create a new **private**, **empty** repository at github.com/mfattoru/`<client-name>` — do **not** fork, do not initialise with a README.
+1. Create a new **private**, **empty** repository under your GitHub account: `mfattoru/<client-name>` — do **not** fork, do not initialise with a README.
 
-2. Add it as a remote and push the base codebase:
-
-   ```bash
-   git remote add client git@github.com:mfattoru/<client-name>.git
-   git push client master
-   ```
-
-3. To push future upstream updates to the client repo:
+2. Clone it locally and push the base codebase into it:
 
    ```bash
-   git fetch origin
-   git push client origin/master:master
+   # Clone the base repo if you don't have it already
+   git clone git@github.com:mfattoru/mfattoru.github.io.git <client-name>
+   cd <client-name>
+   git remote set-url origin git@github.com:mfattoru/<client-name>.git
+   git push origin master
    ```
+
+3. Add the client as a collaborator so they can log into the CMS:
+   - The client needs a GitHub account (free, just for CMS login — no technical knowledge required)
+   - Go to the repo → **Settings → Collaborators → Add people** → enter the client's GitHub username
+   - Set access level to **Write**
+
+   > The client will use this GitHub account to authenticate at `/it/admin/`. They do not need to know anything else about GitHub.
+
+4. **GitHub Actions note:** The repo contains `.github/workflows/deploy.yml` which is used for GitHub Pages deployment. Cloudflare Pages has its own build pipeline and ignores this file — you can leave it in place.
 
 ---
 
@@ -84,12 +89,12 @@ linkedinUrl: ''
 ---
 ```
 
-Commit and push to the client repo:
+Commit and push:
 
 ```bash
 git add src/pages/it/admin/config.yml.ts public/robots.txt src/content/site-settings/general.md
 git commit -m "chore: configure for <client-name>"
-git push client master
+git push origin master
 ```
 
 ---
@@ -253,7 +258,7 @@ Commit and push:
 ```bash
 git add src/pages/it/admin/config.yml.ts
 git commit -m "chore: set CMS auth worker URL"
-git push client master
+git push origin master
 ```
 
 Cloudflare Pages detects the push and redeploys automatically.
@@ -298,9 +303,10 @@ All four forms (contact IT/EN, quote IT/EN) share the same ID automatically. If 
 
 ## Pulling Future Updates from the Base Repo
 
-When the base repo (`mfattoru/mfattoru.github.io`) receives improvements, pull them into the client repo:
+When `mfattoru/mfattoru.github.io` (your base/template repo) receives improvements, pull them into the client repo:
 
 ```bash
+# In the client repo working directory
 # First time only — add the base repo as an upstream remote
 git remote add upstream git@github.com:mfattoru/mfattoru.github.io.git
 
@@ -312,7 +318,7 @@ git merge upstream/master
 Resolve any conflicts — the most likely conflict is `src/pages/it/admin/config.yml.ts` (because `repo` and `base_url` differ per client). Keep the client-specific values. Then push:
 
 ```bash
-git push client master
+git push origin master
 ```
 
 ---
