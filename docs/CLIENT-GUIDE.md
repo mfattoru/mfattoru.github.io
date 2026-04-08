@@ -40,7 +40,7 @@ La sezione **Notizie** ti permette di pubblicare aggiornamenti, comunicati e art
    - **Contenuto (EN)** — Traduzione automatica se lasciato vuoto.
 4. Clicca **"Salva"** (o **"Save"**) in alto a destra.
 
-> **Traduzione automatica:** Quando il sito è impostato in modalità bilingue, i campi in inglese contrassegnati con "auto-tradotto al salvataggio" vengono compilati automaticamente se li lasci vuoti. Puoi comunque scriverli a mano se preferisci una traduzione personalizzata.
+> **Traduzione automatica:** Quando il sito è impostato in modalità bilingue, i campi in inglese contrassegnati con "auto-tradotto al salvataggio" vengono compilati automaticamente se li lasci vuoti. Se lasci il campo vuoto, la traduzione viene generata automaticamente al salvataggio. Puoi comunque modificare manualmente il testo tradotto in seguito. Oppure puoi scriverli a mano se preferisci una traduzione personalizzata fin dall'inizio.
 
 ### Modificare una notizia
 
@@ -142,7 +142,7 @@ Clicca su **"Generali"** per aprire il modulo.
 | Campo | Descrizione |
 |---|---|
 | **Immagine banner CTA homepage** | Foto di sfondo per il box "Hai un progetto in mente?" in homepage. Dimensione consigliata: 1920×600 px. |
-| **Formspree ID** | Codice identificativo del modulo di contatto (es: `mlgobndz`). Necessario per ricevere email dal sito. Trovalo su formspree.io. |
+| **Formspree ID** | Codice identificativo del modulo di contatto (es: `mlgobndz`). Necessario per ricevere email dal sito. Registrati gratuitamente su formspree.io — il codice appare nell'URL del form dopo `/f/` (es: `https://formspree.io/f/mlgobndz`). |
 | **Logo sito** | Il logo dello studio (consigliato: PNG con sfondo trasparente). Se vuoto, viene usato il logo predefinito. |
 | **File CV (PDF)** | Il curriculum vitae in formato PDF, scaricabile dai visitatori del sito. |
 | **Tema predefinito del sito** | Il tema grafico mostrato ai nuovi visitatori. Opzioni disponibili: Steel, Blueprint, Obsidian, Industrial, Forest, Limestone, Marble, Daylight, High Contrast. |
@@ -167,6 +167,10 @@ Dopo aver modificato uno o più campi, clicca **"Salva"** in alto a destra.
 
 Puoi aprire questo strumento anche dall'interno del pannello admin, tramite il pulsante **"Cache CDN"** visibile in basso a destra.
 
+### Perché esiste questo strumento
+
+Le immagini del sito vengono servite tramite Cloudinary, un servizio di ottimizzazione e distribuzione delle immagini. Quando un file viene caricato per la prima volta, Cloudinary lo memorizza nelle sue cache globali per garantire tempi di caricamento veloci in tutto il mondo. Se sostituisci un file con lo stesso nome, la cache non si aggiorna da sola automaticamente — questo strumento forza il rinnovo manuale.
+
 ### Quando usarlo
 
 Questo strumento serve **soltanto** quando hai sostituito un'immagine mantenendo lo stesso nome file. In quel caso, la CDN (il sistema di distribuzione delle immagini) potrebbe continuare a mostrare la vecchia versione per qualche ora.
@@ -181,10 +185,6 @@ Per aggiornamenti normali — aggiungere nuove immagini o immagini con nomi dive
 4. Puoi usare il pulsante **"Seleziona tutto"** se vuoi aggiornare tutte le immagini in una volta.
 5. Clicca il pulsante **"Invalida cache"**.
 6. Aspetta qualche secondo: apparirà un riepilogo con i risultati dell'operazione.
-
-### Perché esiste questo strumento
-
-Le immagini del sito vengono servite tramite Cloudinary, un servizio di ottimizzazione e distribuzione delle immagini. Quando un file viene caricato per la prima volta, Cloudinary lo memorizza nelle sue cache globali per garantire tempi di caricamento veloci in tutto il mondo. Se sostituisci un file con lo stesso nome, la cache non si aggiorna da sola automaticamente — questo strumento forza il rinnovo manuale.
 
 ---
 
