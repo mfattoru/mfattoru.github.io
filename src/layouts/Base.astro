@@ -25,6 +25,7 @@ const defaultTheme = settingsData?.theme ?? 'steel';
 const showLangSwitcher = (settingsData?.siteLanguage ?? 'both') === 'both';
 const showThemeSwitcher = settingsData?.showThemeSwitcher ?? true;
 const logoFile = settingsData?.logoFile;
+const cloudflareToken = settingsData?.cloudflareAnalyticsToken;
 ---
 
 <!doctype html>
@@ -51,6 +52,9 @@ const logoFile = settingsData?.logoFile;
         } catch (e) {}
       })();
     </script>
+    {cloudflareToken && (
+      <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "${cloudflareToken}"}`}></script>
+    )}
   </head>
   <body>
     <Nav lang={lang} currentPath={currentPath} showLangSwitcher={showLangSwitcher} showThemeSwitcher={showThemeSwitcher} logoFile={logoFile} />
