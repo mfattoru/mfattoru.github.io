@@ -25,9 +25,9 @@ Complete guide to deploy a new client instance of this codebase using Cloudflare
 
    ```bash
    # Clone the base repo if you don't have it already
-   git clone git@github.com:mfattoru/mfattoru.github.io.git <client-name>
+   git clone https://github.com/mfattoru/mfattoru.github.io.git <client-name>
    cd <client-name>
-   git remote set-url origin git@github.com:mfattoru/<client-name>.git
+   git remote set-url origin https://github.com/mfattoru/<client-name>.git
    git push origin master
    ```
 
@@ -118,11 +118,28 @@ Create a free account at **cloudflare.com** if you do not already have one. Ever
 
 ---
 
-## 5. Buy Client Domain from Cloudflare
+## 5. Get the Client Domain
+
+Cloudflare supports a limited set of TLDs. **`.it` domains cannot be purchased through Cloudflare.** Choose the appropriate path:
+
+### Option A — Domain available on Cloudflare (e.g. `.com`, `.eu`, `.net`)
 
 1. Cloudflare Dashboard → **Domain Registration → Register a Domain**
-2. Search for and purchase the client's domain.
-3. DNS is automatically managed by Cloudflare — no external nameserver changes are needed.
+2. Search for and purchase the domain.
+3. DNS is automatically managed by Cloudflare — skip to step 6.
+
+### Option B — Domain not available on Cloudflare (e.g. `.it`)
+
+Buy from an external registrar (e.g. **Register.it**, **Namecheap**, **Aruba**, **GoDaddy**), then point DNS management to Cloudflare:
+
+1. Purchase the domain at the registrar of your choice.
+2. In the Cloudflare Dashboard → **Add a Site** → enter the domain → select the **Free** plan.
+3. Cloudflare scans existing DNS records. Review and confirm them.
+4. Cloudflare gives you **two nameserver addresses** (e.g. `ada.ns.cloudflare.com`, `bob.ns.cloudflare.com`).
+5. At your registrar's control panel, replace the existing nameservers with the two Cloudflare ones.
+6. Wait for propagation — typically 15 minutes to a few hours. Cloudflare will email you when the domain is active.
+
+Once active, Cloudflare manages DNS for the domain and the rest of the setup (CF Pages custom domain, SSL) works identically to Option A.
 
 ---
 
@@ -308,7 +325,7 @@ When `mfattoru/mfattoru.github.io` (your base/template repo) receives improvemen
 ```bash
 # In the client repo working directory
 # First time only — add the base repo as an upstream remote
-git remote add upstream git@github.com:mfattoru/mfattoru.github.io.git
+git remote add upstream https://github.com/mfattoru/mfattoru.github.io.git
 
 # Pull updates
 git fetch upstream
