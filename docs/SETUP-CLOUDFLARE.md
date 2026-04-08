@@ -61,6 +61,8 @@ Open `public/robots.txt` and update the sitemap URL:
 Sitemap: https://<client-domain>/sitemap-index.xml
 ```
 
+> ⚠️ You'll need the domain name to complete this step. If you haven't bought it yet (Step 5), come back and update this after completing Step 5.
+
 ### 2c. Prefill site settings
 
 Open `src/content/site-settings/general.md` and fill in the client's details:
@@ -169,6 +171,8 @@ cd cloudflare-workers
 npx wrangler deploy cloudinary-invalidate.js --name <client-name>-cloudinary-cache
 ```
 
+The worker URL appears in the deployment output (look for a line starting with `https://`) and in the Cloudflare dashboard → Workers & Pages → your worker → Triggers.
+
 ### 7b. Add worker secrets
 
 Run once per secret — wrangler will prompt for the value:
@@ -186,6 +190,8 @@ npx wrangler secret put CLOUDINARY_API_SECRET --name <client-name>-cloudinary-ca
 | `CLOUDINARY_API_SECRET` | Cloudinary API secret (from Dashboard → Settings → API Keys) |
 
 ### 7c. Set the worker URL in Cloudflare Pages
+
+> **Note:** `<subdomain>` is automatically assigned by Cloudflare Workers. It appears in the Cloudflare dashboard under **Workers & Pages → your worker → Triggers** tab, or in the output after running `wrangler deploy`. Copy it from there when constructing worker URLs.
 
 1. Note the deployed worker URL: `https://<client-name>-cloudinary-cache.<subdomain>.workers.dev`
 2. Cloudflare Pages project → **Settings → Environment variables → Edit**
@@ -206,12 +212,13 @@ Sveltia CMS uses GitHub as a backend. GitHub's token endpoint does not support C
 2. Sign in to Cloudflare and name the worker `<client-name>-cms-auth`.
 3. Click **Deploy**.
 4. Note the worker URL: `https://<client-name>-cms-auth.<subdomain>.workers.dev`
+   — the worker URL appears in the deployment output and in the Cloudflare dashboard → Workers & Pages → your worker → Triggers.
 
 ### 8b. Create a GitHub OAuth App
 
 1. **github.com → Settings → Developer settings → OAuth Apps → New OAuth App**
 2. Fill in:
-   - **Application name**: anything descriptive (e.g. `<Client Name> Admin`)
+   - **Application name**: anything descriptive (e.g. `<Client Name> Admin`) — `<Client Name>` here is a human-readable name, e.g. `"Rossi Engineering Admin"`, not the URL slug `<client-name>`
    - **Homepage URL**: `https://<client-domain>`
    - **Authorization callback URL**: `https://<client-name>-cms-auth.<subdomain>.workers.dev/callback`
      — this must point to the **Cloudflare Worker**, not the CMS page
