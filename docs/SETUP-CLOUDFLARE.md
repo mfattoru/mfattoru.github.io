@@ -135,11 +135,21 @@ Buy from an external registrar (e.g. **Register.it**, **Namecheap**, **Aruba**, 
 1. Purchase the domain at the registrar of your choice.
 2. In the Cloudflare Dashboard → **Add a Site** → enter the domain → select the **Free** plan.
 3. Cloudflare scans existing DNS records. Review and confirm them.
-4. Cloudflare gives you **two nameserver addresses** (e.g. `ada.ns.cloudflare.com`, `bob.ns.cloudflare.com`).
-5. At your registrar's control panel, replace the existing nameservers with the two Cloudflare ones.
+4. Cloudflare gives you **two nameserver addresses** (e.g. `ada.ns.cloudflare.com`, `bob.ns.cloudflare.com`). Copy both.
+5. At your registrar's control panel, replace the existing nameservers with the two Cloudflare ones (see GoDaddy instructions below).
 6. Wait for propagation — typically 15 minutes to a few hours. Cloudflare will email you when the domain is active.
 
 Once active, Cloudflare manages DNS for the domain and the rest of the setup (CF Pages custom domain, SSL) works identically to Option A.
+
+#### GoDaddy — how to update nameservers
+
+1. Log in to **godaddy.com → My Products → Domains**
+2. Click **Manage** next to the domain
+3. Scroll to the **Nameservers** section → click **Change**
+4. Select **Enter my own nameservers (advanced)**
+5. Delete the existing entries and add the two nameservers Cloudflare gave you in step 4
+6. Click **Save** — GoDaddy will warn that incorrect nameservers can break the domain; confirm
+7. Propagation typically completes in under an hour for GoDaddy domains
 
 ---
 
