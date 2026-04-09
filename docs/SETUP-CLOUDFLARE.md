@@ -46,7 +46,11 @@ Complete guide to deploy a new client instance of this codebase using Cloudflare
 
 Make the following changes locally on a working branch, then push to the client repo.
 
-### 2a. Update CMS backend config
+### 2a. Update wrangler.toml
+
+Open `wrangler.toml` at the repo root and set `name` to the client's CF project name (e.g. `<client-name>`). This must match exactly what you create in Cloudflare in step 6.
+
+### 2c. Update CMS backend config
 
 Open `src/pages/it/admin/config.yml.ts` and update the `repo` field. Leave `base_url` as a placeholder for now — it will be set in step 8d after the OAuth worker is deployed.
 
@@ -58,7 +62,7 @@ const yaml = `backend:
   base_url: https://PLACEHOLDER        // ← update in step 8d
 ```
 
-### 2b. Update robots.txt
+### 2d. Update robots.txt
 
 Open `public/robots.txt` and update the sitemap URL:
 
@@ -68,7 +72,7 @@ Sitemap: https://<client-domain>/sitemap-index.xml
 
 > ⚠️ You'll need the domain name to complete this step. If you haven't bought it yet (Step 5), come back and update this after completing Step 5.
 
-### 2c. Prefill site settings
+### 2e. Prefill site settings
 
 Open `src/content/site-settings/general.md` and fill in the client's details:
 
@@ -153,42 +157,65 @@ Once active, Cloudflare manages DNS for the domain and the rest of the setup (CF
 
 ---
 
-## 6. Deploy to Cloudflare Pages
+## 6. Deploy the Site (Cloudflare Workers + Static Assets)
 
-### 6a. Connect the repository
+> Cloudflare has merged Pages into Workers. Static sites are now deployed as Workers with Static Assets — the result is identical to Pages but uses `npx wrangler deploy` instead of the Pages UI.
 
-1. Cloudflare Dashboard → **Workers & Pages → Create → Pages → Connect to Git**
-2. Authorise Cloudflare to access your GitHub account and select the `mfattoru/<client-name>` repository.
+### 6a. Update wrangler.toml
 
-### 6b. Configure the build
+Open `wrangler.toml` at the repo root and set the `name` to match the client's CF project name:
+
+```toml
+name = "<client-name>"
+compatibility_date = "2026-04-01"
+
+[assets]
+directory = "./dist"
+```
+
+Commit and push:
+
+```bash
+git add wrangler.toml
+git commit -m "chore: set worker name for <client-name>"
+git push origin master
+```
+
+### 6b. Create the Worker project in Cloudflare
+
+1. Cloudflare Dashboard (client's account) → **Workers & Pages → Create**
+2. Choose **Worker** → give it the same name as in `wrangler.toml` (e.g. `<client-name>`)
+3. Click **Deploy** on the default Hello World script — this creates the project
+4. Go to the project → **Settings → Build** → **Connect to Git**
+5. Authorise Cloudflare to access GitHub and select `mfattoru/<client-name>`
+6. Set build configuration:
 
 | Setting | Value |
 |---|---|
-| Framework preset | Astro |
 | Build command | `npm run build` |
-| Build output directory | `dist` |
+| Deploy command | `npx wrangler deploy` |
 
 ### 6c. Add environment variables
 
-Before deploying, add these under **Environment variables (production)**:
+In the Worker project → **Settings → Variables and Secrets**, add:
 
 | Variable | Value |
 |---|---|
-| `CLOUDINARY_CLOUD_NAME` | your Cloudinary cloud name (e.g. `abc123xyz`) |
+| `CLOUDINARY_CLOUD_NAME` | your Cloudinary cloud name |
 | `CLOUDINARY_API_KEY` | your Cloudinary API key |
 | `CLOUDINARY_UPLOAD_PRESET` | your unsigned preset name |
 | `CLOUDINARY_CACHE_WORKER_URL` | leave empty for now — set after step 7 |
+| `SITE_URL` | `https://<client-domain>` |
 
-Click **Save and Deploy**. The first deploy will succeed without the cache worker URL; you will add it and redeploy in step 7.
+Trigger a deployment — the build will run `npm run build` then `npx wrangler deploy`, publishing the static site.
 
 ### 6d. Add the custom domain
 
-After the first deploy completes:
+After the first successful deployment:
 
-1. Pages project → **Settings → Custom Domains → Set up a custom domain**
-2. Enter the domain purchased in step 5.
-3. Because the domain is registered through Cloudflare, DNS records are configured automatically.
-4. Cloudflare provisions a free SSL certificate — the site will be available at `https://<client-domain>` within a few minutes.
+1. Worker project → **Settings → Domains & Routes → Add Custom Domain**
+2. Enter the domain from step 5.
+3. Cloudflare provisions SSL automatically — the site will be live at `https://<client-domain>` within minutes.
 
 ---
 

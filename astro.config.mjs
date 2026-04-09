@@ -17,7 +17,7 @@ function getSiteLanguage() {
 const siteLanguage = getSiteLanguage();
 
 export default defineConfig({
-  site: 'https://mfattoru.github.io',
+  site: process.env.SITE_URL ?? 'https://mfattoru.github.io',
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap({

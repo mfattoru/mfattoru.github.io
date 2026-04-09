@@ -1,0 +1,16 @@
+name = "ingegneriafattoruso"
+compatibility_date = "2026-04-01"
+
+# Serve the Astro static build as a Worker with Static Assets.
+# This replaces Cloudflare Pages for static site hosting.
+#
+# Update `name` to match the Cloudflare Worker project name for each client.
+# Build command:  npm run build
+# Deploy command: npx wrangler deploy
+#
+# Cloudinary build-time variables are set in the CF project:
+#   Workers & Pages → project → Settings → Variables and Secrets
+#   CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_CACHE_WORKER_URL
+
+[assets]
+directory = "./dist"
