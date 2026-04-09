@@ -2,7 +2,7 @@ name = "onofrio-cloudinary-cache"
 main = "cloudinary-invalidate.js"
 compatibility_date = "2026-04-01"
 
-[vars]
-CLOUDINARY_CLOUD_NAME = "your_cloud_name"
-CLOUDINARY_API_KEY    = "your_api_key"
-CLOUDINARY_API_SECRET = "your_api_secret"
+# Credentials are set as secrets via wrangler secret put — never store them here as [vars]
+# npx wrangler secret put CLOUDINARY_CLOUD_NAME --name <worker-name>
+# npx wrangler secret put CLOUDINARY_API_KEY    --name <worker-name>
+# npx wrangler secret put CLOUDINARY_API_SECRET --name <worker-name>
