@@ -47,8 +47,9 @@ async function invalidateOne(cloudName, apiKey, apiSecret, publicId) {
 
 export default {
   async fetch(request, env) {
+    const allowedOrigins = (env.ALLOWED_ORIGINS ?? '').split(',').map(s => s.trim()).filter(Boolean);
     const origin = request.headers.get('Origin') ?? '';
-    const corsOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+    const corsOrigin = allowedOrigins.includes(origin) ? origin : (allowedOrigins[0] ?? '');
     const corsHeaders = {
       'Access-Control-Allow-Origin': corsOrigin,
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -92,8 +93,5 @@ export default {
   },
 };
 
-const ALLOWED_ORIGINS = [
-  'https://mfattoru.github.io',
-  'http://localhost:4321',
-  'http://localhost:3000',
-];
+// ALLOWED_ORIGINS is set as a secret via wrangler secret put ALLOWED_ORIGINS
+// Comma-separated list of allowed origins, e.g: https://clientdomain.com,http://localhost:4321

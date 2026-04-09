@@ -196,16 +196,28 @@ After the first deploy completes:
 
 This worker signs Cloudinary cache-invalidation requests server-side so the API secret never appears in browser code. It powers the admin page at `/it/admin/cache`.
 
-### 7a. Deploy the worker
+### 7a. Authenticate wrangler with the client's Cloudflare account
+
+The worker must be deployed to the **client's** Cloudflare account, not yours. Authenticate before deploying:
+
+```bash
+npx wrangler login
+```
+
+This opens a browser — log in with the **client's** Cloudflare credentials. Once authenticated, all subsequent wrangler commands in this session run against their account.
+
+> To switch back to your own account afterwards, run `npx wrangler login` again with your credentials.
+
+### 7b. Deploy the worker
 
 ```bash
 cd cloudflare-workers
 npx wrangler deploy cloudinary-invalidate.js --name <client-name>-cloudinary-cache
 ```
 
-The worker URL appears in the deployment output (look for a line starting with `https://`) and in the Cloudflare dashboard → Workers & Pages → your worker → Triggers.
+The worker URL appears in the deployment output (look for a line starting with `https://`) and in the client's Cloudflare dashboard → Workers & Pages → your worker → Triggers.
 
-### 7b. Add worker secrets
+### 7c. Add worker secrets
 
 Run once per secret — wrangler will prompt for the value:
 
@@ -213,15 +225,17 @@ Run once per secret — wrangler will prompt for the value:
 npx wrangler secret put CLOUDINARY_CLOUD_NAME --name <client-name>-cloudinary-cache
 npx wrangler secret put CLOUDINARY_API_KEY    --name <client-name>-cloudinary-cache
 npx wrangler secret put CLOUDINARY_API_SECRET --name <client-name>-cloudinary-cache
+npx wrangler secret put ALLOWED_ORIGINS       --name <client-name>-cloudinary-cache
 ```
 
 | Secret | Value |
 |---|---|
 | `CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name |
 | `CLOUDINARY_API_KEY` | Cloudinary API key |
-| `CLOUDINARY_API_SECRET` | Cloudinary API secret (from Dashboard → Settings → API Keys) |
+| `CLOUDINARY_API_SECRET` | Cloudinary API secret (from Cloudinary Dashboard → Settings → API Keys) |
+| `ALLOWED_ORIGINS` | `https://<client-domain>,http://localhost:4321` |
 
-### 7c. Set the worker URL in Cloudflare Pages
+### 7d. Set the worker URL in Cloudflare Pages
 
 > **Note:** `<subdomain>` is automatically assigned by Cloudflare Workers. It appears in the Cloudflare dashboard under **Workers & Pages → your worker → Triggers** tab, or in the output after running `wrangler deploy`. Copy it from there when constructing worker URLs.
 
@@ -241,7 +255,7 @@ Sveltia CMS uses GitHub as a backend. GitHub's token endpoint does not support C
 ### 8a. Deploy the worker
 
 1. Go to **github.com/sveltia/sveltia-cms-auth** and click **Deploy with Workers**.
-2. Sign in to Cloudflare and name the worker `<client-name>-cms-auth`.
+2. Sign in to Cloudflare with the **client's** Cloudflare account and name the worker `<client-name>-cms-auth`.
 3. Click **Deploy**.
 4. Note the worker URL: `https://<client-name>-cms-auth.<subdomain>.workers.dev`
    — the worker URL appears in the deployment output and in the Cloudflare dashboard → Workers & Pages → your worker → Triggers.
