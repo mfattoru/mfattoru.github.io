@@ -38,7 +38,7 @@ Complete guide to deploy a new client instance of this codebase using Cloudflare
 
    > The client will use this GitHub account to authenticate at `/it/admin/`. They do not need to know anything else about GitHub.
 
-4. **GitHub Actions note:** The repo contains `.github/workflows/deploy.yml` which is used for GitHub Pages deployment. Cloudflare Pages has its own build pipeline and ignores this file — you can leave it in place.
+4. **GitHub Actions note:** The repo contains `.github/workflows/deploy.yml` which is used for GitHub Pages deployment. Cloudflare Workers has its own build pipeline and ignores this file — you can leave it in place.
 
 ---
 
@@ -114,11 +114,15 @@ git push origin master
    - Save and copy the **Preset name**
 4. Note your **API Secret** from Dashboard → Settings → API Keys — you will need it in step 7 (cache worker secrets). Never put it in frontend code or environment variables visible to the browser.
 
+> **Note on initial content images:** The base codebase's content files may reference images from the developer's Cloudinary account. This is expected — the client will replace all content through the CMS, and new images they upload will go to the client's Cloudinary account automatically. No action needed here.
+
 ---
 
 ## 4. Cloudflare Account
 
 Create a free account at **cloudflare.com** if you do not already have one. Everything in steps 5–9 is managed from the same account.
+
+> **New accounts — claim your workers.dev subdomain first:** New Cloudflare accounts must activate their workers.dev subdomain before any Worker URLs resolve. Go to **Workers & Pages → Overview** and follow the prompt to choose and claim your subdomain. Without this, Worker URLs return `NXDOMAIN` (not found) even after a successful deployment.
 
 ---
 
@@ -143,7 +147,7 @@ Buy from an external registrar (e.g. **Register.it**, **Namecheap**, **Aruba**, 
 5. At your registrar's control panel, replace the existing nameservers with the two Cloudflare ones (see GoDaddy instructions below).
 6. Wait for propagation — typically 15 minutes to a few hours. Cloudflare will email you when the domain is active.
 
-Once active, Cloudflare manages DNS for the domain and the rest of the setup (CF Pages custom domain, SSL) works identically to Option A.
+Once active, Cloudflare manages DNS for the domain and the rest of the setup (custom domain, SSL) works identically to Option A.
 
 #### GoDaddy — how to update nameservers
 
@@ -159,7 +163,7 @@ Once active, Cloudflare manages DNS for the domain and the rest of the setup (CF
 
 ## 6. Deploy the Site (Cloudflare Workers + Static Assets)
 
-> Cloudflare has merged Pages into Workers. Static sites are now deployed as Workers with Static Assets — the result is identical to Pages but uses `npx wrangler deploy` instead of the Pages UI.
+> Cloudflare has merged Pages into Workers. Static sites are now deployed as Workers with Static Assets — the result is identical to Pages but uses `npx wrangler deploy` instead of the Pages UI. The Cloudflare Dashboard UI only shows **"Create a Worker"** — there is no separate "Create a Pages project" option.
 
 ### 6a. Update wrangler.toml
 
@@ -183,11 +187,16 @@ git push origin master
 
 ### 6b. Create the Worker project in Cloudflare
 
+> ⚠️ **UI quirk:** The only option is **"Create a Worker"**. Do not look for a Pages option — it no longer exists separately.
+
 1. Cloudflare Dashboard (client's account) → **Workers & Pages → Create**
 2. Choose **Worker** → give it the same name as in `wrangler.toml` (e.g. `<client-name>`)
-3. Click **Deploy** on the default Hello World script — this creates the project
+3. Click **Deploy** on the default Hello World script — this creates the project shell
 4. Go to the project → **Settings → Build** → **Connect to Git**
 5. Authorise Cloudflare to access GitHub and select `mfattoru/<client-name>`
+
+   > ⚠️ **If you don't see the repo in the list:** The Cloudflare GitHub App may not have access to that specific repository. Go to **GitHub → Settings → Applications → Installed GitHub Apps → Cloudflare Workers → Configure** and add the client repo explicitly.
+
 6. Set build configuration:
 
 | Setting | Value |
@@ -195,9 +204,13 @@ git push origin master
 | Build command | `npm run build` |
 | Deploy command | `npx wrangler deploy` |
 
+> ⚠️ **After connecting Git, pushes to the repo will trigger automatic builds.** The first deployment will appear in the project's Deployments tab. If no deployment appears after pushing, check the GitHub App access (step above).
+
 ### 6c. Add environment variables
 
-In the Worker project → **Settings → Variables and Secrets**, add:
+> ⚠️ **Two separate variable sections exist:** The Worker project has both **runtime** variables (used when the Worker handles requests) and **build-time** variables (injected during `npm run build`). Cloudinary variables are needed at **build time**, so they must be added in **Build → Variables and Secrets** — setting them only in the runtime section will cause build failures.
+
+In the Worker project → **Settings → Build → Variables and Secrets**, add:
 
 | Variable | Value |
 |---|---|
@@ -215,6 +228,13 @@ After the first successful deployment:
 
 1. Worker project → **Settings → Domains & Routes → Add Custom Domain**
 2. Enter the domain from step 5.
+
+> ⚠️ **"This domain is already in use" error:** When you add a domain to your Cloudflare account, it sometimes creates a default parking Worker or DNS record that conflicts with a new Worker project. Fix it by:
+> - Going to **DNS → Records** and deleting any `Worker` type CNAME record pointing to the domain
+> - Or going to **Workers & Pages** and deleting any pre-existing Worker project with the same domain attached
+>
+> After removing the conflict, try adding the custom domain again.
+
 3. Cloudflare provisions SSL automatically — the site will be live at `https://<client-domain>` within minutes.
 
 ---
@@ -262,14 +282,16 @@ npx wrangler secret put ALLOWED_ORIGINS       --name <client-name>-cloudinary-ca
 | `CLOUDINARY_API_SECRET` | Cloudinary API secret (from Cloudinary Dashboard → Settings → API Keys) |
 | `ALLOWED_ORIGINS` | `https://<client-domain>,http://localhost:4321` |
 
-### 7d. Set the worker URL in Cloudflare Pages
+> ⚠️ **Never add credentials to `wrangler.toml` as `[vars]`:** Values in `[vars]` are deployed as plaintext and **override** any secrets you set via `wrangler secret put`. If you add placeholder values to `[vars]` to document the shape of variables, they will overwrite the real secrets. The `wrangler.toml` in `cloudflare-workers/` contains only comments — keep it that way.
+
+### 7d. Set the worker URL in the main Worker project
 
 > **Note:** `<subdomain>` is automatically assigned by Cloudflare Workers. It appears in the Cloudflare dashboard under **Workers & Pages → your worker → Triggers** tab, or in the output after running `wrangler deploy`. Copy it from there when constructing worker URLs.
 
 1. Note the deployed worker URL: `https://<client-name>-cloudinary-cache.<subdomain>.workers.dev`
-2. Cloudflare Pages project → **Settings → Environment variables → Edit**
+2. Main Worker project → **Settings → Build → Variables and Secrets → Edit**
 3. Set `CLOUDINARY_CACHE_WORKER_URL` to the worker URL.
-4. Click **Save** then **Create new deployment** to trigger a redeploy with the updated variable.
+4. Click **Save** then trigger a new deployment.
 
 > If `CLOUDINARY_CACHE_WORKER_URL` is empty or wrong, the cache invalidation page will POST to an incorrect URL and return a 405 error.
 
@@ -299,13 +321,15 @@ Sveltia CMS uses GitHub as a backend. GitHub's token endpoint does not support C
 
 ### 8c. Add worker secrets
 
-In the Cloudflare Dashboard: Worker → **Settings → Variables → Secrets**, add:
+In the Cloudflare Dashboard: Worker → **Settings → Variables → Secrets**, add **all three**:
 
 | Secret | Value |
 |---|---|
 | `GITHUB_CLIENT_ID` | GitHub OAuth App client ID |
 | `GITHUB_CLIENT_SECRET` | GitHub OAuth App client secret |
-| `ALLOWED_DOMAINS` | `<client-domain>` — the custom domain, **not** the `.pages.dev` subdomain |
+| `ALLOWED_DOMAINS` | `<client-domain>` — the custom domain, **not** the `.workers.dev` subdomain |
+
+> ⚠️ **`GITHUB_CLIENT_SECRET` is commonly missed.** If the CMS login shows "OAuth App client ID or secret not configured", the secret is missing or incorrectly named. Check that all three secrets are present in the Worker → Variables → Secrets section.
 
 ### 8d. Update CMS config and redeploy
 
@@ -329,19 +353,19 @@ git commit -m "chore: set CMS auth worker URL"
 git push origin master
 ```
 
-Cloudflare Pages detects the push and redeploys automatically.
+Cloudflare detects the push and redeploys automatically.
 
 ---
 
 ## 9. Cloudflare Web Analytics
 
-1. Cloudflare Dashboard → **Web Analytics → Add a site**
-2. Enter the client's custom domain and click **Done**.
-3. Copy the **analytics token** (the value from the `data-cf-beacon` script tag shown on screen).
-4. In the CMS: **Admin → ⚙️ Impostazioni Sito → Generali → Cloudflare Analytics Token** → paste the token → Save.
-5. The CMS commit triggers a redeploy; after it completes, verify the `cloudflareinsights.com` script appears in the page source.
+No setup required if the site is proxied through Cloudflare (the default when using a Cloudflare-managed domain). Cloudflare automatically collects **network-level analytics** — visitors, countries, bandwidth, requests — without any beacon script or token.
 
-> Analytics data appears in the Cloudflare dashboard within approximately 24 hours of the first visit.
+**To view analytics:** Cloudflare Dashboard → **Analytics & Logs → Traffic**
+
+> **Why you won't find a token:** The `cloudflareAnalyticsToken` setting in the CMS admin exists for sites that are **not** fully proxied through Cloudflare (e.g. DNS-only mode, or external hosting). In that case you would add a JavaScript beacon. For standard Cloudflare-proxied deployments, leave it empty and use the dashboard directly.
+
+> **Data appears ~24 hours after first visit.**
 
 ---
 
@@ -364,8 +388,7 @@ All four forms (contact IT/EN, quote IT/EN) share the same ID automatically. If 
 - [ ] Image upload works in the CMS media picker
 - [ ] Cache invalidation at `/it/admin/cache` works without a 405 error
 - [ ] Contact form on the live site delivers email to the client's inbox
-- [ ] Cloudflare Analytics token is set and the `cloudflareinsights.com` script appears in page source
-- [ ] Analytics data appears in the Cloudflare dashboard (allow ~24 hours)
+- [ ] Analytics data appears in Cloudflare Dashboard → Analytics & Logs → Traffic (allow ~24 hours)
 
 ---
 
@@ -388,6 +411,70 @@ Resolve any conflicts — the most likely conflict is `src/pages/it/admin/config
 ```bash
 git push origin master
 ```
+
+---
+
+## Troubleshooting
+
+### Workers.dev URL returns NXDOMAIN (not found)
+
+New Cloudflare accounts must claim their workers.dev subdomain before Worker URLs resolve.
+
+**Fix:** Go to **Workers & Pages → Overview** and follow the prompt to choose and register your subdomain. This is a one-time step per account.
+
+### Build not triggering after git push
+
+The Cloudflare GitHub App may not have access to the client repo.
+
+**Fix:** GitHub → **Settings → Applications → Installed GitHub Apps → Cloudflare Workers → Configure** → add the client repo to the allowed repositories list.
+
+### Site shows "Hello World" instead of the built site
+
+This happens when the Worker was created from a Dashboard template (deployed Hello World script) and the Git connection wasn't set up correctly, or the first Git-connected build hasn't deployed yet.
+
+**Fix:** Go to the Worker project → **Settings → Build** and verify it is connected to the correct Git repo with the correct build command (`npm run build`) and deploy command (`npx wrangler deploy`). Push a commit to trigger a fresh build.
+
+### "This domain is already in use" when adding a custom domain
+
+Cloudflare creates a default parking record when a domain is first added to the account, which conflicts with the new Worker project.
+
+**Fix:**
+1. Go to **DNS → Records** and delete any `Worker` type CNAME record for the domain
+2. Or go to **Workers & Pages** and delete any pre-existing Worker project that has this domain attached
+3. Retry adding the custom domain to your Worker project
+
+### Site doesn't load but dnschecker.org shows all green
+
+Local DNS cache is stale. The propagation has completed globally but your machine hasn't picked up the new records yet.
+
+**Fix (macOS):**
+```bash
+sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+```
+
+### CMS login shows "OAuth App client ID or secret not configured"
+
+One or more secrets are missing from the CMS auth Worker.
+
+**Fix:** Go to the auth Worker → **Settings → Variables → Secrets** and verify all three are present: `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `ALLOWED_DOMAINS`. The most commonly missed one is `GITHUB_CLIENT_SECRET`.
+
+### Cloudinary variables missing at build time
+
+Build fails with Cloudinary-related errors even though variables are set in the Worker project.
+
+**Fix:** Variables set in the Worker's runtime section are not available during the build step. Add `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_UPLOAD_PRESET`, and `CLOUDINARY_CACHE_WORKER_URL` under **Settings → Build → Variables and Secrets** as well.
+
+### Cache invalidation returns 405 Method Not Allowed
+
+The `CLOUDINARY_CACHE_WORKER_URL` variable is empty or set to an incorrect URL.
+
+**Fix:** Verify the variable is set in **Settings → Build → Variables and Secrets** and points to the correct worker URL (format: `https://<client-name>-cloudinary-cache.<subdomain>.workers.dev`). Trigger a redeploy after updating.
+
+### wrangler deploy warns about `[vars]` overwriting secrets
+
+If `cloudflare-workers/wrangler.toml` contains a `[vars]` section with placeholder values, they will be deployed as plaintext and overwrite any secrets set via `wrangler secret put`.
+
+**Fix:** Remove the entire `[vars]` section from `cloudflare-workers/wrangler.toml`. Credentials belong exclusively in secrets, never in `wrangler.toml`.
 
 ---
 

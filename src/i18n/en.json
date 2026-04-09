@@ -64,6 +64,8 @@
   "news.title": "News",
   "news.subtitle": "Updates and insights",
   "news.read.more": "Read more →",
+  "news.pagination.prev": "Previous",
+  "news.pagination.next": "Next",
   "solutions.view": "View →",
 
   "faq.title": "Frequently Asked Questions",
